@@ -1,4 +1,65 @@
-
+<style>
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 500px;
+        max-width: 90%;
+        margin: 0 auto;
+        background: #ddd;
+    }
+    .colors {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: nowrap;
+        width: 100%;
+    }
+    .color {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: nowrap;
+        width: 50%;
+    }
+    input {
+        width: 100%;
+    }
+    input[type=color] {
+        width: 80%;
+    }
+    textarea {
+        width: 100%;
+    }
+    .product-section {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        padding-top: 30px;
+    }
+    .product-card {
+        width: 300px;
+        margin-bottom: 20px;
+        background: #ddd;
+        border-radius: 6px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 8px;
+        padding-bottom: 15px;
+    }
+    .product-card img {
+        max-width: 300px;
+        max-height: 300px;
+        border-radius: 6px;
+    }
+</style>
 <%- include('../partials/main.ejs'); %>
 
 <h1>Products Home</h1>
@@ -13,11 +74,30 @@
         <input type="url" name="supplier_website" placeholder="Suppliers Website">
         <input type="url" name="product_webpage" placeholder="Products Webpage URL">
         <input type="url" name="product_image_url" placeholder="Products Image URL (skip if you want to upload your own)">
-        <label for="color1">Main Color</label>
-        <input type="color" name="color1" id="color1">
-        <label for="color2">Accent Color</label>
-        <input type="color" name="color2" id="color2">
+        <div class="colors">
+            <div class="color">
+                <label for="color1">Main Color</label>
+                <input type="color" name="color1" id="color1">
+            </div>
+            <div class="color">
+                <label for="color2">Accent Color</label>
+                <input type="color" name="color2" id="color2">
+            </div>
+        </div>
         <input type="number" name="price" placeholder="Price">
         <button type="submit">Add Shoe</button>
     </form>
 </section>
+
+
+<div class="product-section">
+    <% shoes.forEach(function(shoe) { %>
+        <div class="product-card">
+            <h3><%= shoe.company %></h3>
+            <h5><%= shoe.shoe_name %></h5>
+            <small><%= shoe.sku %></small>
+            <p><%= shoe.description %></p>
+            <img src="<%= shoe.product_image_url %>" alt="">
+        </div>
+    <% }) %>
+</div>
