@@ -61,6 +61,7 @@ input, textarea {
     width: 85%;
     padding: 10px;
     padding-bottom: 0;
+    text-align: right;
 }
 .site-logo h1 {
     font-size: 1.8rem;
@@ -73,4 +74,15 @@ input, textarea {
     background: lightskyblue;
     padding: 15px;
 
+}
+
+
+/* Page Title */
+.page-title {
+    width: 100%;
+    text-align: center;
+}
+.page-title h1 {
+    font-size: 1.8rem;
+    color: lightskyblue;
 }

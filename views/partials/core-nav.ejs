@@ -1,0 +1,122 @@
+<style>
+    #coreMenu {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 50px;
+        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.25);
+        border-bottom: outset 1px rgba(255, 255, 255, 0.75);
+        background: #fff;
+        backdrop-filter: blur(4px);
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: space-between;
+        z-index: 99996;
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+
+    }
+
+    #coreMenu span {
+        color: rgba(135, 206, 250, 0.25);
+        width: 50px;
+        height: 30px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #coreMenu i {
+        text-shadow: 0 0 2px rgba(255, 255, 255, 0.25);
+        color: lightskyblue;
+        font-size: 1.3rem;
+    }
+
+  
+    .fade {
+        transition: ease-in opacity 2s;
+    }
+
+    .overlay {
+        height: 100%;
+        width: 0;
+        position: fixed;
+        z-index: 99950;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.75);
+        backdrop-filter: blur(2px);
+        overflow-x: hidden;
+        transition: 0.5s;
+    }
+
+    .overlay-content {
+        position: relative;
+        top: 25%;
+        width: 100%;
+        text-align: center;
+    }
+
+    .overlay a {
+        padding: 5px;
+        text-decoration: none;
+        font-size: 1.5rem;
+        color: #fff;
+        text-shadow: 0 0 5px rgb(54, 98, 126);
+        display: block;
+        transition: ease-in 0.5s;
+    }
+
+    .overlay a:hover,
+    .overlay a:focus {
+        color: rgba(0, 0, 0, 0.5);
+        text-shadow: 0 0 8px rgba(135, 206, 250, 0.75);
+        transition: ease-in 0.5s;
+    }
+
+    .overlay .closebtn {
+        position: absolute;
+        top: 45px;
+        right: 20px;
+        font-size: 2rem;
+        z-index: 99999;
+        padding: 8px;
+        font-size: 2.5rem;
+    }
+</style>
+
+
+
+<div id="rootNav" class="overlay">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <div id="mainMenu">
+        <%- include('./menus/main'); %>
+    </div>
+</div>
+
+<div id="coreMenu">
+    <span onclick="openNav()"><i id="open" class="fa-solid fa-bars"></i></span>
+    <div class="site-logo">
+        <h1>Kicks101</h1>
+    </div>
+</div>
+
+<script>
+    function openNav() {
+        document.getElementById("rootNav").style.width = "100%";
+        document.getElementById("open").style.opacity = 0;
+    }
+
+    function closeNav() {
+        document.getElementById("rootNav").style.width = "0%";
+        document.getElementById("open").style.opacity = 1;
+    }
+
+</script>
