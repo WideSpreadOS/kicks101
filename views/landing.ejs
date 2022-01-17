@@ -1,4 +1,7 @@
 <style>
+    .landing-page-container {
+        margin-bottom: 350px;
+    }
     #raffleContainer {
         position: fixed;
         bottom: 0;
@@ -6,10 +9,9 @@
         right: 0;
         box-shadow: 0 -6px 8px rgba(0, 0, 0, 0.25);
         border-top: outset 1px rgba(255, 255, 255, 0.75);
-        background: #fff;
+        background: #eee;
         border-top-left-radius: 8px;
         border-top-right-radius: 8px;
-        padding-bottom: 10px;
         z-index: 1000;
     }
     #raffleCountdownClock {
@@ -18,17 +20,43 @@
         flex-direction: row;
         align-items: center;
         justify-content: space-evenly;
+        padding-bottom: 10px;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        margin: 0 auto;
+        margin-top: 10px;
+        box-shadow: 2px 2px 5px #ddd, -2px -2px 5px #fff;
+        background: #eee;
+        width: 90%;
+
     }
     #raffleHeader {
         padding: 8px;
     }
-    #raffleHeader h2 {
-        text-align: center;
-        font-size: 1.6rem;
-        font-family: 'Shadows Into Light', cursive;
-        border-bottom: solid 1px #aaa;    
+    .raffle-top-header {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: space-between;
         margin-bottom: 10px;
     }
+    .raffle-top-header h2 {
+        text-align: center;
+        font-size: 2rem;
+        font-family: 'Shadows Into Light', cursive;
+        border-bottom: solid 1px #aaa;    
+        width: 90%;
+    }
+    #closeRaffle {
+        width: 8%;
+    }
+    #closeRaffle a {
+        font-size: 1.7rem;
+        font-family: 'Rock Salt', cursive;
+        text-decoration: none;
+        color: lightskyblue;
+        }
     .current-raffle-prize {
         display: flex;    
         flex-direction: row;
@@ -37,14 +65,46 @@
         justify-content: space-between;
     }
     .current-raffle-prize img {
-        max-height: 125px;
+        max-height: 150px;
         border-radius: 8px;
-        box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+        box-shadow: 2px 2px 5px #ddd, -2px -2px 5px #fff;
         margin-left: 15px;
     }
-    .current-raffle-prize h5 {
-        padding: 15px;
-        font-size: 1.3rem;
+    .raffle-item-price {
+        display: flex;
+        flex-wrap: nowrap;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-evenly;
+        width: 90%;
+        margin: 0 auto;
+        border-radius: 6px;
+        background: #eee;
+        box-shadow: inset 2px 2px 5px #ddd, inset -2px -2px 5px #fff;
+    }
+    .raffle-item-price button {
+        outline: none;
+        border: none;
+        border-radius: 4px;
+        background: #eee;
+        padding: 8px;
+        padding-top: 0;
+        font-family: 'Darker Grotesque', sans-serif;
+        font-size: 1.4rem;
+        color: lightskyblue;
+        text-shadow: 0 0 2px rgba(135, 206, 250, 0.5);
+        box-shadow: 2px 2px 5px #ddd, -2px -2px 5px #fff;
+    }
+    .current-raffle-prize-title h5 {
+        padding: 8px;
+        font-size: 1rem;
+        font-weight: bold;
+        text-align: center;
+        width: 70%;
+        margin: 0 auto;
+        margin-top: 10px;
+        border-radius: 4px;
+        box-shadow: 2px 2px 5px #ddd, -2px -2px 5px #fff;
     }
     .current-raffle-prize p {
         padding: 15px;
@@ -53,6 +113,7 @@
         font-weight: bold;
         text-align: center;
     }
+
     .countdown-spinner {
         text-align: center;
     }
@@ -60,6 +121,7 @@
         font-size: 1.3rem;
         font-weight: bold;
         color: lightskyblue;
+        margin-bottom: 5px;
     }
 </style>
 
@@ -67,15 +129,68 @@
     <h1>Home</h1>
 </div>
 
+<div class="landing-page-container">
+<div class="todo">
+    <ol>
+        <li>Add functionality to raffle timer</li>
+        <li>Add functionality to raffle close button</li>
+        <li>Add User Model (need to make an account to purchase raffle tickets)</li>
+        <li>Configure passport.js</li>
+        <li>Make main menu with submenus for each product category</li>
+        <li>Instead of Shoe model create a universal Product model with product type as an attribute</li>
+        <li>Pages to add:</li>
+            <ol>
+                <li>Cart</li>
+                <li>Checkout</li>
+                <li>Create Account</li>
+                <li>User Dashboard</li>
+                <li>User Settings</li>
+                <li>User History</li>
+                <li>Search Results</li>
+                <li>Admin:</li>
+                    <ol>
+                        <li>Create Admin User</li>
+                        <li>Admin Login</li>
+                        <li>Dashboard</li>
+                            <ol>
+                                <li>Financial</li>
+                                <li>Customer Data</li>
+                                <li>Supplier Data</li>
+                                <li>Other</li>
+                            </ol>
+                        <li>Inventory</li>
+                        <li>Add New Item</li>
+                        <li>Edit Item</li>
+                        <li>Sales History</li>
+                        <li>Customer Support</li>
+                    </ol>
+                    <li>Contact Us</li>
+                    <li>Social Media</li>
+                    <li>Help</li>
+                    <li>Site Map</li>
+            </ol>
+    </ol>
+</div>
+
+
+</div>
 
 
 <div id="raffleContainer">
     <div id="raffleHeader">
-        <h2>Raffle</h2>
-        <div class="current-raffle-prize">
+        <div class="raffle-top-header">
+            <h2>Raffle</h2>
+            <div id="closeRaffle">
+                <a href="#">&times;</a>
+            </div>
+        </div>
+            <div class="current-raffle-prize">
             <img src="https://process.fs.grailed.com/AJdAgnqCST4iPtnUxiGtTz/auto_image/cache=expiry:max/rotate=deg:exif/resize=height:700/output=quality:90/compress/https://cdn.fs.grailed.com/api/file/iqokqzEXQ52duGuolvS8" alt="">
             <div class="current-raffle-prize-title">
-                <p><span class="original-price">$2150</span></p>
+                <div class="raffle-item-price">
+                    <p><span class="original-price">$2150</span></p>
+                    <button>Buy Tickets</button>
+                </div>
                 <h5>Dior Kim Jones KAWS velvet bomber jacket</h5>
             </div>
         </div>
