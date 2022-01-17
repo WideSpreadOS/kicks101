@@ -1,3 +1,15 @@
+/* 
+
+GLOBAL FONTS 
+
+font-family: 'Darker Grotesque', sans-serif;
+font-family: 'Poiret One', cursive;
+font-family: 'Rock Salt', cursive;
+font-family: 'Shadows Into Light', cursive;
+font-family: 'Shadows Into Light Two', cursive;
+*/
+
+
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
@@ -34,6 +46,7 @@ html, body {
 }
 body {
     background: #eee;
+    font-family: 'Poiret One', cursive;
 }
 
 input, textarea {
@@ -59,7 +72,7 @@ input, textarea {
 .site-logo {
     max-width: 85vw;
     width: 85%;
-    padding: 10px;
+    padding-right: 10px;
     padding-bottom: 0;
     text-align: right;
 }
@@ -68,6 +81,7 @@ input, textarea {
     font-weight: bold;
     color: lightskyblue;
     width: 100%;
+    font-family: 'Rock Salt', cursive;
 }
 .product-search-menu {
     max-width: 10vw;

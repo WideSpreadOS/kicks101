@@ -1,5 +1,105 @@
-
+<style>
+    #raffleContainer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        box-shadow: 0 -6px 8px rgba(0, 0, 0, 0.25);
+        border-top: outset 1px rgba(255, 255, 255, 0.75);
+        background: #fff;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        padding-bottom: 10px;
+        z-index: 1000;
+    }
+    #raffleCountdownClock {
+        display: flex;
+        flex-wrap: nowrap;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+    #raffleHeader {
+        padding: 8px;
+    }
+    #raffleHeader h2 {
+        text-align: center;
+        font-size: 1.6rem;
+        font-family: 'Shadows Into Light', cursive;
+        border-bottom: solid 1px #aaa;    
+        margin-bottom: 10px;
+    }
+    .current-raffle-prize {
+        display: flex;    
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .current-raffle-prize img {
+        max-height: 125px;
+        border-radius: 8px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+        margin-left: 15px;
+    }
+    .current-raffle-prize h5 {
+        padding: 15px;
+        font-size: 1.3rem;
+    }
+    .current-raffle-prize p {
+        padding: 15px;
+        font-size: 1.5rem;
+        font-family: 'Rock Salt', cursive;
+        font-weight: bold;
+        text-align: center;
+    }
+    .countdown-spinner {
+        text-align: center;
+    }
+    .countdown-spinner p {
+        font-size: 1.3rem;
+        font-weight: bold;
+        color: lightskyblue;
+    }
+</style>
 
 <div class="page-title">
     <h1>Home</h1>
+</div>
+
+
+
+<div id="raffleContainer">
+    <div id="raffleHeader">
+        <h2>Raffle</h2>
+        <div class="current-raffle-prize">
+            <img src="https://process.fs.grailed.com/AJdAgnqCST4iPtnUxiGtTz/auto_image/cache=expiry:max/rotate=deg:exif/resize=height:700/output=quality:90/compress/https://cdn.fs.grailed.com/api/file/iqokqzEXQ52duGuolvS8" alt="">
+            <div class="current-raffle-prize-title">
+                <p><span class="original-price">$2150</span></p>
+                <h5>Dior Kim Jones KAWS velvet bomber jacket</h5>
+            </div>
+        </div>
+    </div>
+    <div id="raffleCountdownClock">
+        <div class="countdown-spinner" id="raffleDays">
+            <p>Days</p>
+            <span>0</span>
+            <span>3</span>
+        </div>
+        <div class="countdown-spinner" id="raffleHours">
+            <p>Hours</p>
+            <span>1</span>
+            <span>4</span>
+        </div>
+        <div class="countdown-spinner" id="raffleMinutes">
+            <p>Minutes</p>
+            <span>4</span>
+            <span>2</span>
+        </div>
+        <div class="countdown-spinner" id="raffleSeconds">
+            <p>Seconds</p>
+            <span>1</span>
+            <span>8</span>
+        </div>
+    </div>
 </div>
