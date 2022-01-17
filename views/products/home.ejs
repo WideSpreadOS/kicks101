@@ -1,0 +1,23 @@
+
+<%- include('../partials/main.ejs'); %>
+
+<h1>Products Home</h1>
+
+
+<section>
+    <form action="/products/shoes/add" method="post">
+        <input type="text" name="company" placeholder="Name of Shoe">
+        <input type="text" name="shoe_name" placeholder="Name of Shoe">
+        <textarea name="description" placeholder="Description"></textarea>
+        <input type="text" name="sku" placeholder="SKU #">
+        <input type="url" name="supplier_website" placeholder="Suppliers Website">
+        <input type="url" name="product_webpage" placeholder="Products Webpage URL">
+        <input type="url" name="product_image_url" placeholder="Products Image URL (skip if you want to upload your own)">
+        <label for="color1">Main Color</label>
+        <input type="color" name="color1" id="color1">
+        <label for="color2">Accent Color</label>
+        <input type="color" name="color2" id="color2">
+        <input type="number" name="price" placeholder="Price">
+        <button type="submit">Add Shoe</button>
+    </form>
+</section>
