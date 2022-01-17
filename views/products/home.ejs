@@ -1,4 +1,20 @@
 <style>
+    .add-product-form {
+        background: rgba(255, 166, 0, 0.5);
+        padding: 10px;
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+    .add-product-form h5 {
+        padding: 8px;
+        margin-bottom: 10px;
+    }
+
+    .add-product-form p {
+        padding: 8px;
+        margin-bottom: 10px;
+    }
+    
     form {
         display: flex;
         flex-direction: column;
@@ -7,6 +23,7 @@
         width: 500px;
         max-width: 90%;
         margin: 0 auto;
+        margin-bottom: 15px;
         background: #ddd;
     }
     .colors {
@@ -60,11 +77,11 @@
         border-radius: 6px;
     }
 </style>
-<%- include('../partials/main.ejs'); %>
 
 <h1>Products Home</h1>
 
-
+<div class="add-product-form">
+    <h5>This form needs to be moved to admin page - only here for testing.</h5>
 <section>
     <form action="/products/shoes/add" method="post">
         <input type="text" name="company" placeholder="Name of Shoe">
@@ -87,8 +104,10 @@
         <input type="number" name="price" placeholder="Price">
         <button type="submit">Add Shoe</button>
     </form>
+    <p>To-Do: Add image upload form. need multer, gridfs-stream and multer-gridfs-storage.</p>
+    <p>To-Do: Get 20 colors hard-coded into input[type=color], make it as a partial.</p>
 </section>
-
+</div>
 
 <div class="product-section">
     <% shoes.forEach(function(shoe) { %>
