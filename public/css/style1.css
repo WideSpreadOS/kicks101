@@ -134,8 +134,18 @@ input, textarea {
     padding: 15px;
 
 }
-
-
+.menu-break-line {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+.menu-break-line hr {
+    color: lightskyblue;
+    width: 80%;
+    margin: 0 auto;
+    border: solid 2px lightskyblue;
+    border-radius: 50%;
+    box-shadow: 0 0 3px 1px rgba(135, 206, 250, 0.5);
+}
 /* Page Title */
 .page-title {
     width: 100%;

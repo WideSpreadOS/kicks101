@@ -8,7 +8,7 @@
         height: 65px;
         box-shadow: 0 6px 8px rgba(0, 0, 0, 0.25);
         border-bottom: outset 1px rgba(255, 255, 255, 0.75);
-        background: #eee;
+        background: #ecf0f3;
         backdrop-filter: blur(4px);
         display: flex;
         flex-direction: row;
@@ -37,11 +37,9 @@
         color: lightskyblue;
         font-size: 1.3rem;
     }
+ 
 
   
-    .fade {
-        transition: ease-in opacity 2s;
-    }
 
     .overlay {
         height: 100%;
@@ -51,8 +49,6 @@
         top: 0;
         left: 0;
         bottom: 0;
-        background-color: rgba(0, 0, 0, 0.75);
-        backdrop-filter: blur(2px);
         overflow-x: hidden;
         transition: 0.5s;
     }
@@ -63,14 +59,24 @@
         width: 100%;
         text-align: center;
     }
-
+    
+    .overlay p {
+        text-decoration: none;
+        font-size: 1.5rem;
+        font-family: 'Rock Salt', cursive;
+        color: lightskyblue;
+        text-shadow: 0 0 5px rgba(127, 198, 241, 0.5);
+        display: block;
+        transition: ease-in 0.5s;
+        
+    }
     .overlay a {
         padding: 5px;
         text-decoration: none;
         font-size: 1.5rem;
         font-family: 'Rock Salt', cursive;
-        color: #fff;
-        text-shadow: 0 0 5px rgb(54, 98, 126);
+        color: lightskyblue;
+        text-shadow: 0 0 5px rgba(127, 198, 241, 0.5);
         display: block;
         transition: ease-in 0.5s;
     }
@@ -87,7 +93,7 @@
         top: 35px;
         right: 20px;
         font-size: 2rem;
-        z-index: 99999;
+        z-index: 99940;
         padding: 8px;
         font-size: 2.2rem;
     }
@@ -110,6 +116,8 @@
     </div>
 </div>
 
+
+
 <script>
     function openNav() {
         document.getElementById("rootNav").style.width = "100%";
@@ -120,5 +128,7 @@
         document.getElementById("rootNav").style.width = "0%";
         document.getElementById("open").style.opacity = 1;
     }
-
 </script>
+
+
+
