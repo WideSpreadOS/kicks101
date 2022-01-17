@@ -103,16 +103,31 @@ input, textarea {
     max-width: 85vw;
     width: 85%;
     padding-right: 10px;
-    padding-bottom: 0;
+    padding: 0;
     text-align: right;
+    position: relative;
+    margin-top: -55px;
 }
 .site-logo h1 {
+    right: 30px;
     font-size: 1.8rem;
     font-weight: bold;
     color: lightskyblue;
     width: 100%;
     font-family: 'Rock Salt', cursive;
+    position: absolute;
+    z-index: 101;
+    text-shadow: 0 0 4px #fff;
 }
+.site-logo img {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 50px;
+    z-index: 100;
+    filter: drop-shadow(0 0 5px rgba(135, 206, 250, 0.5));
+}
+
 .product-search-menu {
     max-width: 10vw;
     background: lightskyblue;
