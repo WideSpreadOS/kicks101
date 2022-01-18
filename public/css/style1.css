@@ -152,6 +152,7 @@ input, textarea {
     text-align: center;
 }
 .page-title h1 {
+    font-family: 'Rock Salt', cursive;
     font-size: 1.8rem;
     color: lightskyblue;
 }

@@ -13,6 +13,18 @@ router.get('/about', (req, res) => {
     res.render('about')
 });
 
+router.get('/contact', (req, res) => {
+    res.render('contact')
+});
+
+router.get('/social', (req, res) => {
+    res.render('social')
+});
+
+router.get('/help', (req, res) => {
+    res.render('help')
+});
+
 
 
 
