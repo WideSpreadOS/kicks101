@@ -87,27 +87,23 @@
             background: #ecf0f3;
             box-shadow: 4px 4px 6px #cbced1, -4px -4px 6px #ffffff;
             border-radius: 8px;
-            display: flex;
-            flex-direction: row;
-            flex-wrap: nowrap;
-            align-items: center;
-            justify-content: space-between;
         }
         
         #productMenu {
-         min-height: 100vh;   
-         padding-top: 120px;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-evenly;
+            min-height: fit-content;   
+            padding-top: 120px;
         }
 
     #productMenu span {
         color: rgba(135, 206, 250, 0.25);
         width: 50px;
         height: 30px;
-        display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
-        align-items: center;
-        justify-content: center;
+
     }
 
     #productMenu i {
@@ -267,9 +263,28 @@
                 justify-content: space-evenly;
             }
     
+            #productMenu {
+                padding-bottom: 50px;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: space-evenly;
+                width: 100%;
+                min-height:fit-content;
+            }
+            
+            #sneakerMenu {
+                min-height: fit-content;
+                padding-bottom: 50px;
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: flex-start;
+            }
+    
             .main-menu-item {
                 border-radius: 6px;
                 width: 40%;
+                max-width: 40%;
             }
     
         }
@@ -296,13 +311,13 @@
 
     <div id="productNav" class="overlay2">
         <a href="javascript:void(0)" class="closeproductbtn" onclick="closeProductNav()"><i class="fas fa-caret-left"></i></a>
-        <div id="sneakerMenu">
+        <div id="productMenu">
             <div class="main-menu-item">
                     <p>Sneakers <span onclick="openSneakersNav()"><i id="openSneaker" class="fas fa-caret-right"></i></span></p>
             </div>
-            <div class="product-menu-item"><a href="/#">Outerwear</a></div>
-            <div class="product-menu-item"><a href="/#">T-Shirts</a></div>
-            <div class="product-menu-item"><a href="/#">Accessories</a></div>
+            <div class="main-menu-item"><a href="/products/outerwear">Outerwear</a></div>
+            <div class="main-menu-item"><a href="/products/t-shirts">T-Shirts</a></div>
+            <div class="main-menu-item"><a href="/products/accessories">Accessories</a></div>
         </div>
     </div>
 
@@ -310,9 +325,9 @@
     <div id="sneakerNav" class="overlay3">
         <a href="javascript:void(0)" class="closesneakerbtn" onclick="closeSneakerNav()"><i class="fas fa-caret-left"></i></a>
         <div id="sneakerMenu">
-            <div class="product-menu-item"><a href="/#">Nike</a></div>
-            <div class="product-menu-item"><a href="/#">Jordan</a></div>
-            <div class="product-menu-item"><a href="/#">Other</a></div>
+            <div class="main-menu-item"><a href="/products/sneakers/nike">Nike</a></div>
+            <div class="main-menu-item"><a href="/products/sneakers/jordan">Jordan</a></div>
+            <div class="main-menu-item"><a href="/products/sneakers/other">Other</a></div>
         </div>
     </div>
     

@@ -13,12 +13,12 @@ const Shoe = require('../models/Shoe');
 // Welcome Page
 router.get('/', async (req, res) => {
     const shoes = await Shoe.find();
-    res.render('products/home', { page: 'Home', shoes });
+    res.render('sneakers/home', { page: 'Home', shoes });
 });
 
 router.post('/shoes/add', (req, res) => {
 
-     const shoe = new Shoe({
+    const shoe = new Shoe({
         company: req.body.company,
         shoe_name: req.body.shoe_name,
         description: req.body.description,
@@ -36,19 +36,19 @@ router.post('/shoes/add', (req, res) => {
 
 
 
-// Outerwear Page
-router.get('/outerwear', async (req, res) => {
-    res.render('products/outerwear', { page: 'Outerwear' });
+// Nike Page
+router.get('/nike', async (req, res) => {
+    res.render('sneakers/nike', { page: 'Nike' });
 });
 
-// T-Shirts Page
-router.get('/t-shirts', async (req, res) => {
-    res.render('products/t-shirts', { page: 'T-Shirts' });
+// Jordan Page
+router.get('/jordan', async (req, res) => {
+    res.render('sneakers/jordan', { page: 'Jordan' });
 });
 
-// Accessories Page
-router.get('/accessories', async (req, res) => {
-    res.render('products/accessories', { page: 'Accessories' });
+// Other Sneaker Brands Page
+router.get('/other', async (req, res) => {
+    res.render('sneakers/other', { page: 'Other Sneaker Brands' });
 });
 
 

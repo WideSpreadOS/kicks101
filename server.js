@@ -38,6 +38,7 @@ app.use(methodOverride('_method'));
 // Routes
 app.use('/', require('./routes/index'));
 app.use('/products', require('./routes/products'));
+app.use('/products/sneakers', require('./routes/sneakers'));
 
 
 const PORT = process.env.PORT || 3000;
