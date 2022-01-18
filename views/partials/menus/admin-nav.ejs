@@ -1,0 +1,38 @@
+<style>
+    .admin-nav-container {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: flex-start;
+        overflow-x: scroll;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        margin-top: 20px;
+        box-shadow: 4px 4px 6px #cbced1, -4px -4px 6px #ffffff;
+    }
+    .admin-nav-item {
+        width: fit-content;
+        min-width: 120px;
+        text-align: center;
+        border-right: solid 1px lightskyblue;
+    }
+    .admin-nav-item:last-of-type {
+        border-right: none;
+    }
+    .admin-nav-item a {
+        text-decoration: none;
+        text-align: center;
+        color: lightskyblue;
+        font-size: 1.2rem;
+    }
+</style>
+
+<div class="admin-nav-container">
+    <div class="admin-nav-item"><a href="/admin/">Dashboard</a></div>
+    <div class="admin-nav-item"><a href="/admin/shoes">Shoes</a></div>
+    <div class="admin-nav-item"><a href="#">Outerwear</a></div>
+    <div class="admin-nav-item"><a href="#">T-Shirts</a></div>
+    <div class="admin-nav-item"><a href="#">Accessories</a></div>
+    <div class="admin-nav-item"><a href="#">Other</a></div>
+</div>
