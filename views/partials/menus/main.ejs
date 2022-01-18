@@ -56,6 +56,19 @@
             box-shadow: 4px 4px 6px #cbced1, -4px -4px 6px #ffffff;
             border-radius: 8px;
         }
+        .menu-item-caret {
+            width: 100%;
+            text-align: center;
+        }
+        .menu-item-caret p {
+            width: 90%;
+        }
+        .menu-item-caret span {
+            width: 8%;
+        }
+        .menu-item-caret p {
+            width: fit-content;
+        }
         .product-menu-item {
             width: 90%;
             margin: 0 auto;
@@ -64,6 +77,21 @@
             background: #ecf0f3;
             box-shadow: 4px 4px 6px #cbced1, -4px -4px 6px #ffffff;
             border-radius: 8px;
+        }
+        
+        .sneaker-menu-item {
+            width: 90%;
+            margin: 0 auto;
+            margin-bottom: 16px;
+            text-align: center;
+            background: #ecf0f3;
+            box-shadow: 4px 4px 6px #cbced1, -4px -4px 6px #ffffff;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            align-items: center;
+            justify-content: space-between;
         }
         
         #productMenu {
@@ -149,6 +177,86 @@
         z-index: 99961;
         color: lightskyblue;
     }
+        
+        #sneakerMenu {
+         min-height: 100vh;   
+         padding-top: 120px;
+        }
+
+    #sneakerMenu span {
+        color: rgba(135, 206, 250, 0.25);
+        width: 50px;
+        height: 30px;
+
+    }
+
+    #sneakerMenu i {
+        text-shadow: 0 0 2px rgba(255, 255, 255, 0.25);
+        color: lightskyblue;
+        font-size: 1.3rem;
+    }
+    .fade {
+        transition: ease-in opacity 2s;
+    }
+
+    .overlay3 {
+        height: 100%;
+        width: 0;
+        position: fixed;
+        z-index: 99960;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        overflow-x: hidden;
+        transition: 0.5s;
+        background: #ecf0f3;
+    }
+
+    .overlay3-content {
+        position: relative;
+        top: 25%;
+        width: 100%;
+        text-align: center;
+    }
+    
+    .overlay3 p {
+        text-decoration: none;
+        font-size: 1.5rem;
+        font-family: 'Rock Salt', cursive;
+        color: lightskyblue;
+        text-shadow: 0 0 5px rgba(127, 198, 241, 0.5);
+        display: block;
+        transition: ease-in 0.5s;
+
+    }
+    .overlay3 a {
+        padding: 5px;
+        text-decoration: none;
+        font-size: 1.5rem;
+        font-family: 'Rock Salt', cursive;
+        color: lightskyblue;
+        text-shadow: 0 0 5px rgba(127, 198, 241, 0.5);
+        display: block;
+        transition: ease-in 0.5s;
+    }
+
+    .overlay3 a:hover,
+    .overlay3 a:focus {
+        color: rgba(0, 0, 0, 0.5);
+        text-shadow: 0 0 8px rgba(135, 206, 250, 0.75);
+        transition: ease-in 0.5s;
+    }
+
+    .overlay3 .closesneakerbtn {
+        position: absolute;
+        top: 45px;
+        right: 55px;
+        font-size: 2rem;
+        padding: 8px;
+        font-size: 2.2rem;
+        z-index: 99965;
+        color: lightskyblue;
+    }
 
 @media screen and (orientation : landscape) {
             #mainMenu {
@@ -188,20 +296,23 @@
 
     <div id="productNav" class="overlay2">
         <a href="javascript:void(0)" class="closeproductbtn" onclick="closeProductNav()"><i class="fas fa-caret-left"></i></a>
-        <div id="productMenu">
-            <div class="product-menu-item"><a href="/#">Gentlemen</a></div>
-            <div class="product-menu-item"><a href="/#">Ladies</a></div>
-            <div class="product-menu-item"><a href="/#">Damn Kids...</a></div>
-            <div class="menu-break-line">
-                <hr>
+        <div id="sneakerMenu">
+            <div class="main-menu-item">
+                    <p>Sneakers <span onclick="openSneakersNav()"><i id="openSneaker" class="fas fa-caret-right"></i></span></p>
             </div>
-            <div class="product-menu-item"><a href="/#">Footwear</a></div>
-            <div class="product-menu-item"><a href="/#">Tops</a></div>
-            <div class="product-menu-item"><a href="/#">Bottoms</a></div>
-            <div class="product-menu-item"><a href="/#">Outdoor</a></div>
-            <div class="product-menu-item"><a href="/#">Athletic</a></div>
-            <div class="product-menu-item"><a href="/#">Hats</a></div>
+            <div class="product-menu-item"><a href="/#">Outerwear</a></div>
+            <div class="product-menu-item"><a href="/#">T-Shirts</a></div>
             <div class="product-menu-item"><a href="/#">Accessories</a></div>
+        </div>
+    </div>
+
+
+    <div id="sneakerNav" class="overlay3">
+        <a href="javascript:void(0)" class="closesneakerbtn" onclick="closeSneakerNav()"><i class="fas fa-caret-left"></i></a>
+        <div id="sneakerMenu">
+            <div class="product-menu-item"><a href="/#">Nike</a></div>
+            <div class="product-menu-item"><a href="/#">Jordan</a></div>
+            <div class="product-menu-item"><a href="/#">Other</a></div>
         </div>
     </div>
     
@@ -218,6 +329,17 @@
         function closeProductNav() {
             document.getElementById("productNav").style.width = "0%";
             document.getElementById("openProduct").style.opacity = 1;
+        }
+
+        
+        function openSneakersNav() {
+            document.getElementById("sneakerNav").style.width = "100%";
+            document.getElementById("openSneaker").style.opacity = 0;
+        }
+        
+        function closeSneakerNav() {
+            document.getElementById("sneakerNav").style.width = "0%";
+            document.getElementById("openSneaker").style.opacity = 1;
         }
 
         
