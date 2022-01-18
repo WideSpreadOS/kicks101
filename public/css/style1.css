@@ -128,6 +128,22 @@ input, textarea {
     filter: drop-shadow(0 0 5px rgba(135, 206, 250, 0.5));
 }
 
+.go-back-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    flex-direction: row;
+}
+.go-back-button a {
+    text-decoration: none;
+    color: lightskyblue;
+    font-size: 1.2rem;
+}    
+.go-back-button i {
+    padding-right: 10px;
+}
+
 .product-search-menu {
     max-width: 10vw;
     background: lightskyblue;
@@ -155,4 +171,155 @@ input, textarea {
     font-family: 'Rock Salt', cursive;
     font-size: 1.8rem;
     color: lightskyblue;
+}
+
+
+
+
+
+
+/* Item Cards */
+
+.item-card-container {
+    margin-top: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-evenly;
+    overflow-x: scroll;
+}
+
+.item-card {
+    width: 300px;
+    background: #ecf0f3;
+    box-shadow: 4px 4px 6px #cbced1, -4px -4px 6px #ffffff;
+    border-radius: 8px;
+    padding-top: 15px;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.item-card-main-image {
+    width: 90%;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    overflow: hidden;
+    min-height: 290px;
+    box-shadow: 4px 4px 6px #cbced1, -4px -4px 6px #ffffff;
+    border-radius: 8px;
+}
+.item-card-main-image img {
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 290px;
+    border-radius: 8px;
+}
+
+.item-card-body {
+    width: 90%;
+    margin: 0 auto;  
+    margin-top: 15px;
+    margin-bottom: 15px;
+    background: #ecf0f3;
+    box-shadow: -4px -4px 6px #cbced1, 4px 4px 6px #ffffff;
+    border-radius: 8px;   
+}
+
+.item-card-data {
+    padding: 5px;
+    margin-bottom: 15px;
+    background: rgba(135, 206, 250, 0.5);
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom: outset 2px rgba(135, 206, 250, 0.5);
+    box-shadow: inset 0 2px 2px rgba(0, 0, 0, 0.25), 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+.item-card-data-header {
+    margin-bottom: 5px;
+    border-bottom: solid 1px #fff;   
+}
+.item-card-data-header h3 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 0 0 1px lightskyblue;
+}
+
+.item-card-data-subheader {
+    
+}
+.item-card-data-subheader h5 {
+    color: #fff;
+}
+
+.item-card-description {
+    padding: 10px;
+    margin-bottom: 30px;
+}
+
+.item-card-price {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+}
+
+.item-card-buttons {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 140px;
+    max-width: 140px;
+    margin-top: 15px;
+    padding-bottom: 15px;
+}
+.item-card-data-price {
+    width: 100px;
+    max-width: 100px;
+}
+
+.item-card-data-price span {
+    font-size: 1.6rem;
+    width: 100%;
+    text-align: center;
+}
+
+.item-card-button {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    min-height: 50px;
+    max-height: 50px;
+    min-width: 50px;
+    max-width: 50px;
+    box-shadow: 4px 4px 6px #cbced1, -4px -4px 6px #ffffff;
+    border-radius: 10px;
+}
+.item-card-button a {
+    text-decoration: none;
+
+    font-family: 'Rock Salt', cursive;
+    color: lightskyblue;
+    font-size: 1rem;
+}
+
+.item-card-button button{
+    outline: none;
+    border: none;
+    max-width: 50px;
+    overflow: hidden;
+    font-family: 'Rock Salt', cursive;
+    color: lightskyblue;
+    font-size: 1rem;
 }

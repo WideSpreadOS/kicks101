@@ -13,7 +13,7 @@ const Shoe = require('../models/Shoe');
 // Welcome Page
 router.get('/', async (req, res) => {
     const shoes = await Shoe.find();
-    res.render('sneakers/home', { page: 'Home', shoes });
+    res.render('sneakers/home', { page: 'Sneakers Home', shoes });
 });
 
 router.post('/shoes/add', (req, res) => {
@@ -36,14 +36,25 @@ router.post('/shoes/add', (req, res) => {
 
 
 
-// Nike Page
-router.get('/nike', async (req, res) => {
+// All Nikes Page
+router.get('/Nike', async (req, res) => {
     res.render('sneakers/nike', { page: 'Nike' });
 });
 
-// Jordan Page
-router.get('/jordan', async (req, res) => {
-    res.render('sneakers/jordan', { page: 'Jordan' });
+
+// All Jordans Page
+router.get('/:companyName', async (req, res) => {
+    const companyName = req.params.companyName;
+    const companyProducts = await Shoe.find({company: {$eq: companyName}})
+    res.render('sneakers/jordan', { page: 'Jordan', companyProducts });
+});
+
+// Jordan ID Page
+router.get('/:companyId/:shoeId', async (req, res) => {
+    const companyId = req.params.companyId;
+    const shoeId = req.params.shoeId;
+    const shoe = await Shoe.findById(shoeId)
+    res.render('sneakers/single-product', { page: shoe.shoe_name, shoe });
 });
 
 // Other Sneaker Brands Page
