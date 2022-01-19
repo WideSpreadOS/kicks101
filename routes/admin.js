@@ -1,12 +1,9 @@
 const express = require('express');
 const router = express.Router();
-
 const mongoose = require('mongoose');
-
 
 // Models
 const Shoe = require('../models/Shoe');
-
 
 
 
@@ -61,5 +58,9 @@ router.patch('/shoes/edit/:shoeId', async (req, res) => {
     }
 
 })
+
+
+
+
 
 module.exports = router;

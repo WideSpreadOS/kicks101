@@ -254,6 +254,21 @@
         color: lightskyblue;
     }
 
+
+
+
+    .user-menu-buttons {
+        min-width: 100%;
+        margin-top: 20px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+    .user-menu-buttons a {
+        font-size: 1rem;
+    }
 @media screen and (orientation : landscape) {
             #mainMenu {
                 padding-top: 55px;
@@ -289,7 +304,6 @@
     
         }
     </style>
-    
     <div id="mainMenu">
         <div id="searchForm">
             <form action="" method="post">
@@ -305,6 +319,11 @@
         <div class="main-menu-item"><a href="/social">Social</a></div>
         <div class="main-menu-item"><a href="/help">Help</a></div>
 
+
+        <div class="user-menu-buttons">
+                <a href="/user/login">Login</a>
+                <a href="/user/logout">Logout</a>
+        </div>
     </div>
 
 
