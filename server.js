@@ -13,6 +13,9 @@ const multer = require('multer');
 const { GridFsStorage } = require('multer-gridfs-storage');
 const Grid = require('gridfs-stream');
 const crypto = require('crypto');
+const favicon = require('serve-favicon');
+const cookieParser = require('cookie-parser');
+const path = require('path');
 
 // DB Config
 const db = require('./config/keys').MongoURI;
@@ -58,7 +61,8 @@ const storage = new GridFsStorage({
 
 const upload = multer({ storage });
 
-
+// Favicon
+app.use(favicon(path.join(__dirname, 'public', 'logo_1a1a1a.ico')))
 
 // Middleware
 app.use(bodyParser.json());

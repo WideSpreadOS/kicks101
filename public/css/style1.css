@@ -45,7 +45,7 @@ html, body {
     overflow-x: hidden;
 }
 body {
-    background: #eee;
+    background: #ecf0f3;
     font-family: 'Poiret One', cursive;
 }
 
@@ -83,6 +83,117 @@ input, textarea {
     margin-left: 30px;
     list-style:lower-alpha;
 }
+
+
+
+/* Site Forms */
+
+.input-form {
+    background: #ecf0f3;
+    box-shadow: 4px 4px 6px #cbced1, -4px -4px 6px #ffffff;
+    border-radius: 8px;
+    max-width: 90vw;
+    margin: 0 auto;
+    margin-top: 20px;
+    padding-bottom: 20px;
+}
+.input-form-title {
+    text-align: center;
+    padding: 10px;
+}
+.input-form-title h5 {
+    font-family: 'Rock Salt', cursive;
+    color: lightskyblue;
+    font-size: 1.5rem;
+}
+.input-form form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.input-group {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.input-group label {
+    background: red;
+    display: block;
+}
+.input-group input {
+    width: 80%;
+    background: #ecf0f3;
+    box-shadow: -4px -4px 6px #cbced1, 4px 4px 6px #ffffff;
+    padding: 5px;
+    border-radius: 4px;
+    color: lightskyblue;
+    transition: ease-in 0.25s;
+}
+.input-group input:focus {
+    background: rgba(135, 206, 250, 0.75);
+    color: #fff;
+    transition: ease-in 0.25s;
+}
+.input-group input:focus::placeholder {
+    color: rgba(135, 206, 250, 0.25);
+    text-shadow: 0 0 1px #fff;
+    transition: ease-in 0.25s;
+}
+
+
+
+
+.input-form button {
+    margin-top: 10px;
+    min-width: 50%;
+    padding: 12px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    outline: none;
+    border: none;
+    background: #ecf0f3;
+    box-shadow: 4px 4px 6px #cbced1, -4px -4px 6px #ffffff;
+    border-radius: 8px;
+    font-family: 'Rock Salt', cursive;
+    font-size: 1.2rem;
+    color: lightskyblue;
+    text-shadow: 0 0 2px rgba(135, 206, 250, 0.5);
+}
+.input-form button:active {
+    margin-top: 10px;
+    width: 50%;
+    padding: 8px;
+    outline: none;
+    border: none;
+    background: lightskyblue;
+    box-shadow: -4px -4px 6px #cbced1, 4px 4px 6px #ffffff;
+    border-radius: 8px;
+    transition: ease-in-out 0.25s;
+}
+
+
+
+/* SITE LINK HELPERS */
+.site-link-helper {
+    margin-top: 20px;
+    text-align: center;
+}
+.site-link-helper p {
+    color: #000;
+}
+.site-link-helper a {
+    text-decoration: none;
+    color: lightskyblue;
+    font-weight: bold;
+}
+
 
 
 /* SITE HEADER */
