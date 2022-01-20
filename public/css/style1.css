@@ -95,6 +95,7 @@ input, textarea {
     max-width: 90vw;
     margin: 0 auto;
     margin-top: 20px;
+    margin-bottom: 20px;
     padding-bottom: 20px;
 }
 .input-form-title {
@@ -133,6 +134,7 @@ input, textarea {
     box-shadow: -4px -4px 6px #cbced1, 4px 4px 6px #ffffff;
     padding: 5px;
     border-radius: 4px;
+    font-family: 'Poiret One', cursive;
     color: lightskyblue;
     transition: ease-in 0.25s;
 }
@@ -147,8 +149,63 @@ input, textarea {
     transition: ease-in 0.25s;
 }
 
+.input-group textarea {
+    width: 80%;
+    background: #ecf0f3;
+    box-shadow: -4px -4px 6px #cbced1, 4px 4px 6px #ffffff;
+    padding: 5px;
+    border-radius: 4px;
+    font-family: 'Poiret One', cursive;
+    color: lightskyblue;
+    transition: ease-in 0.25s;
+    resize: none;
+    height: 60px;
+}
+.input-group textarea:focus {
+    background: rgba(135, 206, 250, 0.75);
+    color: #fff;
+    transition: ease-in 0.25s;
+}
+.input-group textarea:focus::placeholder {
+    color: rgba(135, 206, 250, 0.25);
+    text-shadow: 0 0 1px #fff;
+    transition: ease-in 0.25s;
+}
 
+.colors {
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-wrap: nowrap;
+    margin-bottom: 15px;
+    padding: 5px;
+}
+.color {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    width: 100%;
+    width: 40%;
+    padding-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: 4px 4px 6px #cbced1, -4px -4px 6px #ffffff;
+}
+.color label {
+    padding: 5px;
+}
+.color input {
+    border-radius: 8px;
+    box-shadow: 4px 4px 6px #cbced1, -4px -4px 6px #ffffff;
+    outline: none;
+    border: none;
+    padding: 5px;
+    height: 50px;
 
+}
 
 .input-form button {
     margin-top: 10px;
@@ -307,7 +364,7 @@ input, textarea {
     width: 300px;
     background: #ecf0f3;
     box-shadow: 4px 4px 6px #cbced1, -4px -4px 6px #ffffff;
-    border-radius: 8px;
+    border-radius: 12px;
     padding-top: 15px;
     margin-bottom: 30px;
     display: flex;
@@ -434,4 +491,41 @@ input, textarea {
     color: lightskyblue;
     font-size: 1rem;
     background: transparent;
+}
+
+
+
+/* ADMIN PAGES */
+
+/* Admin Tables */
+
+.admin-table {
+    max-width: 95vw;
+    width: 95vw;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+.admin-table table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.admin-table thead tr th {
+    padding-bottom: 10px;
+    font-size: 1.2rem;
+}
+.admin-table tr {
+    border-spacing: 0px;
+}
+.admin-table td {
+    vertical-align: middle;
+    padding: 4px;
+}
+
+
+
+.admin-table-image {
+    width: 75px;
+    border-radius: 8px;
+    box-shadow: 4px 4px 6px #cbced1, -4px -4px 6px #ffffff;
 }

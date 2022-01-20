@@ -1,124 +1,49 @@
 <style>
-    .add-product-form {
-        background: rgba(255, 166, 0, 0.5);
-        padding: 10px;
-        margin-top: 30px;
-        margin-bottom: 30px;
-    }
-    .add-product-form h5 {
-        padding: 8px;
-        margin-bottom: 10px;
-    }
 
-    .add-product-form p {
-        padding: 8px;
-        margin-bottom: 10px;
-    }
-    
-    .add-product-form form {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        width: 500px;
-        max-width: 90%;
-        margin: 0 auto;
-        margin-bottom: 15px;
-        background: #ddd;
-    }
-    .colors {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        flex-wrap: nowrap;
-        width: 100%;
-    }
-    .color {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        flex-wrap: nowrap;
-        width: 50%;
-    }
-    input {
-        width: 100%;
-    }
-    input[type=color] {
-        width: 80%;
-    }
-    textarea {
-        width: 100%;
-    }
-    .product-section {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-        align-items: center;
-        padding-top: 30px;
-    }
-    .product-card {
-        width: 300px;
-        margin-bottom: 20px;
-        background: #ddd;
-        border-radius: 6px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding: 8px;
-        padding-bottom: 15px;
-    }
-    .product-card img {
-        max-width: 300px;
-        max-height: 300px;
-        border-radius: 6px;
-    }
 </style>
 
 <div class="page-title">
-    <h1>Products Home</h1>
+    <h1>All Products</h1>
 </div>
 
-<div class="add-product-form">
-    <h5>This form needs to be moved to admin page - only here for testing.</h5>
-<section>
-    <form action="/products/shoes/add" method="post">
-        <input type="text" name="company" placeholder="Name of Shoe">
-        <input type="text" name="shoe_name" placeholder="Name of Shoe">
-        <textarea name="description" placeholder="Description"></textarea>
-        <input type="text" name="sku" placeholder="SKU #">
-        <input type="url" name="supplier_website" placeholder="Suppliers Website">
-        <input type="url" name="product_webpage" placeholder="Products Webpage URL">
-        <input type="url" name="product_image_url" placeholder="Products Image URL (skip if you want to upload your own)">
-        <div class="colors">
-            <div class="color">
-                <label for="color1">Main Color</label>
-                <input type="color" name="color1" id="color1">
-            </div>
-            <div class="color">
-                <label for="color2">Accent Color</label>
-                <input type="color" name="color2" id="color2">
-            </div>
-        </div>
-        <input type="number" name="price" placeholder="Price">
-        <button type="submit">Add Shoe</button>
-    </form>
-    <p>To-Do: Add image upload form. need multer, gridfs-stream and multer-gridfs-storage.</p>
-    <p>To-Do: Get 20 colors hard-coded into input[type=color], make it as a partial.</p>
-</section>
-</div>
-
-<div class="product-section">
+<div class="item-card-container">
     <% shoes.forEach(function(shoe) { %>
-        <div class="product-card">
-            <h3><%= shoe.company %></h3>
-            <h5><%= shoe.shoe_name %></h5>
-            <h6>$<%= shoe.price %></h6>
-            <p><%= shoe.description %></p>
-            <img src="<%= shoe.product_image_url %>" alt="">
+        <div class="item-card">
+
+            <div class="item-card-body">
+                <div class="item-card-data">
+                    <div class="item-card-data-header">
+                        <h3>
+                            <%= shoe.company %>
+                        </h3>
+                    </div>
+                    <div class="item-card-data-subheader">
+                        <h5>
+                            <%= shoe.shoe_name %>
+                        </h5>
+                    </div>
+
+                </div>
+
+                <div class="item-card-main-image">
+                    <img src="<%= shoe.product_image_url %>" alt="">
+                </div>
+                <div class="item-card-price">
+                    <div class="item-card-data-price">
+                        <span id="shoe_<%= shoe.id %>">$<%= shoe.price %></span>
+                    </div>
+                    <div class="item-card-buttons">
+
+                        <div class="item-card-button">
+                            <a href="/products/sneakers/<%= shoe.company %>/<%= shoe.id %>"><i
+                                    class="far fa-eye"></i></a>
+                        </div>
+                        <div class="item-card-button">
+                            <button><i class="fas fa-cart-plus"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    <% }) %>
+        <% }) %>
 </div>

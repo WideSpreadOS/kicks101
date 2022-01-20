@@ -13,7 +13,7 @@ const Shoe = require('../models/Shoe');
 // Welcome Page
 router.get('/', async (req, res) => {
     const shoes = await Shoe.find();
-    res.render('sneakers/home', { page: 'Sneakers Home', shoes });
+    res.render('sneakers/home', { page: 'All Sneakers', shoes });
 });
 
 router.post('/shoes/add', (req, res) => {
