@@ -3,9 +3,6 @@ const router = express.Router();
 const mongoose = require('mongoose');
 
 
-// REMOVE SHOE MODEL ONCE ALL SHOES ARE ADDED TO PRODUCTS
-const Shoe = require('../models/Shoe');
-
 // Models
 const Company = require('../models/Company');
 const Product = require('../models/Product');

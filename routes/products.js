@@ -5,34 +5,33 @@ const mongoose = require('mongoose');
 
 
 // Models
-const Shoe = require('../models/Shoe');
+const Product = require('../models/Product');
+const Company = require('../models/Company');
 
 
 
 
 // Welcome Page
 router.get('/', async (req, res) => {
-    const shoes = await Shoe.find();
-    res.render('products/home', { page: 'Home', shoes });
+    const products = await Product.find();
+    res.render('products/home', { page: 'Home', products });
 });
 
-router.post('/shoes/add', (req, res) => {
+// Company Page
+router.get('/:companyId', async (req, res) => {
+    const companyId = req.params.companyId;
+    const company = await Company.findById(companyId)
+    const products = await Product.find({'manufacturer': {$eq: companyId}});
+    res.render('products/company', { page: company.name, company, products });
+});
 
-     const shoe = new Shoe({
-        company: req.body.company,
-        shoe_name: req.body.shoe_name,
-        description: req.body.description,
-        sku: req.body.sku,
-        supplier_website: req.body.supplier_website,
-        product_webpage: req.body.product_webpage,
-        product_image_url: req.body.product_image_url,
-        color1: req.body.color1,
-        color2: req.body.color2,
-        price: req.body.price
-    })
-    shoe.save()
-    res.redirect('/products');
-})
+// Single Product Page
+router.get('/:companyId/:productId', async (req, res) => {
+    const companyId = req.params.companyId;
+    const productId = req.params.productId;
+    const product = await Product.findById(productId).populate('manufacturer').exec();
+    res.render('products/single-product', { page: product.name, product });
+});
 
 
 

@@ -320,6 +320,7 @@ input, textarea {
     justify-content: center;
     flex-wrap: nowrap;
     flex-direction: row;
+    margin-top: 10px;
 }
 .go-back-button a {
     text-decoration: none;
@@ -368,6 +369,7 @@ input, textarea {
 
 .item-card-container {
     margin-top: 10px;
+    margin-top: 10px;
     padding-top: 20px;
     padding-bottom: 20px;
     display: flex;
@@ -404,6 +406,26 @@ input, textarea {
     border-radius: 8px;
 }
 
+.item-card-images {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-wrap: nowrap;
+    overflow-x: scroll;
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 4px 4px 6px #cbced1, -4px -4px 6px #ffffff;
+}
+.item-card-images img {
+    width: 25%;
+    border-radius: 8px;
+    box-shadow: 4px 4px 6px #cbced1, -4px -4px 6px #ffffff;
+}
 .item-card-body {
     width: 90%;
     margin: 0 auto;  
@@ -425,6 +447,7 @@ input, textarea {
 }
 .item-card-data-header {
     margin-bottom: 5px;
+    padding-bottom: 10px;
     border-bottom: solid 1px #fff;   
 }
 .item-card-data-header h3 {

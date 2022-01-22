@@ -90,6 +90,8 @@
 
 </style>
 
+<%- include('../../partials/menus/admin-nav.ejs'); %>
+
 <div class="page-title">
     <h1>
         <%= page %>
@@ -178,47 +180,45 @@
 </div>
 
 
-<div class="item-card-container">
-    <% products.forEach(function(product) { %>
-        <div class="item-card">
-
-            <div class="item-card-body">
-                <div class="item-card-data">
-                    <div class="item-card-data-header">
-                        <h3>
+<div class="admin-table">
+    <table>
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Item</th>
+                <th>Details</th>
+                <th>Edit</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% products.forEach(function(product) { %>
+                <tr>
+                    <td>
+                        <img class="admin-table-image" src="<%= product.main_image %>" />
+                    </td>
+                    <td>
+                        <p style="font-size: 1.1rem; color: lightskyblue;">
                             <%= product.manufacturer.name %>
-                        </h3>
-                    </div>
-                    <div class="item-card-data-subheader">
-                        <h5>
+                        </p>
+                        <p>
                             <%= product.name %>
-                        </h5>
-                    </div>
-
-                </div>
-
-                <div class="item-card-main-image">
-                    <img src="<%= product.main_image %>" alt="">
-                </div>
-                <div class="item-card-price">
-                    <div class="item-card-data-price">
-                        <span id="product_<%= product.id %>">$<%= product.price.base %></span>
-                    </div>
-                    <div class="item-card-buttons">
-
-                        <div class="item-card-button">
-                            <a href="/products/<%= product.type %>/<%= product.company %>/<%= product.id %>"><i
-                                    class="far fa-eye"></i></a>
-                        </div>
-                        <div class="item-card-button">
-                            <button><i class="fas fa-cart-plus"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <% }) %>
+                        </p>
+                    </td>
+                    <td>
+                        <div class="item-card-button"><a href="/admin/products/<%= product.id %>/details"><i
+                                    class="far fa-eye"></i></a></div>
+                    </td>
+                    <td>
+                        <div class="item-card-button"><a href="/admin/products/edit/<%= product.id %>"><i
+                                    class="far fa-edit"></i></a></div>
+                    </td>
+                </tr>
+                <% }) %>
+        </tbody>
+    </table>
 </div>
+
+
 
 
 

@@ -1,34 +1,42 @@
 <style>
-
+    .item-card-body {
+        margin-bottom: 50px;
+    }
 </style>
     <div class="go-back-button">
-        <a href="/products/sneakers/<%= shoe.company %>"><i class="fas fa-long-arrow-alt-left"></i>  Back to <%= shoe.company %></a>
+        <a href="/products/<%= product.manufacturer.id %>"><i class="fas fa-long-arrow-alt-left"></i>  Back to <%= product.manufacturer.name %></a>
     </div>
 
     <div class="item-card-body">
         <div class="item-card-data">
             <div class="item-card-data-header">
                 <h3>
-                    <%= shoe.company %>
+                    <%= product.manufacturer.name %>
                 </h3>
             </div>
             <div class="item-card-data-subheader">
                 <h5>
-                    <%= shoe.shoe_name %>
+                    <%= product.name %>
                 </h5>
             </div>
 
         </div>
 
         <div class="item-card-description">
-            <p><%= shoe.description %></p>
+            <p><%= product.description %></p>
         </div>
         <div class="item-card-main-image">
-            <img src="<%= shoe.product_image_url %>" alt="">
+            <img src="<%= product.main_image %>" alt="">
         </div>
+        <div class="item-card-images">
+            <% product.images.forEach(function(image) { %>
+                <img src="<%= image %>" alt="">
+            <% }) %>
+        </div>
+
         <div class="item-card-price">
             <div class="item-card-data-price">
-                <span id="shoe_<%= shoe.id %>">$<%= shoe.price %></span>
+                <span id="product_<%= product.id %>">$<%= product.price.base %></span>
             </div>
             <div class="item-card-buttons">
 
