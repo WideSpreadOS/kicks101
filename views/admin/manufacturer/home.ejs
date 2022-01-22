@@ -1,0 +1,78 @@
+<style>
+    .item-card-data-subheader a {
+        text-decoration: none;
+        color: #fff;
+    }
+    .item-card-main-image {
+        max-width: 85%;
+        height: auto;
+        min-height: 100px;
+        padding: 8px;
+    }
+    .item-card-main-image img{
+        height: auto;
+        min-height: 100px;
+        filter: drop-shadow(0 0 5px lightskyblue);
+    }
+</style>
+
+<div class="page-title">
+    <h1>
+        <%= page %>
+    </h1>
+</div>
+
+
+
+<div class="input-form" id="shoeForm">
+    <div class="input-form-title">
+        <h5>Add New Company</h5>
+    </div>
+    <form action="/test/manufacturers/add" method="post">
+
+        <div class="input-group">
+            <input type="text" name="name" placeholder="Name of Company">
+        </div>
+      
+        <div class="input-group">
+            <input type="text" name="main_url" placeholder="Company Main URL">
+        </div>
+      
+        <div class="input-group">
+            <input type="text" name="logo" placeholder="Companys Logo URL">
+        </div>
+      
+        <button type="submit">Add Company</button>
+    </form>
+</div>
+
+
+    <div class="item-card-container">
+        <% companies.forEach(function(company) { %>
+            <div class="item-card">
+    
+                <div class="item-card-body">
+                    <div class="item-card-data">
+                        <div class="item-card-data-header">
+                            <h3>
+                                <%= company.name %>
+                            </h3>
+                        </div>
+                        <div class="item-card-data-subheader">
+                            <h5>
+                                <a href="<%= company.main_url %>">
+                                    <%= company.main_url %>
+                                </a>
+                            </h5>
+                        </div>
+    
+                    </div>
+    
+                    <div class="item-card-main-image">
+                        <img src="<%= company.logo %>" alt="">
+                    </div>
+
+                </div>
+            </div>
+        <% }) %>
+    </div>

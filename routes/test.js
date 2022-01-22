@@ -1,33 +1,37 @@
 const express = require('express');
 const router = express.Router();
+
 const mongoose = require('mongoose');
 
 
-// REMOVE SHOE MODEL ONCE ALL SHOES ARE ADDED TO PRODUCTS
-const Shoe = require('../models/Shoe');
-
 // Models
+const Shoe = require('../models/Shoe');
 const Company = require('../models/Company');
 const Product = require('../models/Product');
 
 
+
+
 // Welcome Page
 router.get('/', async (req, res) => {
-    res.render('admin/home', { page: 'Admin Dashboard' });
+    const shoes = await Shoe.find();
+    res.render('test/home', { page: 'Testing Home', shoes });
 });
+
 
 // Manufacturer Page
 router.get('/manufacturers', async (req, res) => {
     const companies = await Company.find();
-    res.render('admin/manufacturer/home', { page: 'Admin Manufacturers', pageHeader: 'Home', companies });
+    res.render('test/manufacturer/home', { page: 'Testing Manufacturer', companies });
 });
 
 router.post('/manufacturers/add', (req, res) => {
     const newCompanyData = req.body
     const company = new Company(newCompanyData)
     company.save()
-    res.redirect('/admin/manufacturers');
+    res.redirect('/test/manufacturers');
 })
+
 
 
 
@@ -35,25 +39,18 @@ router.post('/manufacturers/add', (req, res) => {
 router.get('/products', async (req, res) => {
     const companies = await Company.find();
     const products = await Product.find().populate('manufacturer').exec();
-    res.render('admin/product/home', { page: 'Admin Products', pageHeader: 'Home', companies, products });
+    res.render('test/product/home', { page: 'Testing Product', companies, products });
 });
 
 router.post('/products/add', (req, res) => {
     const newCompanyData = req.body
     const product = new Product(newCompanyData)
     product.save()
-    res.redirect('/admin/products');
+    res.redirect('/test/products');
 })
 
 
 
-// Shoe Page
-router.get('/shoes', async (req, res) => {
-    const shoes = await Shoe.find();
-    res.render('admin/shoes/shoes', { page: 'Admin Shoes', shoes });
-});
-
-// Add Shoe
 router.post('/shoes/add', (req, res) => {
 
     const shoe = new Shoe({
@@ -69,29 +66,36 @@ router.post('/shoes/add', (req, res) => {
         price: req.body.price
     })
     shoe.save()
-    res.redirect('/admin/shoes');
+    res.redirect('/products');
 })
 
-// Edit Shoe
 
-router.get('/shoes/edit/:shoeId', async (req, res) => {
-    const shoeToEdit = req.params.shoeId;
-    const shoe = await Shoe.findById(shoeToEdit);
-    res.render('admin/shoes/edit', {page: 'Edit Shoe', shoe})
-})
 
-router.patch('/shoes/edit/:shoeId', async (req, res) => {
-    try {
-        const shoeToEdit = req.params.shoeId;
-        const updates = req.body;
-        const options = {new: true}
-        await Shoe.findByIdAndUpdate(shoeToEdit, updates, options);
-        res.redirect(`/admin/shoes/edit/${shoeToEdit}`)
-    } catch (error) {
-        console.log(error);
-    }
+// All Nikes Page
+router.get('/Nike', async (req, res) => {
+    res.render('sneakers/nike', { page: 'Nike' });
+});
 
-})
+
+// All Jordans Page
+router.get('/:companyName', async (req, res) => {
+    const companyName = req.params.companyName;
+    const companyProducts = await Shoe.find({ company: { $eq: companyName } })
+    res.render('sneakers/jordan', { page: 'Jordan', companyProducts });
+});
+
+// Jordan ID Page
+router.get('/:companyId/:shoeId', async (req, res) => {
+    const companyId = req.params.companyId;
+    const shoeId = req.params.shoeId;
+    const shoe = await Shoe.findById(shoeId)
+    res.render('sneakers/single-product', { page: shoe.shoe_name, shoe });
+});
+
+// Other Sneaker Brands Page
+router.get('/other', async (req, res) => {
+    res.render('sneakers/other', { page: 'Other Sneaker Brands' });
+});
 
 
 

@@ -196,6 +196,7 @@ input, textarea {
 }
 .color label {
     padding: 5px;
+    text-align: center;
 }
 .color input {
     border-radius: 8px;
@@ -236,6 +237,23 @@ input, textarea {
 }
 
 
+.radio-group {
+    margin-bottom: 15px;
+}
+
+.gender-selection {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 80%;
+    background: #ecf0f3;
+    box-shadow: 4px 4px 6px #cbced1, -4px -4px 6px #ffffff;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
 
 /* SITE LINK HELPERS */
 .site-link-helper {
@@ -377,14 +395,12 @@ input, textarea {
     margin: 0 auto;
     margin-bottom: 10px;
     overflow: hidden;
-    min-height: 290px;
     box-shadow: 4px 4px 6px #cbced1, -4px -4px 6px #ffffff;
     border-radius: 8px;
 }
 .item-card-main-image img {
     min-width: 100%;
     max-width: 100%;
-    min-height: 290px;
     border-radius: 8px;
 }
 
