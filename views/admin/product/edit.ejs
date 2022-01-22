@@ -117,12 +117,6 @@
 
 <%- include('../../partials/menus/admin-nav.ejs'); %>
 
-    <div class="page-title">
-        <h1>
-            Edit Product
-        </h1>
-    </div>
-
 
     <div class="page-title">
         <h2>
@@ -134,49 +128,56 @@
 
     <div class="input-form">
         <div class="input-form-title">
-            <h5>Add New Product</h5>
+            <h5>Edit Product</h5>
         </div>
         <form action="/admin/products/add" method="post">
             <div class="custom-select">
                 <select name="manufacturer" id="manufacturer">
                     <% companies.forEach(function(manufacturer) { %>
-                        <option value="<%= manufacturer.id %>">
-                            <%= manufacturer.name %>
-                        </option>
-                        <% }) %>
+                        <% if (manufacturer.id == product.manufacturer.id) { %>
+                            <option id="<%= manufacturer.id %>" value="<%= manufacturer.id %>" selected class="same-as-selected">
+                                <%= manufacturer.name %>
+                            </option>
+                        <% } else { %> 
+                            <option id="<%= manufacturer.id %>" value="<%= manufacturer.id %>">
+                                <%= manufacturer.name %>
+                            </option>
+                        <% } %> 
+                    <% }) %>
                 </select>
             </div>
             <div class="input-group">
-                <input type="text" name="name" placeholder="Name of Product">
+                <input type="text" name="name" placeholder="Name of Product" value="<%= product.name %>">
             </div>
             <div class="input-group">
-                <textarea name="description" placeholder="Description"></textarea>
+                <textarea name="description" placeholder="Description"><%= product.description %></textarea>
             </div>
             <div class="input-group">
-                <input type="text" name="sku" placeholder="SKU #">
+                <input type="text" name="sku" placeholder="SKU #" value="<%= product.sku %>">
             </div>
             <div class="input-group">
-                <input type="url" name="main_image" placeholder="Main Image URL">
+                <input type="url" name="main_image" placeholder="Main Image URL" value="<%= product.main_image %>">
             </div>
             <div class="input-group">
-                <input type="url" name="images" placeholder="Other Image URL">
+                <input type="url" name="images" placeholder="Other Image URL" value="<%= product.images[0] %>">
             </div>
             <div class="input-group">
-                <input type="url" name="images" placeholder="Other Image URL">
+                <input type="url" name="images" placeholder="Other Image URL" value="<%= product.images[1] %>">
             </div>
             <div class="input-group">
-                <input type="url" name="images" placeholder="Other Image URL">
+                <input type="url" name="images" placeholder="Other Image URL" value="<%= product.images[2] %>">
             </div>
             <div class="custom-select">
                 <select name="product_type" id="productType">
-                    <option value="sneaker">Sneaker</option>
-                    <option value="outerwear">Outerwear</option>
-                    <option value="t-shirt">T-Shirt</option>
-                    <option value="accessory">Accessory</option>
+                    <option value="<%= product.product_type %>"><%= product.product_type %></option>
+                    <option value="Sneaker">Sneaker</option>
+                    <option value="Outerwear">Outerwear</option>
+                    <option value="T-Shirt">T-Shirt</option>
+                    <option value="Accessory">Accessory</option>
                 </select>
             </div>
             <div class="input-group">
-                <input type="url" name="url" placeholder="Products Webpage Direct URL">
+                <input type="url" name="url" placeholder="Products Webpage Direct URL" value="<%= product.url %>">
             </div>
 
             <div class="radio-group">
@@ -199,23 +200,23 @@
             <div class="colors">
                 <div class="color">
                     <label for="main_color">Main Color</label>
-                    <input type="color" name="main_color" id="main_color">
+                    <input type="color" name="main_color" id="main_color" value="<%= product.main_color %>">
                 </div>
                 <div class="color">
                     <label for="accent_colors">Accent Color</label>
-                    <input type="color" name="accent_colors" id="accent_colors">
+                    <input type="color" name="accent_colors" id="accent_colors" value="<%= product.accent_colors[0] %>">
                 </div>
             </div>
             <div class="input-group">
-                <input type="number" name="price.base" placeholder="Price">
+                <input type="number" name="price.base" placeholder="Price" value="<%= product.price.base %>">
             </div>
-            <button type="submit" disabled>Edit Product</button>
+            <button type="submit" disabled>Update</button>
         </form>
     </div>
 
 
 
-
+    <% var product = 'name' %>
 
     <script>
         var x, i, j, l, ll, selElmnt, a, b, c;
@@ -296,4 +297,11 @@
         /*if the user clicks anywhere outside the select box,
         then close all select boxes:*/
         document.addEventListener("click", closeAllSelect);
+
+        const currentManufacturer = document.getElementById('manufacturer');
+        const currentProductType = document.getElementById('productType');
+        var test = currentManufacturer.getElementsByTagName('option')
+        console.log(test.length)
+        test.getElementById()
+        console.log(test)
     </script>

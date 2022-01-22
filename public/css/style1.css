@@ -172,6 +172,10 @@ input, textarea {
     transition: ease-in 0.25s;
 }
 
+
+.capitalize {
+    text-transform: capitalize;
+}
 .colors {
     width: 80%;
     display: flex;

@@ -116,6 +116,7 @@
     <form action="/admin/products/add" method="post">
         <div class="custom-select">
             <select name="manufacturer" id="manufacturer">
+                <option value="" selected disabled hidden>Manufacturer</option>
                 <% companies.forEach(function(manufacturer) { %>
                     <option value="<%= manufacturer.id %>"><%= manufacturer.name %></option>
                 <% }) %>
@@ -144,10 +145,11 @@
         </div>
         <div class="custom-select">
             <select name="product_type" id="productType">
-                <option value="sneaker">Sneaker</option>
-                <option value="outerwear">Outerwear</option>
-                <option value="t-shirt">T-Shirt</option>
-                <option value="accessory">Accessory</option>
+                <option value="" selected disabled hidden>Product Type</option>
+                <option value="Sneaker">Sneaker</option>
+                <option value="Outerwear">Outerwear</option>
+                <option value="T-Shirt">T-Shirt</option>
+                <option value="Accessory">Accessory</option>
             </select>
         </div>
         <div class="input-group">
