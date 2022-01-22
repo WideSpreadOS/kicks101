@@ -538,6 +538,25 @@ input, textarea {
 }
 
 
+/* Filter Products */
+
+.product-filter-container {
+    background: #ecf0f3;
+    box-shadow: 4px 4px 6px #cbced1, -4px -4px 6px #ffffff;
+    border-radius: 8px;
+    width: 90%;
+    margin: 0 auto;
+    padding: 10px;
+}
+.product-filter-header {
+    border-bottom: solid 1px red;
+}
+.product-filter-header h5{
+    text-align: center;
+    font-family: 'Rock Salt', cursive;
+    color: lightskyblue;
+}
+
 
 /* ADMIN PAGES */
 
@@ -548,6 +567,12 @@ input, textarea {
     width: 95vw;
     margin: 0 auto;
     margin-top: 20px;
+}
+.admin-table-header h3 {
+    text-align: center;
+    color: lightskyblue;
+    font-size: 1.2rem;
+    font-family: 'Rock Salt', cursive;
 }
 .admin-table table {
     border-collapse: collapse;
