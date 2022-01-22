@@ -273,7 +273,28 @@ input, textarea {
     font-weight: bold;
 }
 
-
+.delete-button {
+    position: relative;
+    margin: 0 auto;
+    margin-bottom: 60px;
+    width: 80%;
+    background: #ecf0f3;
+    box-shadow: 4px 4px 6px #cbced1, -4px -4px 6px #ffffff;
+    border-radius: 8px;
+}
+    
+.delete-button button {
+    cursor: pointer;
+    border-radius: 8px;
+    padding: 15px;
+    width: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-family: 'Rock Salt', cursive;
+    color: red;
+    font-size: 1.2rem;
+}
 
 /* SITE HEADER */
 

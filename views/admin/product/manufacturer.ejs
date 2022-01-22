@@ -10,6 +10,8 @@
         </h1>
     </div>
 
+<%- include('../../partials/filters/admin-products.ejs'); %>
+
     <div class="admin-table">
         <table>
             <thead>
@@ -21,6 +23,13 @@
                 </tr>
             </thead>
             <tbody>
+                <% if(products.length === 0) { %>
+                    <tr>
+                        <td colspan="4">
+                            <p style="text-align: center; font-size: 2rem;">No Items</p>
+                        </td>
+                    </tr>
+                    <% } else { %>
                 <% products.forEach(function(product) { %>
                     <tr>
                         <td>
@@ -44,6 +53,7 @@
                         </td>
                     </tr>
                     <% }) %>
+                <% } %>
             </tbody>
         </table>
     </div>

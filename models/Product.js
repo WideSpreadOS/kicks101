@@ -2,7 +2,10 @@ const mongoose = require('mongoose');
 
 const productSchema = new mongoose.Schema({
     manufacturer: { type: mongoose.Schema.Types.ObjectId, ref: 'Company' },
-    name: String,
+    name: {
+        type: String,
+        required: true
+    },
     description: String,
     price: {
         base: {

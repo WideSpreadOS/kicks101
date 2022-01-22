@@ -119,14 +119,14 @@
     <form action="/admin/products/add" method="post">
         <div class="custom-select">
             <select name="manufacturer" id="manufacturer">
-                <option value="" selected disabled hidden>Manufacturer</option>
+                <option value="" selected disabled hidden>Manufacturer (Required)</option>
                 <% companies.forEach(function(manufacturer) { %>
                     <option value="<%= manufacturer.id %>"><%= manufacturer.name %></option>
                 <% }) %>
             </select>
         </div>
         <div class="input-group">
-            <input type="text" name="name" placeholder="Name of Product">
+            <input type="text" name="name" placeholder="Name of Product (Required)">
         </div>
         <div class="input-group">
             <textarea name="description" placeholder="Description"></textarea>
@@ -187,31 +187,14 @@
             </div>
         </div>
         <div class="input-group">
-            <input type="number" name="price.base" placeholder="Price">
+            <input type="number" name="price.base" placeholder="Price (Required)">
         </div>
         <button type="submit">Add Product</button>
     </form>
 </div>
 
-<div class="product-filter-container">
-    <div class="product-filter-header">
-        <h5>Filter Products</h5>
-    </div>
-    <div class="filter-options-header"><h6>Product Type</h6></div>
-    <div class="filter-options">
-        <div class="filter-option"><a href="/admin/products/type/Sneaker">Sneakers</a></div>
-        <div class="filter-option"><a href="/admin/products/type/Outerwear">Outerwear</a></div>
-        <div class="filter-option"><a href="/admin/products/type/T-Shirt">T-Shirts</a></div>
-        <div class="filter-option"><a href="/admin/products/type/Accessory">Accessories</a></div>
-    </div>
-    <div class="filter-options-header"><h6>Manufacturer</h6></div>
-    <div class="filter-options">
-        <% companies.forEach(function(manufacturer) { %>
-            <div class="filter-option"><a href="/admin/products/manufacturer/<%= manufacturer.id %>"><%= manufacturer.name %></a></div>
-        <% }) %>
-    </div>
-</div>
 
+<%- include('../../partials/filters/admin-products.ejs'); %>
 
 <div class="admin-table">
     <div class="admin-table-header">
@@ -233,10 +216,11 @@
                         <img class="admin-table-image" src="<%= product.main_image %>" />
                     </td>
                     <td>
-                        <p style="font-size: 1.1rem; color: lightskyblue;">
-                            <%= product.manufacturer.name %>
-                        </p>
-                        <p>
+                            <p style="font-size: 1.1rem; color: lightskyblue;">
+                                <%= product.manufacturer.name %>
+                            </p>
+
+                            <p>
                             <%= product.name %>
                         </p>
                     </td>
@@ -247,6 +231,7 @@
                         <div class="item-card-button"><a href="/admin/products/edit/<%= product.id %>"><i class="far fa-edit"></i></a></div>
                     </td>
                 </tr>
+
                 <% }) %>
         </tbody>
     </table>

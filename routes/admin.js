@@ -51,15 +51,17 @@ router.get('/products/details/:productId', async (req, res) => {
 
 router.get('/products/type/:productType', async (req, res) => {
     const productType = req.params.productType;
+    const companies = await Company.find();
     const products = await Product.find({product_type: productType}).populate('manufacturer').exec();
-    res.render('admin/product/type', { page: productType, products })
+    res.render('admin/product/type', { page: productType, products, companies })
 });
 
 router.get('/products/manufacturer/:manufacturerId', async (req, res) => {
     const manufacturerId = req.params.manufacturerId;
+    const companies = await Company.find();
     const company = await Company.findById(manufacturerId)
     const products = await Product.find({manufacturer: manufacturerId}).populate('manufacturer').exec();
-    res.render('admin/product/manufacturer', { page: company.name, products })
+    res.render('admin/product/manufacturer', { page: company.name, products, companies })
 });
 
 router.get('/products/edit/:productId', async (req, res) => {
@@ -79,6 +81,13 @@ router.patch('/products/edit/:productId', async (req, res) => {
     } catch (error) {
         console.log(error);
     }
+});
+
+
+router.delete('/products/delete/:productId', async (req, res) => {
+        const productToDelete = req.params.productId;
+        await Product.findByIdAndDelete(productToDelete);
+        res.redirect(`/admin/products`)
 });
 
 

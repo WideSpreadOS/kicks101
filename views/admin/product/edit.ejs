@@ -113,6 +113,48 @@
     .item-card-button {
         margin: 0 auto;
     }
+
+    /* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: absolute; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  transition: ease-in 1s;
+}
+
+/* Modal Content */
+.modal-content {
+    margin: auto;
+    position: relative;
+}
+.modal-options {
+    background: #ecf0f3;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-evenly;
+}
+/* The Close Button */
+.close {
+  font-family: 'Rock Salt', cursive;
+  font-size: 1.2rem;
+  color: lightskyblue;
+  background: #ecf0f3;
+}
+
+.close:hover,
+.close:focus {
+  color: #888;
+  text-decoration: none;
+  cursor: pointer;
+}
 </style>
 
 <%- include('../../partials/menus/admin-nav.ejs'); %>
@@ -130,7 +172,7 @@
         <div class="input-form-title">
             <h5>Edit Product</h5>
         </div>
-        <form action="/admin/products/add" method="post">
+        <form action="/admin/products/edit?_method=PATCH" method="post">
             <div class="custom-select">
                 <select name="manufacturer" id="manufacturer">
                     <% companies.forEach(function(manufacturer) { %>
@@ -216,8 +258,30 @@
 
 
 
-    <% var product = 'name' %>
+    <div class="delete-button">
+        <button  id="deleteButton">Delete Product</button>
+    
 
+
+    <!-- The Modal -->
+    <div id="deleteModal" class="modal">
+    
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-options">
+                <div class="modal-option">
+                    <span class="close">Cancel</span>
+                </div>
+                <div class="modal-option">
+                    <form action="/admin/products/delete/<%= product.id %>?_method=DELETE" method="post">
+                        <button>Delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    
+    </div>
+    </div>
     <script>
         var x, i, j, l, ll, selElmnt, a, b, c;
         /*look for any elements with the class "custom-select":*/
@@ -304,4 +368,32 @@
         console.log(test.length)
         test.getElementById()
         console.log(test)
+    </script>
+
+    <script>
+        // Get the modal
+        let modal = document.getElementById("deleteModal");
+
+        // Get the button that opens the modal
+        let btn = document.getElementById("deleteButton");
+
+        // Get the <span> element that closes the modal
+        let span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks the button, open the modal 
+        btn.onclick = function () {
+            modal.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
     </script>
