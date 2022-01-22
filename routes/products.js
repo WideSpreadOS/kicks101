@@ -13,7 +13,7 @@ const Company = require('../models/Company');
 
 // Welcome Page
 router.get('/', async (req, res) => {
-    const products = await Product.find();
+    const products = await Product.find().populate('manufacturer').exec();
     res.render('products/home', { page: 'Home', products });
 });
 
