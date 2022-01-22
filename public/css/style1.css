@@ -546,17 +546,40 @@ input, textarea {
     border-radius: 8px;
     width: 90%;
     margin: 0 auto;
-    padding: 10px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    margin-bottom: 10px;
 }
-.product-filter-header {
-    border-bottom: solid 1px red;
-}
+
 .product-filter-header h5{
     text-align: center;
     font-family: 'Rock Salt', cursive;
     color: lightskyblue;
 }
 
+
+.filter-options-header {
+    margin-top: 15px;
+    font-weight: bold;
+
+}
+.filter-options-header h6 {
+    text-align: center;
+}
+.filter-options {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+.filter-option {
+    padding: 5px;
+}
+.filter-option a {
+    color: #888;
+    text-decoration: none;
+}
 
 /* ADMIN PAGES */
 
