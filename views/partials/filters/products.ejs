@@ -1,0 +1,24 @@
+<div class="product-filter-container">
+    <div class="product-filter-header">
+        <h5>Filter Products</h5>
+    </div>
+    <div class="filter-options-header">
+        <h6>Product Type</h6>
+    </div>
+    <div class="filter-options">
+        <div class="filter-option"><a href="/products/type/Sneaker">Sneakers</a></div>
+        <div class="filter-option"><a href="/products/type/Outerwear">Outerwear</a></div>
+        <div class="filter-option"><a href="/products/type/T-Shirt">T-Shirts</a></div>
+        <div class="filter-option"><a href="/products/type/Accessory">Accessories</a></div>
+    </div>
+    <div class="filter-options-header">
+        <h6>Manufacturer</h6>
+    </div>
+    <div class="filter-options">
+        <% companies.forEach(function(manufacturer) { %>
+            <div class="filter-option"><a href="/products/manufacturer/<%= manufacturer.id %>">
+                    <%= manufacturer.name %>
+                </a></div>
+            <% }) %>
+    </div>
+</div>

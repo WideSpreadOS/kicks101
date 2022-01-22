@@ -14,19 +14,40 @@ const Company = require('../models/Company');
 // Welcome Page
 router.get('/', async (req, res) => {
     const products = await Product.find().populate('manufacturer').exec();
-    res.render('products/home', { page: 'Products', products });
+    const companies = await Company.find()
+    res.render('products/home', { page: 'Products', products, companies });
 });
 
 // Company Page
-router.get('/:companyId', async (req, res) => {
+router.get('/manufacturer/:companyId', async (req, res) => {
     const companyId = req.params.companyId;
     const company = await Company.findById(companyId)
-    const products = await Product.find({'manufacturer': {$eq: companyId}});
-    res.render('products/company', { page: company.name, company, products });
+    const companies = await Company.find()
+    const products = await Product.find({ 'manufacturer': { $eq: companyId } }).populate('manufacturer').exec();
+    res.render('products/company', { page: company.name, company, companies, products });
+});
+
+// Type of Product Page
+router.get('/type/:productType', async (req, res) => {
+    const productType = req.params.productType;
+    const companies = await Company.find()
+    const products = await Product.find({'product_type': productType}).populate('manufacturer').exec();
+    res.render('products/company', { page: productType, companies, products });
+});
+
+
+// Type of Product from Company Page
+router.get('/manufacturer/:manufacturerId/type/:productType', async (req, res) => {
+    const manufacturerId = req.params.manufacturerId;
+    const productType = req.params.productType;
+    const companies = await Company.find()
+    const company = await Company.findById(manufacturerId)
+    const products = await Product.find({'product_type': productType, 'manufacturer': manufacturerId}).populate('manufacturer').exec();
+    res.render('products/company', { page: productType, company, companies, products });
 });
 
 // Single Product Page
-router.get('/:companyId/:productId', async (req, res) => {
+router.get('/manufacturer/:companyId/product/:productId', async (req, res) => {
     const companyId = req.params.companyId;
     const productId = req.params.productId;
     const product = await Product.findById(productId).populate('manufacturer').exec();

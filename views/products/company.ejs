@@ -9,43 +9,50 @@
         <a href="/products"><i class="fas fa-long-arrow-alt-left"></i>  Back to All Products</a>
     </div>
 <div class="item-card-container">
-    <% products.forEach(function(product) { %>
-        <div class="item-card">
+    <% if(products.length===0) { %>
+            <p style="margin-bottom: 30px;">Sorry, we couldn't find any products.</p>
+            <%- include('../partials/filters/products.ejs'); %>
 
-            <div class="item-card-body">
-                <div class="item-card-data">
-                    <div class="item-card-data-header">
-                        <h3>
-                            <%= product.manufacturer.name %>
-                        </h3>
-                    </div>
-                    <div class="item-card-data-subheader">
-                        <h5>
-                            <%= product.name %>
-                        </h5>
-                    </div>
+        <% } else { %>
+            <% products.forEach(function(product) { %>
+                <div class="item-card">
 
-                </div>
-
-                <div class="item-card-main-image">
-                    <img src="<%= product.main_image %>" alt="">
-                </div>
-                <div class="item-card-price">
-                    <div class="item-card-data-price">
-                        <span id="product_<%= product.id %>">$<%= product.price.base %></span>
-                    </div>
-                    <div class="item-card-buttons">
-
-                        <div class="item-card-button">
-                            <a href="/products/<%= product.manufacturer.id %>/<%= product.id %>"><i
-                                    class="far fa-eye"></i></a>
+                <div class="item-card-body">
+                    <div class="item-card-data">
+                        <div class="item-card-data-header">
+                            <h3>
+                                <%= product.manufacturer.name %>
+                            </h3>
                         </div>
-                        <div class="item-card-button">
-                            <button><i class="fas fa-cart-plus"></i></button>
+                        <div class="item-card-data-subheader">
+                            <h5>
+                                <%= product.name %>
+                            </h5>
+                        </div>
+
+                    </div>
+
+                    <div class="item-card-main-image">
+                        <img src="<%= product.main_image %>" alt="">
+                    </div>
+                    <div class="item-card-price">
+                        <div class="item-card-data-price">
+                            <span id="product_<%= product.id %>">$<%= product.price.base %></span>
+                        </div>
+                        <div class="item-card-buttons">
+
+                            <div class="item-card-button">
+                                <a href="/products/manufacturer/<%= product.manufacturer.id %>/product/<%= product.id %>"><i
+                                        class="far fa-eye"></i></a>
+                            </div>
+                            <div class="item-card-button">
+                                <button><i class="fas fa-cart-plus"></i></button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <% }) %>
+            <% }) %>
+        <% } %>
+
 </div>
