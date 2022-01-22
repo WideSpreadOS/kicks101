@@ -20,6 +20,7 @@
   width: 70%;
   margin: 0 auto;
   border-radius: 8px;
+  font-family: 'Poiret One', cursive;
 }
 
 /*style the arrow inside the select element:*/
@@ -53,7 +54,7 @@
 .select-items {
     position: absolute;
     background-color: #ecf0f3;
-    backdrop-filter: blur(4px);
+    font-family: 'Poiret One', cursive;
   box-shadow: 4px 4px 6px #cbced1, -4px -4px 6px #ffffff;
   top: 45px;
   left: 5%;
@@ -87,7 +88,15 @@
     border-radius: 0;
 }
 
-
+.admin-table {
+    margin-bottom: 60px;
+}
+.admin-table td:nth-child(1), .admin-table td:nth-child(3), .admin-table td:nth-child(4) {
+    text-align: center;
+}
+.item-card-button {
+    margin: 0 auto;
+}
 </style>
 
 <%- include('../../partials/menus/admin-nav.ejs'); %>
@@ -104,7 +113,7 @@
     <div class="input-form-title">
         <h5>Add New Product</h5>
     </div>
-    <form action="/test/products/add" method="post">
+    <form action="/admin/products/add" method="post">
         <div class="custom-select">
             <select name="manufacturer" id="manufacturer">
                 <% companies.forEach(function(manufacturer) { %>
@@ -147,7 +156,7 @@
 
         <div class="radio-group">
             <label for="graphics">Graphics on Product?</label>
-            <input type="radio" name="graphics" id="graphics">
+            <input type="checkbox" name="graphics" id="graphics" value="true">
         </div>
 
         <div class="gender-selection">
@@ -205,12 +214,10 @@
                         </p>
                     </td>
                     <td>
-                        <div class="item-card-button"><a href="/admin/products/<%= product.id %>/details"><i
-                                    class="far fa-eye"></i></a></div>
+                        <div class="item-card-button"><a href="/admin/products/<%= product.id %>"><i class="far fa-eye"></i></a></div>
                     </td>
                     <td>
-                        <div class="item-card-button"><a href="/admin/products/edit/<%= product.id %>"><i
-                                    class="far fa-edit"></i></a></div>
+                        <div class="item-card-button"><a href="/admin/products/edit/<%= product.id %>"><i class="far fa-edit"></i></a></div>
                     </td>
                 </tr>
                 <% }) %>

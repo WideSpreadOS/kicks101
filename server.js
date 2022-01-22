@@ -62,7 +62,7 @@ const storage = new GridFsStorage({
 const upload = multer({ storage });
 
 // Favicon
-app.use(favicon(path.join(__dirname, 'public', 'logo_1a1a1a.ico')))
+app.use(favicon(path.join(__dirname, 'public', 'kicks101_logo_1a1a1a.ico')))
 
 // Middleware
 app.use(bodyParser.json());

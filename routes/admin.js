@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 
 
 // Models
+const Shoe = require('../models/Shoe');
 const Company = require('../models/Company');
 const Product = require('../models/Product');
 
@@ -40,7 +41,40 @@ router.post('/products/add', (req, res) => {
     const product = new Product(newCompanyData)
     product.save()
     res.redirect('/admin/products');
-})
+});
+
+router.get('/products/:productId', async (req, res) => {
+    const productId = req.params.productId;
+    const product = await Product.findById(productId).populate('manufacturer').exec();
+    res.render('admin/product/details', { product})
+});
+
+router.get('/products/edit/:productId', async (req, res) => {
+    const companies = await Company.find();
+    const productId = req.params.productId;
+    const product = await Product.findById(productId).populate('manufacturer').exec();
+    res.render('admin/product/edit', {  product, companies})
+});
+
+router.patch('/products/edit/:productId', async (req, res) => {
+    try {
+        const productToEdit = req.params.productId;
+        const updates = req.body;
+        const options = { new: true }
+        await Product.findByIdAndUpdate(productToEdit, updates, options);
+        res.redirect(`/admin/products/edit/${productToEdit}`)
+    } catch (error) {
+        console.log(error);
+    }
+});
+
+
+
+
+
+
+
+
 
 
 
