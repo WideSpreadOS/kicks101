@@ -21,6 +21,7 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    _csrf: String,
     saved_password: String,
     mailing_address: {
         primary: { type: mongoose.Schema.Types.ObjectId, ref: 'Address' },

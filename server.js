@@ -81,8 +81,8 @@ app.use(methodOverride('_method'));
 // Express Session
 app.use(session({
     secret: 'secret',
-    resave: true,
-    saveUninitialized: true
+    resave: false,
+    saveUninitialized: false
 }));
 
 // Passport middleware

@@ -2,11 +2,16 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
+const csrf = require('csurf');
 const { ensureAuthenticated } = require('../config/auth');
 require('../config/passport')(passport);
 
-
+// Models
 const User = require('../models/User');
+const Address = require('../models/Address');
+const PaymentMethod = require('../models/PaymentMethod');
+
+
 
 router.get('/login', (req, res) => {
     const currentUser = null
@@ -110,6 +115,39 @@ router.patch('/update-profile', ensureAuthenticated, async (req, res) => {
     await User.findByIdAndUpdate(userId, data);
     res.redirect(req.get('referer'));
 });
+
+router.get('/mailing', ensureAuthenticated, async (req, res) => {
+    const user = req.user;
+    const addresses = await Address.find({address_owner: user.id})
+    res.render('user/mailing', { page: 'Update Your Mailing Addresses', user, addresses })
+});
+
+router.post('/mailing', ensureAuthenticated, (req, res) => {
+    const newMailingAddress = req.body
+    const address = new Address(newMailingAddress)
+    address.save()
+    res.redirect('/user/mailing')
+});
+
+router.patch('/mailing', ensureAuthenticated, (req, res) => {
+    const user = req.user;
+    res.redirect('/user/mailing')
+});
+
+router.delete('/mailing', ensureAuthenticated, (req, res) => {
+    const user = req.user;
+    res.redirect('/user/mailing')
+});
+
+router.get('/payment', ensureAuthenticated, (req, res) => {
+    const user = req.user;
+    res.render('user/payment', { page: 'Update Your Payment Methods', user })
+});
+
+
+
+
+
 
 router.delete('/delete', ensureAuthenticated, async (req, res) => {
     const user = req.user.id;

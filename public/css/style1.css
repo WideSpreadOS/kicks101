@@ -107,6 +107,11 @@ input, textarea {
     color: lightskyblue;
     font-size: 1.5rem;
 }
+.input-form-title h6 {
+    font-family: 'Rock Salt', cursive;
+    color: lightskyblue;
+    font-size: 1.2rem;
+}
 .input-form form {
     display: flex;
     flex-direction: column;
