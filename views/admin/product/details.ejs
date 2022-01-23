@@ -13,10 +13,17 @@
 <div class="go-back-button">
     <a href="/admin/products/type/<%= product.product_type %>"><i class="fas fa-long-arrow-alt-left"></i> Back to <%= product.product_type %> Products</a>
 </div>
-<div class="go-back-button">
-    <a href="/admin/products/edit/<%= product.id %>"><i class="far fa-edit"></i> Edit Product</a>
-</div>
 
+<div class="product-data">
+    <div class="product-data-section">
+        <p>In Stock: <%= product.in_stock %></p>
+        <p>Reorder At: <%= product.reorder_alert %></p>
+        <p>SKU: <%= product.sku %></p>
+    </div>
+    <div class="product-data-section">
+        <p><a target="_blank" href="<%= product.url %>">Order More</a></p>
+    </div>
+</div>
 <div class="item-card-body">
     <div class="item-card-data">
         <div class="item-card-data-header">
@@ -46,6 +53,24 @@
             <% }) %>
     </div>
 
+    <% if (product.available_sizes.length === 0) { %>
+        <span style="display: none;"></span>
+    <% } else { %>
+        <div class="available-sizes-header">
+            <h5>Available Sizes</h5>
+        </div>
+        <div class="item-card-sizes">
+            <% product.available_sizes.forEach(function(size) { %>
+                <% if (size == '') { %>
+                    <span style="display: none;"></span>
+                <% } else { %>
+                    <div class="item-size">
+                        <span><%= size %></span>
+                    </div>
+                <% } %>
+            <% }) %>
+        </div>
+    <% } %>
     <div class="item-card-price">
         <div class="item-card-data-price">
             <span id="product_<%= product.id %>">$<%= product.price.base %></span>
@@ -53,7 +78,7 @@
         <div class="item-card-buttons">
 
             <div class="item-card-button">
-                <button><i class="fas fa-cart-plus"></i></button>
+                <button><a href="/admin/products/edit/<%= product.id %>"><i class="far fa-edit"></i></a></button>
             </div>
         </div>
     </div>

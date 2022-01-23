@@ -36,7 +36,24 @@
                 <img src="<%= image %>" alt="">
             <% }) %>
         </div>
-
+        <% if (product.available_sizes.length===0) { %>
+            <span style="display: none;"></span>
+        <% } else { %>
+            <div class="available-sizes-header">
+                <h5>Available Sizes</h5>
+            </div>
+            <div class="item-card-sizes">
+                <% product.available_sizes.forEach(function(size) { %>
+                    <% if (size=='' ) { %>
+                        <span style="display: none;"></span>
+                    <% } else { %>
+                        <div class="item-size">
+                            <span><%= size %></span>
+                        </div>
+                    <% } %>
+                <% }) %>
+            </div>
+        <% } %>
         <div class="item-card-price">
             <div class="item-card-data-price">
                 <span id="product_<%= product.id %>">$<%= product.price.base %></span>

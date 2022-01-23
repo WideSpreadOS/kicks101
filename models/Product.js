@@ -20,7 +20,7 @@ const productSchema = new mongoose.Schema({
     product_type: String,
     graphics: Boolean,
     gender: [String],
-    available_sizes: [Number],
+    available_sizes: [String],
     url: String,
     rating: Number,
     main_color: String,

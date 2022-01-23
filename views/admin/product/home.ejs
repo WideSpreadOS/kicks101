@@ -25,6 +25,9 @@
   border-radius: 8px;
   font-family: 'Poiret One', cursive;
 }
+.select-selected:active {
+    background-color: #ecf0f3;
+}
 
 /*style the arrow inside the select element:*/
 .select-selected:after {
@@ -177,6 +180,29 @@
             </div>
         </div>
 
+        <label for="available_sizes" style="margin-bottom: 10px;">Available Sizes</label>
+        <div class="input-available_sizes">
+            <div class="input-size"><input type="text" name="available_sizes" placeholder="Size"></div>
+            <div class="input-size"><input type="text" name="available_sizes" placeholder="Size"></div>
+            <div class="input-size"><input type="text" name="available_sizes" placeholder="Size"></div>
+            <div class="input-size"><input type="text" name="available_sizes" placeholder="Size"></div>
+            <div class="input-size"><input type="text" name="available_sizes" placeholder="Size"></div>
+            <div class="input-size"><input type="text" name="available_sizes" placeholder="Size"></div>
+            <div class="input-size"><input type="text" name="available_sizes" placeholder="Size"></div>
+            <div class="input-size"><input type="text" name="available_sizes" placeholder="Size"></div>
+            <div class="input-size"><input type="text" name="available_sizes" placeholder="Size"></div>
+            <div class="input-size"><input type="text" name="available_sizes" placeholder="Size"></div>
+            <div class="input-size"><input type="text" name="available_sizes" placeholder="Size"></div>
+            <div class="input-size"><input type="text" name="available_sizes" placeholder="Size"></div>
+            <div class="input-size"><input type="text" name="available_sizes" placeholder="Size"></div>
+            <div class="input-size"><input type="text" name="available_sizes" placeholder="Size"></div>
+            <div class="input-size"><input type="text" name="available_sizes" placeholder="Size"></div>
+            <div class="input-size"><input type="text" name="available_sizes" placeholder="Size"></div>
+            <div class="input-size"><input type="text" name="available_sizes" placeholder="Size"></div>
+            <div class="input-size"><input type="text" name="available_sizes" placeholder="Size"></div>
+            <div class="input-size"><input type="text" name="available_sizes" placeholder="Size"></div>
+            <div class="input-size"><input type="text" name="available_sizes" placeholder="Size"></div>
+        </div>
         <div class="colors">
             <div class="color">
                 <label for="main_color">Main Color</label>
@@ -189,6 +215,12 @@
         </div>
         <div class="input-group">
             <input type="number" name="price.base" placeholder="Price (Required)">
+        </div>
+        <div class="input-group">
+            <input type="number" name="in_stock" placeholder="How many are in current inventory?">
+        </div>
+        <div class="input-group">
+            <input type="number" name="reorder_alert" placeholder="Lowest quantity until reorder">
         </div>
         <button type="submit">Add Product</button>
     </form>

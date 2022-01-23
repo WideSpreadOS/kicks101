@@ -166,13 +166,16 @@
         </h2>
     </div>
 
+    <div class="go-back-button">
+        <a href="/admin/products/details/<%= product.id %>"><i class="far fa-eye"></i> View Item</a>
+    </div>
 
 
     <div class="input-form">
         <div class="input-form-title">
             <h5>Edit Product</h5>
         </div>
-        <form action="/admin/products/edit?_method=PATCH" method="post">
+        <form action="/admin/products/edit/<%= product.id %>?_method=PATCH" method="post">
             <div class="custom-select">
                 <select name="manufacturer" id="manufacturer">
                     <% companies.forEach(function(manufacturer) { %>
@@ -189,25 +192,34 @@
                 </select>
             </div>
             <div class="input-group">
+                <label for="name">Product Name</label>
                 <input type="text" name="name" placeholder="Name of Product" value="<%= product.name %>">
             </div>
             <div class="input-group">
+                <label for="description">Product Description</label>
                 <textarea name="description" placeholder="Description"><%= product.description %></textarea>
             </div>
             <div class="input-group">
+                <label for="sku">SKU</label>
                 <input type="text" name="sku" placeholder="SKU #" value="<%= product.sku %>">
             </div>
             <div class="input-group">
+                <label for="main_image">Main Image URL</label>
                 <input type="url" name="main_image" placeholder="Main Image URL" value="<%= product.main_image %>">
+                <img src="<%= product.main_image %>" alt="">
             </div>
             <div class="input-group">
+                <label for="images">Other Images</label>
                 <input type="url" name="images" placeholder="Other Image URL" value="<%= product.images[0] %>">
+                <img src="<%= product.images[0] %>" alt="">
             </div>
             <div class="input-group">
                 <input type="url" name="images" placeholder="Other Image URL" value="<%= product.images[1] %>">
+                <img src="<%= product.images[1] %>" alt="">
             </div>
             <div class="input-group">
                 <input type="url" name="images" placeholder="Other Image URL" value="<%= product.images[2] %>">
+                <img src="<%= product.images[2] %>" alt="">
             </div>
             <div class="custom-select">
                 <select name="product_type" id="productType">
@@ -219,6 +231,7 @@
                 </select>
             </div>
             <div class="input-group">
+                <label for="url">Product URL</label>
                 <input type="url" name="url" placeholder="Products Webpage Direct URL" value="<%= product.url %>">
             </div>
 
@@ -238,7 +251,30 @@
                     <input type="checkbox" name="gender" id="female" value="womens">
                 </div>
             </div>
-
+            <label for="available_sizes" style="margin-bottom: 10px;">Available Sizes</label>
+            <div class="input-available-sizes">
+                
+                <div class="input-size"><input type="text" name="available_sizes" placeholder="Size" value="<%= product.available_sizes[0] %>"></div>
+                <div class="input-size"><input type="text" name="available_sizes" placeholder="Size" value="<%= product.available_sizes[1] %>"></div>
+                <div class="input-size"><input type="text" name="available_sizes" placeholder="Size" value="<%= product.available_sizes[2] %>"></div>
+                <div class="input-size"><input type="text" name="available_sizes" placeholder="Size" value="<%= product.available_sizes[3] %>"></div>
+                <div class="input-size"><input type="text" name="available_sizes" placeholder="Size" value="<%= product.available_sizes[4] %>"></div>
+                <div class="input-size"><input type="text" name="available_sizes" placeholder="Size" value="<%= product.available_sizes[5] %>"></div>
+                <div class="input-size"><input type="text" name="available_sizes" placeholder="Size" value="<%= product.available_sizes[6] %>"></div>
+                <div class="input-size"><input type="text" name="available_sizes" placeholder="Size" value="<%= product.available_sizes[7] %>"></div>
+                <div class="input-size"><input type="text" name="available_sizes" placeholder="Size" value="<%= product.available_sizes[8] %>"></div>
+                <div class="input-size"><input type="text" name="available_sizes" placeholder="Size" value="<%= product.available_sizes[9] %>"></div>
+                <div class="input-size"><input type="text" name="available_sizes" placeholder="Size" value="<%= product.available_sizes[10] %>"></div>
+                <div class="input-size"><input type="text" name="available_sizes" placeholder="Size" value="<%= product.available_sizes[11] %>"></div>
+                <div class="input-size"><input type="text" name="available_sizes" placeholder="Size" value="<%= product.available_sizes[12] %>"></div>
+                <div class="input-size"><input type="text" name="available_sizes" placeholder="Size" value="<%= product.available_sizes[13] %>"></div>
+                <div class="input-size"><input type="text" name="available_sizes" placeholder="Size" value="<%= product.available_sizes[14] %>"></div>
+                <div class="input-size"><input type="text" name="available_sizes" placeholder="Size" value="<%= product.available_sizes[15] %>"></div>
+                <div class="input-size"><input type="text" name="available_sizes" placeholder="Size" value="<%= product.available_sizes[16] %>"></div>
+                <div class="input-size"><input type="text" name="available_sizes" placeholder="Size" value="<%= product.available_sizes[17] %>"></div>
+                <div class="input-size"><input type="text" name="available_sizes" placeholder="Size" value="<%= product.available_sizes[18] %>"></div>
+                <div class="input-size"><input type="text" name="available_sizes" placeholder="Size" value="<%= product.available_sizes[19] %>"></div>
+            </div>
             <div class="colors">
                 <div class="color">
                     <label for="main_color">Main Color</label>
@@ -250,9 +286,22 @@
                 </div>
             </div>
             <div class="input-group">
+                <label for="price.base">Price</label>
                 <input type="number" name="price.base" placeholder="Price" value="<%= product.price.base %>">
             </div>
-            <button type="submit" disabled>Update</button>
+            <div class="input-group">
+                <label for="price.discount">Discount</label>
+                <input type="number" name="price.discount" placeholder="Price" value="<%= product.price.base %>">
+            </div>
+            <div class="input-group">
+                <label for="in_stock">In Stock</label>
+                <input type="number" name="in_stock" placeholder="How many are in current inventory?" value="<%= product.in_stock %>">
+            </div>
+            <div class="input-group">
+                <label for="reorder">Reorder At</label>
+                <input type="number" name="reorder_alert" placeholder="Lowest quantity until reorder" value="<%= product.reorder_alert %>">
+            </div>
+            <button type="submit">Update</button>
         </form>
     </div>
 

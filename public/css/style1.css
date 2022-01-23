@@ -130,8 +130,8 @@ input, textarea {
 }
 
 .input-group label {
-    background: red;
     display: block;
+    padding: 5px;
 }
 .input-group input {
     width: 80%;
@@ -140,6 +140,7 @@ input, textarea {
     padding: 5px;
     border-radius: 4px;
     font-family: 'Poiret One', cursive;
+    font-size: 1rem;
     color: lightskyblue;
     transition: ease-in 0.25s;
 }
@@ -148,12 +149,19 @@ input, textarea {
     color: #fff;
     transition: ease-in 0.25s;
 }
+.input-group input::placeholder {
+    color: #333;
+    text-shadow: 0 0 1px #fff;
+    transition: ease-in 0.25s;
+}
 .input-group input:focus::placeholder {
     color: rgba(135, 206, 250, 0.25);
     text-shadow: 0 0 1px #fff;
     transition: ease-in 0.25s;
 }
-
+.input-group input:invalid {
+  background: red;
+}
 .input-group textarea {
     width: 80%;
     background: #ecf0f3;
@@ -162,14 +170,18 @@ input, textarea {
     border-radius: 4px;
     font-family: 'Poiret One', cursive;
     color: lightskyblue;
+    font-size: 1rem;
     transition: ease-in 0.25s;
     resize: none;
-    height: 60px;
+    height: 100px;
 }
 .input-group textarea:focus {
     background: rgba(135, 206, 250, 0.75);
     color: #fff;
     transition: ease-in 0.25s;
+}
+.input-group textarea::placeholder {
+    color: #333;
 }
 .input-group textarea:focus::placeholder {
     color: rgba(135, 206, 250, 0.25);
@@ -177,7 +189,59 @@ input, textarea {
     transition: ease-in 0.25s;
 }
 
-
+.input-group img {
+    width: 25%;
+    border-radius: 8px;
+    margin-top: 12px;
+    box-shadow: 4px 4px 6px #cbced1, -4px -4px 6px #ffffff;
+}
+.input-available-sizes {
+    background: #ecf0f3;
+    width: 80%;
+    margin-bottom: 20px;
+    padding: 5px;
+    border-radius: 8px;
+    box-shadow: 4px 4px 6px #cbced1, -4px -4px 6px #ffffff;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+.input-size {
+    max-width: 20%;
+    text-align: center;
+    padding: 5px;
+}
+.input-size input {
+    background: #ecf0f3;
+    box-shadow: -4px -4px 6px #cbced1, 4px 4px 6px #ffffff;
+    max-width: 85%;
+    padding: 5px;
+    border-radius: 4px;
+    font-family: 'Poiret One', cursive;
+    font-size: 1rem;
+    color: lightskyblue;
+    transition: ease-in 0.25s;
+}
+.input-size input:focus {
+    background: rgba(135, 206, 250, 0.75);
+    color: #fff;
+    transition: ease-in 0.25s;
+}
+.input-size input::placeholder {
+    color: #333;
+    text-shadow: 0 0 1px #fff;
+    transition: ease-in 0.25s;
+}
+.input-size input:focus::placeholder {
+    color: rgba(135, 206, 250, 0.25);
+    text-shadow: 0 0 1px #fff;
+    transition: ease-in 0.25s;
+}
+.input-size input:invalid {
+  background: red;
+}
 .capitalize {
     text-transform: capitalize;
 }
@@ -459,6 +523,37 @@ input, textarea {
     border-radius: 8px;
     box-shadow: 4px 4px 6px #cbced1, -4px -4px 6px #ffffff;
 }
+
+.available-sizes-header {
+    width: 80%;
+    margin: 0 auto;
+}
+.available-sizes-header h5 {
+    text-align: center;
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+}
+.item-card-sizes {
+    width: 80%;
+    margin: 0 auto;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    box-shadow: 4px 4px 6px #cbced1, -4px -4px 6px #ffffff;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.item-size {
+    padding: 8px;
+}
+.item-size span {
+    font-family: 'Rock Salt', cursive;
+    
+    color: lightskyblue;
+    font-size: 1.1rem;
+}
 .item-card-body {
     width: 90%;
     margin: 0 auto;  
@@ -648,4 +743,41 @@ input, textarea {
     width: 75px;
     border-radius: 8px;
     box-shadow: 4px 4px 6px #cbced1, -4px -4px 6px #ffffff;
+}
+
+.product-data {
+    background: #ecf0f3;
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 4px 4px 6px #cbced1, -4px -4px 6px #ffffff;   
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
+.product-data-section {
+    width: 45%;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.product-data-section:first-of-type {
+    box-shadow: -4px -4px 6px #cbced1, 4px 4px 6px #ffffff;   
+}
+.product-data-section:last-of-type {
+    box-shadow: 4px 4px 6px #cbced1, -4px -4px 6px #ffffff;   
+}
+.product-data p {
+    padding: 5px;
+}
+.product-data a {
+    color: lightskyblue;
+    text-decoration: none;
+
 }
