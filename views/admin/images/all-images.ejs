@@ -1,0 +1,24 @@
+<style>
+
+</style>
+
+<div class="page-title">
+    <h1><%= page %></h1>
+</div>
+
+<div class="images-container">
+    <% files.forEach(function(image) { %>
+        <div class="image-container">
+            <img src="/image/<%= image.filename %>" alt="">
+            <div class="image-data">
+                <p>Image Data Here</p>
+                <%= image.id %>
+            </div>
+            <div class="delete-image-button">
+                <form action="/delete-image/">
+                    <button type="submit">Delete</button>
+                </form>
+            </div>
+        </div>
+    <% }) %>
+</div>

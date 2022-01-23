@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 
 // Models
 const Product = require('../models/Product');
+const ProductImage = require('../models/ProductImage');
 const Company = require('../models/Company');
 
 

@@ -170,6 +170,23 @@
         <a href="/admin/products/details/<%= product.id %>"><i class="far fa-eye"></i> View Item</a>
     </div>
 
+    <div class="input-form-image">
+        <form action="/upload-product-main-image" method="post" enctype="multipart/form-data">
+            <div class="open-image">
+
+                <div class="fileUpload btn btn-primary">
+                    <button type="submit" class="custom-file-profile-image-button">Open</button>
+                    <input id="uploadBtn" type="file" name="image" class="upload" />
+                </div>
+                <input id="uploadFile" placeholder="Choose Product Image" disabled="disabled" />
+            </div>
+
+            <div class="add-image">
+                <button type="submit" disabled>Add</button>
+            </div>
+            
+        </form>
+    </div>
 
     <div class="input-form">
         <div class="input-form-title">
@@ -446,3 +463,10 @@
             }
         }
     </script>
+
+
+<script>
+    document.getElementById("uploadBtn").onchange = function () {
+            document.getElementById("uploadFile").value = this.value;
+        };
+</script>

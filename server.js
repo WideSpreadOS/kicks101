@@ -16,9 +16,13 @@ const crypto = require('crypto');
 const favicon = require('serve-favicon');
 const cookieParser = require('cookie-parser');
 const path = require('path');
+const fs = require('fs')
 
 // DB Config
 const db = require('./config/keys').MongoURI;
+const Product = require('./models/Product');
+const ProductImage = require('./models/ProductImage');
+//const CompanyImage = require('./models/CompanyImage');
 
 // Connect to MongoDB
 mongoose.connect(db, {
@@ -27,7 +31,7 @@ mongoose.connect(db, {
     })
     .then(() => console.log('MongoDB Connected...'))
     .catch(err => console.log(err));
-
+/* 
 // Multer
 let gfs;
 
@@ -48,7 +52,7 @@ const storage = new GridFsStorage({
                 if (err) {
                     return reject(err);
                 }
-                const filename = req.user.lname + '-' + req.user.fname + '_' + req.user._id + '_' + buf.toString('hex') + path.extname(file.originalname);
+                const filename = buf.toString('hex') + path.extname(file.originalname);
                 const fileInfo = {
                     filename: filename,
                     bucketName: 'uploads'
@@ -60,6 +64,7 @@ const storage = new GridFsStorage({
 });
 
 const upload = multer({ storage });
+ */
 
 // Favicon
 app.use(favicon(path.join(__dirname, 'public', 'kicks101_logo_1a1a1a.ico')))
@@ -114,7 +119,7 @@ app.use('/products/sneakers', require('./routes/sneakers'));
 
 
 /* SITE MANAGMENT */
-
+/* 
 app.get('/files', (req, res) => {
     gfs.files.find().toArray((err, files) => {
         // Check if Files
@@ -126,12 +131,12 @@ app.get('/files', (req, res) => {
 
         // Files do exist
         console.log(files)
-        return res.render('all-images', { files })
+        return res.render('admin/images/all-images', { page: "All Images", files })
     })
 })
 
 app.get('/files/:filename', (req, res) => {
-    gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
+    gfs.files.findOne({ _id: req.params.filename }, (err, file) => {
         // Check if Files
         if (!file || file.lenth === 0) {
             return res.status(404).json({
@@ -140,7 +145,8 @@ app.get('/files/:filename', (req, res) => {
         }
 
         // Files do exist
-        return res.render('single-image-file', { file })
+        gfs.createReadStream({})
+        return res.render('admin/images/single-image-file', { page: "Single Image", file })
     })
 })
 
@@ -170,7 +176,7 @@ app.get('/image/:filename', (req, res) => {
 app.delete('/delete-image/:fileId', (req, res) => {
     const fileId = req.params.fileId;
     console.log(`File ID being deleted: ${fileId}`);
-    gfs.remove({ _id: fileId, root: 'uploads' }, (err, gridStore) => {
+    gfs.remove({ _id: fileId, root: 'uploads' }, (err, gridFSBucket) => {
         if (err) {
             return res.status(404).json({ err: err });
         } else {
@@ -179,7 +185,39 @@ app.delete('/delete-image/:fileId', (req, res) => {
     });
 });
 
+app.post('/upload-product-main-image', upload.single('image'), (req, res) => {
+    for_product = req.body.for_product;
+    const obj = {
+        for_product: for_product,
+        img: {
+            data: req.file.filename,
+            contentType: 'image/png'
+        }
+    }
+    ProductImage.create(obj, (err, item) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            item.save();
+            console.log(`Image Owner: ${for_product} Image Data: ${req.file}`);
+            Product.findByIdAndUpdate(for_product,
+                { $push: { images: req.file.id } },
+                { safe: true, upsert: true },
+                function (err, doc) {
+                    if (err) {
+                        console.log(err)
+                    } else {
+                        return
+                    }
+                }
+            )
+            res.redirect(req.get('referer'));
+        }
+    })
+});
 
+ */
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, console.log(`Server started on ${PORT}`))
