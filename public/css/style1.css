@@ -587,7 +587,7 @@ input, textarea {
     width: 300px;
     background: #ecf0f3;
     box-shadow: 4px 4px 6px #cbced1, -4px -4px 6px #ffffff;
-    border-radius: 12px;
+    border-radius: 16px;
     padding-top: 15px;
     margin-bottom: 30px;
     display: flex;
