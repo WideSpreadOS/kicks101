@@ -4,7 +4,8 @@ const mongoose = require('mongoose');
 
 
 // Models
-const Shoe = require('../models/Shoe');
+const User = require('../models/User');
+const Address = require('../models/Address');
 const Company = require('../models/Company');
 const Product = require('../models/Product');
 
@@ -94,6 +95,20 @@ router.delete('/products/delete/:productId', async (req, res) => {
 
 
 
+/* User Info Routes */
+
+router.get('/users', async (req, res) => {
+    const users = await User.find();
+    res.render('admin/users/home', { page: "All Users", users })
+});
+
+
+router.get('/users/details/:userId', async (req, res) => {
+    const userId = req.params.userId;
+    const userAddresses = await Address.find({address_owner: userId})
+    const user = await User.findById(userId);
+    res.render('admin/users/single-user', { page: (user.fname + " " + user.lname), user, userAddresses })
+});
 
 
 
