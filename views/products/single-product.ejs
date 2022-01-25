@@ -29,6 +29,7 @@
     .indicator {
         position: relative;
         border-radius: 50%;
+        margin-bottom: 10px;
         height: 30px;
         width: 30px;
         box-shadow: -8px -4px 8px 0px #fff, 8px 4px 12px 0px #d1d0e6;
@@ -177,11 +178,7 @@
     let cartUrl = cartAnchor.getAttribute('href')
     function getRating(el) {
 
-        console.log(cartUrl)
-        //cartUrl.append('/'+ el.value)
         const newUrl = cartUrl.value = cartUrl + '/' + el.value
-        console.log(el.value);
-        console.log(newUrl);
         cartUrl['href'] = newUrl
         let newAnchor = document.createElement('a');
         newAnchor.setAttribute('href', newUrl);

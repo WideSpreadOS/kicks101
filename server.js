@@ -115,6 +115,7 @@ app.use('/', require('./routes/index'));
 app.use('/test', require('./routes/test'));
 app.use('/admin', require('./routes/admin'));
 app.use('/user', require('./routes/user'));
+app.use('/search', require('./routes/search'));
 app.use('/cart', require('./routes/cart'));
 app.use('/products', require('./routes/products'));
 app.use('/products/sneakers', require('./routes/sneakers'));

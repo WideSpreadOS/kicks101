@@ -586,7 +586,7 @@ input, textarea {
 .item-card {
     width: 300px;
     background: #ecf0f3;
-    box-shadow: 4px 4px 6px #cbced1, -4px -4px 6px #ffffff;
+    box-shadow: 4px 4px 4px 0px #d1d9e6, -4px -4px 4px 0px #fff;
     border-radius: 16px;
     padding-top: 15px;
     margin-bottom: 30px;
@@ -601,12 +601,13 @@ input, textarea {
     margin-bottom: 10px;
     overflow: hidden;
     box-shadow: 4px 4px 6px #cbced1, -4px -4px 6px #ffffff;
-    border-radius: 8px;
+    border-radius: 16px;
 }
 .item-card-main-image img {
     min-width: 100%;
     max-width: 100%;
-    border-radius: 8px;
+    box-shadow: 4px 4px 4px 0px #d1d9e6, -4px -4px 4px 0px #fff;
+    border-radius: 16px;
 }
 
 .item-card-images {
@@ -620,14 +621,16 @@ input, textarea {
     margin: 0 auto;
     margin-top: 20px;
     margin-bottom: 20px;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 4px 4px 6px #cbced1, -4px -4px 6px #ffffff;
+    box-shadow: 4px 4px 4px 0px #d1d9e6 inset, -4px -4px 4px 0px #fff inset;
+    border-radius: 16px;
+    padding: 20px;
+
 }
 .item-card-images img {
     width: 25%;
     border-radius: 8px;
-    box-shadow: 4px 4px 6px #cbced1, -4px -4px 6px #ffffff;
+    box-shadow: 4px 4px 4px 0px #d1d9e6, -4px -4px 4px 0px #fff;
+    border-radius: 8px;
 }
 
 .available-sizes-header {
@@ -665,9 +668,10 @@ input, textarea {
     margin: 0 auto;  
     margin-top: 15px;
     margin-bottom: 15px;
+    padding-bottom: 15px;
     background: #ecf0f3;
-    box-shadow: -4px -4px 6px #cbced1, 4px 4px 6px #ffffff;
-    border-radius: 8px;   
+    box-shadow: 4px 4px 4px 0px #d1d9e6 inset, -4px -4px 4px 0px #fff inset;
+    border-radius: 16px;
 }
 
 .item-card-data {
@@ -746,8 +750,8 @@ input, textarea {
     max-height: 50px;
     min-width: 50px;
     max-width: 50px;
-    box-shadow: 4px 4px 6px #cbced1, -4px -4px 6px #ffffff;
-    border-radius: 10px;
+    box-shadow: 4px 4px 4px 0px #d1d9e6, -4px -4px 4px 0px #fff;
+    border-radius: 16px;
 }
 .item-card-button a {
     text-decoration: none;
