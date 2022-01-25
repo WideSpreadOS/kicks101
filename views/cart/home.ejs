@@ -64,10 +64,13 @@
 
 <div class="page-title">
     <h1>
-        <%= page %>
+        Current Cart
     </h1>
 </div>
 
+<% if (!products) { %>
+    <p style="text-align: center;">Your cart is empty.</p>
+<% } else { %>
 <div class="user-cart-container">
     <% products.forEach(function(item) { %>
         <div class="cart-item">
@@ -105,3 +108,5 @@
         <button type="submit" disabled>Checkout</button>
     </form>
 </div>
+
+<% } %>
