@@ -708,8 +708,10 @@ input, textarea {
     flex-direction: row;
     flex-wrap: nowrap;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-evenly;
     text-align: center;
+    width: 90%;
+    margin: 0 auto;
 }
 
 .item-card-buttons {
@@ -717,7 +719,7 @@ input, textarea {
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: flex-end;
     width: 140px;
     max-width: 140px;
     margin-top: 15px;

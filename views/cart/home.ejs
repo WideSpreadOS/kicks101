@@ -1,0 +1,107 @@
+<style>
+    .user-cart-container {
+        width: 80%;
+        background: #ecf0f3;
+        box-shadow: 4px 4px 6px #cbced1, -4px -4px 6px #ffffff;
+        border-radius: 8px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding-top: 20px;
+    }
+    .cart-item {
+        width: 80%;
+        background: #ecf0f3;
+        box-shadow: 4px 4px 6px #cbced1, -4px -4px 6px #ffffff;
+        border-radius: 8px;
+        padding: 10px;  
+        margin-bottom: 20px;   
+    }
+
+    .remove-item {
+        margin-top: 10px;
+        text-align: right;
+    }
+    .remove-item a {
+        color: red;
+        text-decoration: none;
+        padding: 10px;
+        font-size: 1.1rem;
+        font-weight: bold;
+    }
+    .cart-total-items {
+        padding: 20px;
+    }
+
+    .cart-pricing-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        margin-top: 10px;
+    }
+    .total-price {
+        font-size: 1.3rem;
+    }
+    .checkout-container {
+        text-align: center;
+    }
+    .checkout-container button {
+        background: #ecf0f3;
+        box-shadow: 4px 4px 6px #cbced1, -4px -4px 6px #ffffff;
+        border-radius: 8px;
+        color: green;
+        font-family: 'Rock Salt', cursive;
+        font-size: 1.5rem;
+        border: none;
+        outline: none;
+        padding: 10px;
+    }
+</style>
+
+<div class="page-title">
+    <h1>
+        <%= page %>
+    </h1>
+</div>
+
+<div class="user-cart-container">
+    <% products.forEach(function(item) { %>
+        <div class="cart-item">
+            <p>Price: $<%= item.price %>.00</p>
+            <p>Quantity: <%= item.qty %></p>
+
+            <div class="cart-item-actions">
+                <div class="edit-quantity">
+                    Change Quantity
+                </div>
+                <div class="remove-item">
+                    <a href="">Remove Item</a>
+                </div>
+            </div>
+        </div>
+    <% }) %>
+    <div class="cart-total-items">
+        <p>Total Items: <%= totalQty %></p>
+    </div>
+</div>
+
+
+<div class="cart-pricing-container">
+    <div class="tax-container">
+        <p>Tax: 0.06%</p>
+    </div>
+    <div class="total-price">
+        <p>Total Price: $<%= totalPrice %>.00</p>
+    </div>
+</div>
+
+
+<div class="checkout-container">
+    <form action="/cart/checkout">
+        <button type="submit" disabled>Checkout</button>
+    </form>
+</div>

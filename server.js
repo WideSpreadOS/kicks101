@@ -17,11 +17,12 @@ const favicon = require('serve-favicon');
 const cookieParser = require('cookie-parser');
 const path = require('path');
 const fs = require('fs')
-
+const mongoStore = require('connect-mongo').default;
 // DB Config
 const db = require('./config/keys').MongoURI;
 const Product = require('./models/Product');
 const ProductImage = require('./models/ProductImage');
+const MongoStore = require('connect-mongo');
 //const CompanyImage = require('./models/CompanyImage');
 
 // Connect to MongoDB
@@ -87,7 +88,9 @@ app.use(methodOverride('_method'));
 app.use(session({
     secret: 'secret',
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    store: MongoStore.create({ mongoUrl: db }),
+    cookie: { maxAge: 180 * 60 * 1000 }
 }));
 
 // Passport middleware
@@ -102,6 +105,7 @@ app.use((req, res, next) => {
     res.locals.success_msg = req.flash('success_msg');
     res.locals.error_msg = req.flash('error_msg');
     res.locals.error = req.flash('error');
+    res.locals.session = req.session;
     next();
 });
 
@@ -111,6 +115,7 @@ app.use('/', require('./routes/index'));
 app.use('/test', require('./routes/test'));
 app.use('/admin', require('./routes/admin'));
 app.use('/user', require('./routes/user'));
+app.use('/cart', require('./routes/cart'));
 app.use('/products', require('./routes/products'));
 app.use('/products/sneakers', require('./routes/sneakers'));
 

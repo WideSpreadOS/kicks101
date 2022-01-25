@@ -12,10 +12,12 @@
         text-align: center;
     }
     .state {
+
         position: absolute;
+        opacity: 1e-5;
+        
         top: 0;
         right: 0;
-        opacity: 1e-5;
         pointer-events: none;
     }
 
@@ -58,6 +60,42 @@
         text-shadow: 0 0 3px #d1d0e6;
         font-weight: bold;
         transition: ease-in-out .5s;
+    }
+    .item-quantity {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-evenly;
+        width: 40%;
+
+    }
+    .item-quantity input {
+        max-width: 30%;
+        background: #ecf0f3;
+        box-shadow: -4px -4px 6px #cbced1, 4px 4px 6px #ffffff;
+        padding: 5px;
+        border-radius: 4px;
+        font-family: 'Poiret One', cursive;
+        font-size: 1rem;
+        color: lightskyblue;
+        transition: ease-in 0.25s;
+
+    }
+ 
+    .item-quantity input:focus {
+        background: rgba(135, 206, 250, 0.75);
+        color: #fff;
+        transition: ease-in 0.25s;
+    }
+    .item-quantity input::placeholder {
+        color: #333;
+        text-shadow: 0 0 1px #fff;
+        transition: ease-in 0.25s;
+    }
+    .item-quantity input:focus::placeholder {
+        color: rgba(135, 206, 250, 0.25);
+        text-shadow: 0 0 1px #fff;
+        transition: ease-in 0.25s;
     }
 </style>
     <div class="go-back-button">
@@ -105,7 +143,7 @@
                         <span style="display: none;"></span>
                     <% } else { %>
                         <div class="item-size">
-                            <input class="state" type="radio" name="chosen_size" id="<%= size %>" value="<%= size %>">
+                            <input class="state" type="radio" name="chosen_size" id="<%= size %>" value="<%= size %>" onchange="getRating(this)">
                             <label class="label" for="<%= size %>">
                                 <div class="indicator"></div>
                                 <span class="text"><%= size %></span>
@@ -119,11 +157,39 @@
             <div class="item-card-data-price">
                 <span id="product_<%= product.id %>">$<%= product.price.base %></span>
             </div>
+            <div style="display: none;" class="item-quantity">
+                <label for="qunatity">Qty: </label>
+                <input type="number" name="quantity" id="quantity" value="1">
+            </div>
             <div class="item-card-buttons">
 
                 <div class="item-card-button">
-                    <button><i class="fas fa-cart-plus"></i></button>
+                    <a id="cartUrl" href="/cart/add/<%= product.id %>" role="button"><i class="fas fa-cart-plus"></i></a>
                 </div>
             </div>
         </div>
+        </form>
+        </div>
     </div>
+
+<script>
+    let cartAnchor = document.getElementById('cartUrl')
+    let cartUrl = cartAnchor.getAttribute('href')
+    function getRating(el) {
+
+        console.log(cartUrl)
+        //cartUrl.append('/'+ el.value)
+        const newUrl = cartUrl.value = cartUrl + '/' + el.value
+        console.log(el.value);
+        console.log(newUrl);
+        cartUrl['href'] = newUrl
+        let newAnchor = document.createElement('a');
+        newAnchor.setAttribute('href', newUrl);
+        let newIcon = document.createElement('i');
+        newIcon.classList.add('fas');
+        newIcon.classList.add('fa-cart-plus');
+        newAnchor.appendChild(newIcon)
+        cartAnchor.replaceWith(newAnchor)
+    }
+
+</script>
