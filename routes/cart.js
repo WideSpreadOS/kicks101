@@ -26,19 +26,79 @@ router.get('/shopping-cart', async (req, res) => {
 
 router.get(`/add/:productId/:size`, async (req, res, next) => {
     const productId = req.params.productId;
-    const chosenSize = req.params.size;
-    console.log('Chosen Size: ' + chosenSize)
     const cart = new UnregisteredCart(req.session.cart ? req.session.cart : {})
     Product.findById(productId, function(err, product) {
         if (err) {
-            return res.redirect('/')
+            return res.redirect('/products')
         }
-        cart.add(product, product.id);
+        const availableSizes = product.available_sizes;
+
+        const chosenSizeA = req.params.size;
+
+        const size = availableSizes.find(element => {
+            return element === chosenSizeA;
+        });
+
+        //let size = product.available_sizes == chosenSize;
+        console.log(product.available_sizes)
+        cart.add(product, product.id, size);
         req.session.cart = cart;
         console.log(req.session.cart)
-        res.redirect('/products')
+        res.redirect('/cart/shopping-cart')
     })
 })
+router.get(`/remove/:productId/:size`, async (req, res, next) => {
+    const productId = req.params.productId;
+    const cart = new UnregisteredCart(req.session.cart ? req.session.cart : {})
+    Product.findById(productId, function(err, product) {
+        if (err) {
+            return res.redirect('/products')
+        }
+        const availableSizes = product.available_sizes;
+
+        const chosenSizeA = req.params.size;
+
+        const size = availableSizes.find(element => {
+            return element === chosenSizeA;
+        });
+
+        //let size = product.available_sizes == chosenSize;
+        console.log(product.available_sizes)
+        cart.remove(product, product.id, size);
+        req.session.cart = cart;
+        console.log(req.session.cart)
+        res.redirect('/cart/shopping-cart')
+    })
+})
+router.get(`/remove-item/:productId/:size`, async (req, res, next) => {
+    const productId = req.params.productId;
+    const cart = new UnregisteredCart(req.session.cart ? req.session.cart : {})
+    Product.findById(productId, function(err, product) {
+        if (err) {
+            return res.redirect('/products')
+        }
+        const availableSizes = product.available_sizes;
+
+        const chosenSizeA = req.params.size;
+
+        const size = availableSizes.find(element => {
+            return element === chosenSizeA;
+        });
+
+        //let size = product.available_sizes == chosenSize;
+        console.log(product.available_sizes)
+        cart.removeAll(product, product.id, size);
+        req.session.cart = cart;
+        console.log(req.session.cart)
+        res.redirect('/cart/shopping-cart')
+    })
+})
+
+
+router.get('/checkout', async (req, res) => {
+    res.render('cart/checkout', {page: 'Checkout'})
+})
+
 
 // Product Page
 router.get('/products', async (req, res) => {
