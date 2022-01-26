@@ -177,7 +177,7 @@
     </h1>
 </div>
 
-<p style="text-align: center;"><a
+<p style="text-align: center; margin-bottom: 30px; margin-top: 30px;"><a
         style="color: lightskyblue; text-decoration: none; font-size: 1.3rem;" href="/products">Continue Shopping</a>
 </p>
 
@@ -186,7 +186,7 @@
     <div class="input-form-title">
         <h6>Mailing Address</h6>
     </div>
-    <form action="/cart/checkout" method="post">
+    <form action="/cart/checkout-mailing" method="post">
         <div class="input-group"><input type="text" name="street" placeholder="House Number and Street"></div>
         <div class="input-group"><input type="text" name="building_number"
                 placeholder="Building Number (If applicable)"></div>
@@ -254,19 +254,7 @@
         <div class="input-group"><input type="number" name="zip" placeholder="Zip"></div>
         <div class="input-group"><textarea name="special_instructions" id=""
                 placeholder="Special Delivery Instructions"></textarea></div>
-
-    <div class="input-form-title">
-        <h6>Payment</h6>
-    </div>
-        <div class="input-group"><input type="text" name="name_on_card" placeholder="Name on Card"></div>
-        <div class="input-group"><input type="number" name="card_number" placeholder="16-Digit Card Number"></div>
-        <p style="padding: 15px;">Expiration</p>
-        <div class="input-group" style="display: flex; flex-direction: row; flex-wrap: nowrap; justify-content: space-evenly; align-items: center; width: 90%;">
-            <input style="width: 40%; padding: 5px;" type="number" name="exp_month" placeholder="MM">
-            <input style="width: 40%; margin-left: 5px;" type="number" name="exp_year" placeholder="YY">
-        </div>
-        <div class="input-group"><input type="number" name="cvv" placeholder="CVV"></div>
-        <button type="submit">Purchase</button>
+        <button type="submit">Next - Billing</button>
     </form>
 </div>
 

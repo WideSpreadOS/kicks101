@@ -106,7 +106,7 @@ app.use((req, res, next) => {
     res.locals.error_msg = req.flash('error_msg');
     res.locals.error = req.flash('error');
     res.locals.session = req.session;
-    res.locals.user = null
+    res.locals.user = req.user || null
     next();
 });
 

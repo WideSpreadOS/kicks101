@@ -133,10 +133,10 @@
     </h1>
 </div>
 
-<%- include('../partials/filters/products.ejs'); %>
 
 <% if (!products) { %>
     <p style="text-align: center;">Your cart is empty.</p>
+    <a style="color: lightskyblue; text-decoration: none; text-align: center; font-size: 1.5rem; margin-top: 20px;" href="/products">Continue Shopping</a>
 <% } else { %>
 <div class="user-cart-container">
     <% products.forEach(function(item) { %>
@@ -190,7 +190,7 @@
     
     <div class="checkout-container">
         <a style="color: lightskyblue;" href="/products">Browse</a>
-        <a href="/cart/checkout-mailing">Checkout</a>
+        <a href="/cart/checkout">Checkout</a>
 </div>
         <% } %>
             </div>
