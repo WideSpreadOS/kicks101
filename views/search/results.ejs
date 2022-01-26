@@ -1,7 +1,13 @@
 <style>
 
 </style>
-
+    <div class="page-title">
+        <h1>
+            <%= page %>
+        </h1>
+    </div>
+    
+<%- include('../partials/filters/products.ejs'); %>
 <div class="item-card-container">
     <% if(products.length===0) { %>
         <p style="margin-bottom: 30px;">Sorry, we couldn't find any products.</p>

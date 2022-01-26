@@ -19,7 +19,7 @@ router.post('/', (req, res) => {
 
 router.get('/:query', async (req, res, next) => {
     const query = req.params.query
-
+    const companies = await Company.find()
     Product.find({ "name": { "$regex": query, "$options": "i" } },
     
         async function (err, products) {
@@ -27,7 +27,7 @@ router.get('/:query', async (req, res, next) => {
                    await doc.populate('manufacturer');
                     console.log(doc)
                 }
-                res.render('search/results', { page: query, products})
+                res.render('search/results', { page: query, companies, products})
         });
 
 })
