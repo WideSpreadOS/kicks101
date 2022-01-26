@@ -169,6 +169,21 @@
         color: #fff;
         border-radius: 0;
     }
+    #paymentForm {
+        min-height: fit-content;
+    }
+    .stripe-container {
+        width: 90%;
+        background-color: #ecf0f3;
+        font-family: 'Poiret One', cursive;
+        box-shadow: 4px 4px 4px 0px #d1d9e6, -4px -4px 4px 0px #fff;
+        padding: 5px;
+        min-height: 110%;
+        margin: 0 auto;
+        margin-top: 30px;
+        border-radius: 16px;
+        padding-bottom: 50px;
+    }
 </style>
 
 <div class="page-title">
@@ -181,17 +196,16 @@
         style="color: lightskyblue; text-decoration: none; font-size: 1.3rem;" href="/products">Continue Shopping</a>
 </p>
 
-
-<div class="input-form">
+<div class="stripe-container">
+    <!-- Display a payment form -->
+    <form id="payment-form">
     <div class="input-form-title">
         <h6>Mailing Address</h6>
     </div>
-    <form action="/cart/checkout" method="post">
         <div class="input-group"><input type="text" name="street" placeholder="House Number and Street"></div>
-        <div class="input-group"><input type="text" name="building_number"
-                placeholder="Building Number (If applicable)"></div>
-        <div class="input-group"><input type="text" name="apartment_number"
-                placeholder="Apartment Number (If applicable)"></div>
+        <div class="input-group"><input type="text" name="building_number" placeholder="Building Number (If applicable)"></div>
+        <div class="input-group"><input type="text" name="apartment_number" placeholder="Apartment Number (If applicable)">
+        </div>
         <div class="input-group"><input type="text" name="city" placeholder="City"></div>
         <div class="custom-select">
             <select name="state" id="state">
@@ -248,27 +262,24 @@
                 <option value="WI">Wisconsin</option>
                 <option value="WY">Wyoming</option>
             </select>
-
+        
         </div>
         <div class="input-group"><input type="text" name="country" placeholder="Country"></div>
         <div class="input-group"><input type="number" name="zip" placeholder="Zip"></div>
         <div class="input-group"><textarea name="special_instructions" id=""
                 placeholder="Special Delivery Instructions"></textarea></div>
 
-    <div class="input-form-title">
-        <h6>Payment</h6>
-    </div>
-        <div class="input-group"><input type="text" name="name_on_card" placeholder="Name on Card"></div>
-        <div class="input-group"><input type="number" name="card_number" placeholder="16-Digit Card Number"></div>
-        <p style="padding: 15px;">Expiration</p>
-        <div class="input-group" style="display: flex; flex-direction: row; flex-wrap: nowrap; justify-content: space-evenly; align-items: center; width: 90%;">
-            <input style="width: 40%; padding: 5px;" type="number" name="exp_month" placeholder="MM">
-            <input style="width: 40%; margin-left: 5px;" type="number" name="exp_year" placeholder="YY">
+        <div id="payment-element">
+            <!--Stripe.js injects the Payment Element-->
         </div>
-        <div class="input-group"><input type="number" name="cvv" placeholder="CVV"></div>
-        <button type="submit">Purchase</button>
+        <button id="submit">
+            <div class="spinner hidden" id="spinner"></div>
+            <span id="button-text" style="width: 100%;">Pay now</span>
+        </button>
+        <div id="payment-message" class="hidden"></div>
     </form>
 </div>
+
 
 
 
@@ -352,3 +363,4 @@
     then close all select boxes:*/
     document.addEventListener("click", closeAllSelect);
 </script>
+
