@@ -106,6 +106,7 @@ app.use((req, res, next) => {
     res.locals.error_msg = req.flash('error_msg');
     res.locals.error = req.flash('error');
     res.locals.session = req.session;
+    res.locals.user = null
     next();
 });
 
@@ -115,6 +116,7 @@ app.use('/', require('./routes/index'));
 app.use('/test', require('./routes/test'));
 app.use('/admin', require('./routes/admin'));
 app.use('/user', require('./routes/user'));
+app.use('/raffle', require('./routes/raffle'));
 app.use('/search', require('./routes/search'));
 app.use('/cart', require('./routes/cart'));
 app.use('/products', require('./routes/products'));

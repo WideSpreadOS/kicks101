@@ -1,0 +1,30 @@
+<style>
+       .ticket {
+        box-shadow: 4px 4px 6px #d1d9e6, -4px -4px 6px #ffffff;
+        border-radius: 8px;
+        margin: 0 auto;
+        margin-bottom: 15px;
+        width: 80%;
+        padding: 10px;
+        font-size: 1.3rem;
+    }
+
+</style>
+
+<div class="page-title">
+    <h1><%= page %></h1>
+</div>
+
+<div class="current-raffle-tickets">
+    <ol>
+        <% tickets.forEach(function(ticket) { %>
+            <div class="ticket">
+                <li>
+                    <p><%= ticket.ticket_holder.fname %> <%= ticket.ticket_holder.lname %></p>
+                    <p><%= ticket.id %></p>
+                </li>
+            </div>
+        <% }) %>
+    </ol>
+
+</div>

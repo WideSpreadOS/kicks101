@@ -3,10 +3,14 @@ const router = express.Router();
 
 const mongoose = require('mongoose');
 
+const RaffleTicket = require('../models/RaffleTicket');
+
 // Welcome Page
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
     let currentUser = null
-    res.render('landing', { page: 'Home' });
+    const allTickets = await RaffleTicket.find()
+    const ticketsLeft = (100 - allTickets.length)
+    res.render('landing', { page: 'Home', ticketsLeft });
 });
 
 router.get('/about', (req, res) => {

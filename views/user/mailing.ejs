@@ -3,15 +3,21 @@
     .current-addresses-container {
         width: 80%;
         background: #ecf0f3;
-        box-shadow: 4px 4px 6px #cbced1, -4px -4px 6px #ffffff;
-        border-radius: 8px;
+        box-shadow: 4px 4px 4px 0px #d1d9e6, -4px -4px 4px 0px #fff;
+        border-radius: 16px;
         margin: 0 auto;
         margin-bottom: 30px;
+        padding-top: 20px;
     }
     .address-container {
+        width: 90%;
+        margin: 0 auto;
+        margin-bottom: 20px;
         display: flex;
         flex-direction: column;
-
+        background: #ecf0f3;
+        box-shadow: 4px 4px 4px 0px #d1d9e6, -4px -4px 4px 0px #fff;
+        border-radius: 16px;
     }
     .address {
         padding: 8px;
@@ -169,7 +175,9 @@
     </h1>
 </div>
 
-
+<div class="go-back-button">
+    <a href="/user/dashboard">Back to Dashboard</a>
+</div>
 <div class="current-addresses-container">
     <% if (addresses.length === 0) { %>
         <p style="padding: 15px;">You don't have any saved addresses yet.</p>

@@ -322,8 +322,13 @@
 
 
         <div class="user-menu-buttons">
-                <a href="/user/login">Login</a>
-                <a href="/user/logout">Logout</a>
+                <% if (!user) { %>
+                    <a href="/user/login">Login</a>
+                    <% } else { %>
+                    <a href="/user/logout">Logout</a>
+                    <a href="/user/dashboard"><i style="font-size: 1.5rem;" class="far fa-user-circle"></i></a>
+                <% } %>
+
                 <a href="/cart/shopping-cart">Cart</a>
         </div>
     </div>

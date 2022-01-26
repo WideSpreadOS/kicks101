@@ -8,6 +8,7 @@ const User = require('../models/User');
 const Address = require('../models/Address');
 const Company = require('../models/Company');
 const Product = require('../models/Product');
+const RaffleTicket = require('../models/RaffleTicket');
 
 
 // Welcome Page
@@ -110,6 +111,14 @@ router.get('/users/details/:userId', async (req, res) => {
     res.render('admin/users/single-user', { page: (user.fname + " " + user.lname), user, userAddresses })
 });
 
+
+/* User Info Routes */
+
+router.get('/raffle', async (req, res) => {
+    const users = await User.find();
+    const tickets = await RaffleTicket.find().populate('ticket_holder').exec()
+    res.render('admin/raffle', { page: "Raffle", users, tickets })
+});
 
 
 
