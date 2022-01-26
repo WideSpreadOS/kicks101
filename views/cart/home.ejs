@@ -5,6 +5,7 @@
         box-shadow: 4px 4px 6px #cbced1, -4px -4px 6px #ffffff;
         border-radius: 8px;
         margin: 0 auto;
+        margin-top: 30px;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -132,6 +133,8 @@
     </h1>
 </div>
 
+<%- include('../partials/filters/products.ejs'); %>
+
 <% if (!products) { %>
     <p style="text-align: center;">Your cart is empty.</p>
 <% } else { %>
@@ -153,12 +156,12 @@
                     <div class="edit-quantity">
                         <span>Quantity: <%= item.qty %></span>
                         <div class="item-quantity-buttons">
-                            <span class="item-quantity-button"><a href="/cart/remove/<%= item.item_id %>/<%= item.size %>"> - </a></span>
+                            <span class="item-quantity-button"><a href="/cart/reduce/<%= item.item_id %>"> - </a></span>
                             <span class="item-quantity-button"><a href="/cart/add/<%= item.item_id %>/<%= item.size %>"> + </a></span>
                         </div>
                     </div>
                     <div class="remove-item">
-                        <a href="/cart/remove-item/<%= item.item_id %>/<%= item.size %>">Remove Item</a>
+                        <a href="/cart/remove/<%= item.item_id %>">Remove Item</a>
                     </div>
                 </div>
             </div>
@@ -176,9 +179,7 @@
 
 
 <div class="cart-pricing-container">
-    <div class="tax-container">
-        <p>Tax: 0.06%</p>
-    </div>
+
     <div class="total-price">
         <p>Total Price: $<%= totalPrice %>.00</p>
     </div>

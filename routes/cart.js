@@ -16,12 +16,14 @@ const { ensureAuthenticated } = require('../config/auth');
 // Current Cart Page
 router.get('/shopping-cart', async (req, res) => {
     const user = req.user;
+    const companies = await Company.find();
+
     if (!req.session.cart) {
         return res.render('cart/home', {products: null})
     }
     const cart = new UnregisteredCart(req.session.cart)
     console.log(req.session)
-    res.render('cart/home', { page: 'Current Cart', products: cart.generateArray(), totalPrice: cart.totalPrice, totalQty: cart.totalQty  });
+    res.render('cart/home', { page: 'Current Cart', companies, products: cart.generateArray(), totalPrice: cart.totalPrice, totalQty: cart.totalQty  });
 });
 
 router.get(`/add/:productId/:size`, async (req, res, next) => {
@@ -47,10 +49,10 @@ router.get(`/add/:productId/:size`, async (req, res, next) => {
         res.redirect('/cart/shopping-cart')
     })
 })
-router.get(`/remove/:productId/:size`, async (req, res, next) => {
+router.get(`/reduce/:productId`, async (req, res, next) => {
     const productId = req.params.productId;
     const cart = new UnregisteredCart(req.session.cart ? req.session.cart : {})
-    Product.findById(productId, function(err, product) {
+/*     Product.findById(productId, function(err, product) {
         if (err) {
             return res.redirect('/products')
         }
@@ -67,13 +69,16 @@ router.get(`/remove/:productId/:size`, async (req, res, next) => {
         cart.remove(product, product.id, size);
         req.session.cart = cart;
         console.log(req.session.cart)
-        res.redirect('/cart/shopping-cart')
-    })
+    }) */
+    cart.reduceByOne(productId)
+    req.session.cart = cart;
+    res.redirect('/cart/shopping-cart')
 })
-router.get(`/remove-item/:productId/:size`, async (req, res, next) => {
+
+router.get(`/remove/:productId`, async (req, res, next) => {
     const productId = req.params.productId;
     const cart = new UnregisteredCart(req.session.cart ? req.session.cart : {})
-    Product.findById(productId, function(err, product) {
+/*     Product.findById(productId, function(err, product) {
         if (err) {
             return res.redirect('/products')
         }
@@ -87,11 +92,12 @@ router.get(`/remove-item/:productId/:size`, async (req, res, next) => {
 
         //let size = product.available_sizes == chosenSize;
         console.log(product.available_sizes)
-        cart.removeAll(product, product.id, size);
+    })
+         */
+        cart.removeItem(productId);
         req.session.cart = cart;
         console.log(req.session.cart)
         res.redirect('/cart/shopping-cart')
-    })
 })
 
 
