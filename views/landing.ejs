@@ -1,127 +1,138 @@
 <style>
-    .landing-page-container {
-        margin-bottom: 350px;
-    }
-    #raffleContainer {
+    #raffleHeader {
         position: fixed;
         bottom: 0;
         left: 0;
         right: 0;
+        width: 100%;
+        height: 65px;
         box-shadow: 0 -6px 8px rgba(0, 0, 0, 0.25);
         border-top: outset 1px rgba(255, 255, 255, 0.75);
-        background: #eee;
+        background: #ecf0f3;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: space-between;
+        z-index: 99993;
         border-top-left-radius: 8px;
         border-top-right-radius: 8px;
-        z-index: 1000;
     }
-    #raffleCountdownClock {
+    #raffleHeader h2 {
+        font-size: 1.5rem;
+        padding-left: 20px;
+        color: lightskyblue;
+        font-family: 'Rock Salt', cursive;
+    }
+    #raffleHeader i {
+        color: lightskyblue;
+        font-size: 2rem;
+        padding-right: 20px;
+    }
+    .raffle-overlay {
+        height: 0;
+        width: 100%;
+        position: fixed;
+        z-index: 99950;
+        left: 0;
+        bottom: 0;
+        overflow-x: hidden;
+        transition: 0.5s;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+ box-shadow: 0 -6px 8px rgba(0, 0, 0, 0.25);
+        border-top: outset 1px rgba(255, 255, 255, 0.75);
+    }
+
+    .raffle-overlay-content {
+        position: relative;
+        bottom: 0;
+        width: 100%;
+        height: 200px;
+        max-height: 200px;
+        text-align: center;
+    }
+    
+    .raffle-overlay p {
+        text-decoration: none;
+        font-size: 1.5rem;
+        font-family: 'Rock Salt', cursive;
+        color: lightskyblue;
+        text-shadow: 0 0 5px rgba(127, 198, 241, 0.5);
+        display: block;
+        transition: ease-in 0.5s;
+        
+    }
+    .raffle-overlay a {
+        padding: 5px;
+        text-decoration: none;
+        font-size: 1.5rem;
+        font-family: 'Rock Salt', cursive;
+        color: lightskyblue;
+        text-shadow: 0 0 5px rgba(127, 198, 241, 0.5);
+        display: block;
+        transition: ease-in 0.5s;
+    }
+
+    .raffle-overlay a:hover,
+    .raffle-overlay a:focus {
+        color: rgba(0, 0, 0, 0.5);
+        text-shadow: 0 0 8px rgba(135, 206, 250, 0.75);
+        transition: ease-in 0.5s;
+    }
+
+    .raffle-overlay .closebtn {
+        position: absolute;
+        top: 0;
+        right: 20px;
+        font-size: 2rem;
+        z-index: 99940;
+        font-size: 1.2rem;
+    }
+    .current-raffle-prize {
         display: flex;
-        flex-wrap: nowrap;
         flex-direction: row;
+        flex-wrap: nowrap;
         align-items: center;
         justify-content: space-evenly;
-        padding-bottom: 10px;
-        border-top-left-radius: 8px;
-        border-top-right-radius: 8px;
-        margin: 0 auto;
-        margin-top: 10px;
-        box-shadow: 2px 2px 5px #ddd, -2px -2px 5px #fff;
-        background: #eee;
-        width: 90%;
-
-    }
-    #raffleHeader {
-        padding: 8px;
-    }
-    .raffle-top-header {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 10px;
-    }
-    .raffle-top-header h2 {
-        text-align: center;
-        font-size: 2rem;
-        font-family: 'Shadows Into Light', cursive;
-        border-bottom: solid 1px #aaa;    
-        width: 90%;
-    }
-    #closeRaffle {
-        width: 8%;
-    }
-    #closeRaffle a {
-        font-size: 1.7rem;
-        font-family: 'Rock Salt', cursive;
-        text-decoration: none;
-        color: lightskyblue;
-        }
-    .current-raffle-prize {
-        display: flex;    
-        flex-direction: row;
-        flex-wrap: nowrap;
-        align-items: center;
-        justify-content: space-between;
     }
     .current-raffle-prize img {
-        max-height: 150px;
-        border-radius: 8px;
-        box-shadow: 2px 2px 5px #ddd, -2px -2px 5px #fff;
-        margin-left: 15px;
+        height: 150px;
+        border-top-right-radius: 16px;
+        border-bottom-right-radius: 16px;
+        box-shadow: 4px 4px 6px #d1d9e6, -4px -4px 6px #ffffff;
     }
     .raffle-item-price {
         display: flex;
-        flex-wrap: nowrap;
         flex-direction: row;
+        flex-wrap: nowrap;
         align-items: center;
         justify-content: space-evenly;
-        width: 90%;
-        margin: 0 auto;
-        border-radius: 6px;
-        background: #eee;
-        box-shadow: inset 2px 2px 5px #ddd, inset -2px -2px 5px #fff;
+        margin-top: 50px;
     }
     .raffle-item-price button {
+        padding: 5px;
+        box-shadow: 4px 4px 6px #d1d9e6, -4px -4px 6px #ffffff;
         outline: none;
         border: none;
-        border-radius: 4px;
-        background: #eee;
-        padding: 8px;
-        padding-top: 0;
-        font-family: 'Darker Grotesque', sans-serif;
-        font-size: 1.4rem;
+        font-family: 'Rock Salt', cursive;
+        font-size: 1.2rem;
         color: lightskyblue;
-        text-shadow: 0 0 2px rgba(135, 206, 250, 0.5);
-        box-shadow: 2px 2px 5px #ddd, -2px -2px 5px #fff;
+        background: #ecf0f3;
+        border-radius: 8px;
+    }
+    .current-raffle-prize-title {
     }
     .current-raffle-prize-title h5 {
-        padding: 8px;
-        font-size: 1rem;
-        font-weight: bold;
-        text-align: center;
-        width: 70%;
-        margin: 0 auto;
-        margin-top: 10px;
-        border-radius: 4px;
-        box-shadow: 2px 2px 5px #ddd, -2px -2px 5px #fff;
-    }
-    .current-raffle-prize p {
-        padding: 15px;
-        font-size: 1.5rem;
-        font-family: 'Rock Salt', cursive;
-        font-weight: bold;
-        text-align: center;
-    }
-
-    .countdown-spinner {
-        text-align: center;
-    }
-    .countdown-spinner p {
+        padding: 12px;
         font-size: 1.3rem;
-        font-weight: bold;
-        color: lightskyblue;
-        margin-bottom: 5px;
+    }
+    #raffleCountdownClock {
+        text-align: center;
+    }
+    #raffleCountdownClock p {
+        text-align: center;
+        font-size: 1rem;
     }
 </style>
 
@@ -132,29 +143,45 @@
 <div class="landing-page-container">
 
 
+
+
+    
+
 </div>
 
-
-<div id="raffleContainer">
-    <div id="raffleHeader">
-        <div class="raffle-top-header">
-            <h2>Raffle</h2>
-            <div id="closeRaffle">
-                <a href="#">&times;</a>
+<div id="raffleContainer" class="raffle-overlay">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeRaffle()">&times;</a>
+    <div id="currentRafflePrize" class="current-raffle-prize">
+        <img src="https://process.fs.grailed.com/AJdAgnqCST4iPtnUxiGtTz/auto_image/cache=expiry:max/rotate=deg:exif/resize=height:700/output=quality:90/compress/https://cdn.fs.grailed.com/api/file/iqokqzEXQ52duGuolvS8"
+            alt="">
+        <div class="current-raffle-prize-title">
+            <div class="raffle-item-price">
+                <p><span class="original-price">$2150</span></p>
+                <button>Buy Tickets</button>
             </div>
-        </div>
-            <div class="current-raffle-prize">
-            <img src="https://process.fs.grailed.com/AJdAgnqCST4iPtnUxiGtTz/auto_image/cache=expiry:max/rotate=deg:exif/resize=height:700/output=quality:90/compress/https://cdn.fs.grailed.com/api/file/iqokqzEXQ52duGuolvS8" alt="">
-            <div class="current-raffle-prize-title">
-                <div class="raffle-item-price">
-                    <p><span class="original-price">$2150</span></p>
-                    <button>Buy Tickets</button>
+            <h5>Dior Kim Jones KAWS velvet bomber jacket</h5>
+                <div id="raffleCountdownClock">
+                    <p>Tickets Left : <span id="ticketsRemaining">94</span></p>
                 </div>
-                <h5>Dior Kim Jones KAWS velvet bomber jacket</h5>
-            </div>
         </div>
     </div>
-    <div id="raffleCountdownClock">
-        <p>Tickets Left: <span id="ticketsRemaining">94</span></p>
-    </div>
+
 </div>
+<div id="raffleHeader">
+        <h2>Raffle</h2>
+        <span onclick="openRaffle()"><i id="openRaffle" class="fa-solid fa-caret-up"></i></span>
+</div>
+
+
+
+<script>
+    function openRaffle() {
+        document.getElementById("raffleContainer").style.height = "300px";
+        document.getElementById("openRaffle").style.opacity = 0;
+    }
+
+    function closeRaffle() {
+        document.getElementById("raffleContainer").style.height = "0%";
+        document.getElementById("openRaffle").style.opacity = 1;
+    }
+</script>
