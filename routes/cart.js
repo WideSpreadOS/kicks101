@@ -100,9 +100,16 @@ router.get(`/remove/:productId`, async (req, res, next) => {
         res.redirect('/cart/shopping-cart')
 })
 
+router.post('/checkout-mailing', async (req, res) => {
+    const mailingData = req.body
+    res.redirect('/cart/checkout-billing')
+})
+router.get('/checkout-mailing', async (req, res) => {
+    res.render('cart/checkout', {page: 'Mailing Information'})
+})
 
-router.get('/checkout', async (req, res) => {
-    res.render('cart/checkout', {page: 'Checkout'})
+router.get('/checkout-billing', async (req, res) => {
+    res.render('cart/checkout-billing', {page: 'Billing Information'})
 })
 
 

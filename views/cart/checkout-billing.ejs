@@ -184,9 +184,22 @@
 
 <div class="input-form">
     <div class="input-form-title">
-        <h6>Mailing Address</h6>
+        <h6>Payment Information</h6>
     </div>
-    <form action="/cart/checkout-mailing" method="post">
+    <form action="/user/mailing" method="post">
+        <div class="input-group"><input type="text" name="card_number" placeholder="16-Digit Card Number"></div>
+        <div class="input-group"><input type="text" name="expiration"
+                placeholder="Expiration"></div>
+        <div class="input-group"><input type="text" name="cvv"
+                placeholder="CVV"></div>
+
+    <div class="input-form-title">
+        <h6>Billing Address</h6>
+    </div>
+        <div class="input-group" style="display: flex; flex-direction: row; align-items: center; justify-content: space-evenly; width: 90%;">
+            <label style="width: 80%;" for="sameAsMailing">Same as Mailing Address</label>
+            <input style="box-shadow: none; width: 10%;" type="checkbox" name="billing_same_as_mailing" id="sameAsMailing">
+        </div>
         <div class="input-group"><input type="text" name="street" placeholder="House Number and Street"></div>
         <div class="input-group"><input type="text" name="building_number"
                 placeholder="Building Number (If applicable)"></div>
@@ -252,9 +265,8 @@
         </div>
         <div class="input-group"><input type="text" name="country" placeholder="Country"></div>
         <div class="input-group"><input type="number" name="zip" placeholder="Zip"></div>
-        <div class="input-group"><textarea name="special_instructions" id=""
-                placeholder="Special Delivery Instructions"></textarea></div>
-        <button type="submit">Next - Billing</button>
+
+        <button type="submit">Order</button>
     </form>
 </div>
 
