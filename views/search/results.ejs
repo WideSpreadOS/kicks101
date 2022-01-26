@@ -2,16 +2,19 @@
 
 </style>
     <div class="page-title">
+        <h5>Results For:</h5>
         <h1>
             <%= page %>
         </h1>
+        
     </div>
-    
+
+
 <%- include('../partials/filters/products.ejs'); %>
+
 <div class="item-card-container">
     <% if(products.length===0) { %>
         <p style="margin-bottom: 30px;">Sorry, we couldn't find any products.</p>
-        <%- include('../partials/filters/products.ejs'); %>
     
             <% } else { %>
                 <% products.forEach(function(product) { %>
