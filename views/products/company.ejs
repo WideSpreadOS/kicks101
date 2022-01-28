@@ -1,5 +1,7 @@
 <style>
-
+    .go-back-button {
+        margin-bottom: 30px;
+    }
 </style>
 
 <div class="page-title">
@@ -8,6 +10,8 @@
     <div class="go-back-button">
         <a href="/products"><i class="fas fa-long-arrow-alt-left"></i>  Back to All Products</a>
     </div>
+
+<%- include('../partials/filters/products.ejs'); %>
 <div class="item-card-container">
     <% if(products.length===0) { %>
             <p style="margin-bottom: 30px;">Sorry, we couldn't find any products.</p>
