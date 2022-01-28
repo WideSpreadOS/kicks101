@@ -23,7 +23,9 @@ const { ensureAuthenticated } = require('../config/auth');
 // User Raffle Tickets Page
 router.get('/', ensureAuthenticated, async (req, res) => {
     const user = req.user;
-    const raffles = await Raffle.find({winning_user: user.id});
+    
+    const raffles = await Raffle.find();
+    const winner = await Raffle.find({winning_user: user.id});
     const currentRaffle = raffles[raffles.length - 1]
     const currentRafflePrize = await Product.findById(currentRaffle.raffle_product).populate('manufacturer').exec()
     console.log(currentRaffle)
@@ -33,7 +35,7 @@ router.get('/', ensureAuthenticated, async (req, res) => {
     const ticketsLeft = (100 - allTickets.length )
     console.log(`Tickets Left: ${ticketsLeft}`)
     const tickets = await RaffleTicket.find({'ticket_holder': user.id})
-    res.render('user/raffle', { page: 'Your Raffle Tickets', user, raffles, tickets, ticketsLeft, winningTickets, currentRaffle, currentRafflePrize });
+    res.render('user/raffle', { page: 'Your Raffle Tickets', user, winner, raffles, tickets, ticketsLeft, winningTickets, currentRaffle, currentRafflePrize });
 });
 
 router.post('/tickets/purchase', ensureAuthenticated, async (req, res) => {

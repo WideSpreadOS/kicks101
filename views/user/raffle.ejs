@@ -185,10 +185,10 @@
 <div class="ticket-header">
     <h3>Winning Tickets</h3>
 </div>
-<% if (!winningTickets) { %>
+<% if (!winner) { %>
     <p>You haven't won any raffles yet.</p>
 <% } else { %>
-    <% raffles.forEach(function(ticket) { %>
+    <% winner.forEach(function(ticket) { %>
         <div class="ticket">
             <p>Ticket ID: <%= ticket.winning_ticket %></p>
             <div class="claim-prize">
