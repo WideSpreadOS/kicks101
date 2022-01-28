@@ -112,11 +112,11 @@
 
     .raffle-item-price {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         flex-wrap: nowrap;
         align-items: center;
         justify-content: space-evenly;
-        margin-top: 50px;
+        margin-top: 15px;
     }
 
     .raffle-item-price button {
@@ -155,6 +155,12 @@
         font-size: 1.1rem;
         margin-bottom: 30px;
     }
+    .raffle-success-container a {
+        font-size: 1.1rem;
+        margin-bottom: 30px;
+        text-decoration: none;
+        color: lightskyblue;
+    }
     .raffle-success-container button {
         width: 90%;
         padding: 10px;
@@ -175,26 +181,30 @@
 
     <p>Increase your chances of winning this raffle by getting more tickets!</p>
 
+    <p><a href="/user/dashboard">Back to Your Dashboard</a></p>
+    <p><a href="/raffle">Back to Raffle Page</a></p>
     <form action="/raffle/tickets/purchase" method="post">
         <button>Buy Another</button>
     </form>
 </div>
 
 
-
 <div id="raffleContainer" class="raffle-overlay">
     <a href="javascript:void(0)" class="closebtn" onclick="closeRaffle()">&times;</a>
     <div id="currentRafflePrize" class="current-raffle-prize">
-        <img src="https://process.fs.grailed.com/AJdAgnqCST4iPtnUxiGtTz/auto_image/cache=expiry:max/rotate=deg:exif/resize=height:700/output=quality:90/compress/https://cdn.fs.grailed.com/api/file/iqokqzEXQ52duGuolvS8"
-            alt="">
+        <a href="/products/manufacturer/<%= currentRafflePrize.manufacturer.id %>/product/<%= currentRafflePrize.id %>">
+            <img src="<%= currentRafflePrize.main_image %>" alt="">
+        </a>
         <div class="current-raffle-prize-title">
             <div class="raffle-item-price">
-                <p><span class="original-price">$2150</span></p>
+                <p><span class="original-price">$<%= currentRafflePrize.price.base %></span></p>
                 <form action="/raffle/tickets/purchase" method="post">
                     <button>Buy Ticket</button>
                 </form>
             </div>
-            <h5>Dior Kim Jones KAWS velvet bomber jacket</h5>
+            <h5>
+                <%= currentRafflePrize.name %>
+            </h5>
             <div id="raffleCountdownClock">
                 <% if (ticketsLeft <=0) { %>
                     <p>Tickets Left : <span id="ticketsRemaining">0</span></p>
@@ -210,7 +220,7 @@
 </div>
 <div id="raffleHeader">
     <h2>Raffle</h2>
-    <p>$100/ea</p>
+    <p>$<%= currentRaffle.ticket_price %>/ea</p>
     <span onclick="openRaffle()"><i id="openRaffle" class="fa-solid fa-caret-up"></i></span>
 </div>
 

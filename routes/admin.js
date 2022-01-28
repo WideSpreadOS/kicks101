@@ -11,6 +11,7 @@ const Product = require('../models/Product');
 const RaffleTicket = require('../models/RaffleTicket');
 const RaffleWinner = require('../models/RaffleWinner');
 const Cart = require('../models/Cart');
+const Raffle = require('../models/Raffle');
 
 
 // Welcome Page
@@ -122,40 +123,78 @@ router.get('/raffle', async (req, res) => {
     res.render('admin/raffle', { page: "Raffle", users, tickets })
 });
 
+router.get('/raffle/new', async (req, res) => {
+    const products = await Product.find().populate('manufacturer').exec()
+    res.render('admin/raffle-new', {products})
+
+})
+router.post('/raffle/new', async (req, res) => {
+    const newRaffle = new Raffle({
+        raffle_product: req.body.raffle_product,
+        ticket_price: req.body.ticket_price,
+        total_tickets: req.body.total_tickets
+    })
+    newRaffle.save()
+    res.redirect('/admin/raffle')
+})
 router.get('/raffle/drawing', async (req, res) => {
     const raffleTickets = await RaffleTicket.find()
     let raffleArray = []
     for (i of raffleTickets) {
         raffleArray.push(i.id)
     }
-
+    const raffles = await Raffle.find();
+    const currentRaffle = raffles[raffles.length - 1]
+    const currentRafflePrize = await Product.findById(currentRaffle.raffle_product).populate('manufacturer').exec()
+    console.log(currentRafflePrize)
     const winnerId = raffleArray[Math.floor(Math.random() * raffleArray.length)];
     console.log('Winner: ' + winnerId)
     const findWinner = await RaffleTicket.findById(winnerId).populate('ticket_holder').exec()
+    console.log('Ticket Holder: ' + findWinner.ticket_holder.id)
+    const winningUserId = findWinner.ticket_holder.id
+    //findWinner.ticket_holder
     // Random chosen ID is pushed to RaffleWinners Model with ticketId and userId
-    const winner = new RaffleWinner({
-        winning_user: findWinner.id,
+    await Raffle.findByIdAndUpdate(currentRaffle.id, {
+        winning_user: winningUserId,
         winning_ticket: winnerId
     })
-    winner.save()
-    console.log(winner)
     
     //res.render(`admin/test`, {raffleTickets})
-    res.redirect(`/admin/raffle/delete-tickets/${findWinner.id}`)
+    res.redirect(`/admin/raffle/delete-tickets/${currentRaffle.id}`)
 })
 
 router.get('/raffle/delete-tickets/:winnerId', async (req, res) => {
     const winnerId = req.params.winnerId;
-    await RaffleTicket.deleteMany()
+    //await RaffleTicket.deleteMany()
+    console.log('Deleted Tickets...')
     res.redirect(`/admin/raffle/winner/${winnerId}`)
 })
 
-router.get('/raffle/winner/:winnerId', async (req, res) => {
-    const winnerId = req.params.winnerId;
-    const winner = await User.findById(winnerId)
-    console.log(winner)
-    res.render('admin/raffle-winner', {winner})
+router.get('/raffle/winner/:currentRaffleId', async (req, res) => {
+    const currentRaffleId = req.params.currentRaffleId;
+    const currentRaffle = await Raffle.findById(currentRaffleId)
+    console.log(currentRaffle)
+    const winner = await User.findById(currentRaffle.winning_user)
+
+    const raffleWinners = await Raffle.findById(currentRaffleId).populate({
+        path: 'raffle_product',
+        model: 'Product',
+        populate: {
+            path: 'manufacturer',
+            model: 'Company'
+        }
+    }
+    ).exec();
+    
+    console.log(currentRaffle)
+    res.render('admin/raffle-winner', { winner, currentRaffle, raffleWinners})
 })
+
+
+
+
+
+
 /* Orders Routes */
 
 router.get('/invoices', async (req, res) => {

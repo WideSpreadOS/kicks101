@@ -10,6 +10,8 @@ require('../config/passport')(passport);
 const User = require('../models/User');
 const Address = require('../models/Address');
 const PaymentMethod = require('../models/PaymentMethod');
+const RaffleWinner = require('../models/RaffleWinner');
+const Raffle = require('../models/Raffle');
 
 
 
@@ -154,6 +156,26 @@ router.delete('/delete', ensureAuthenticated, async (req, res) => {
     await User.findByIdAndDelete(user);
     res.redirect('/user/login')
 });
+
+
+
+router.get('/raffle/claim/:winningId', ensureAuthenticated, async (req, res) => {
+    const winnerId = req.user.id;
+    const winner = await User.findById(winnerId)
+    const winningId = req.params.winningId;
+    console.log(winner)
+    const raffleWinner = await Raffle.findById(winningId).populate({
+        path: 'raffle_product',
+        model: 'Product',
+        populate: {
+            path: 'manufacturer',
+            model: 'Company'
+        }
+    }
+    ).exec();
+    console.log(raffleWinner)
+    res.render('user/raffle-claim', {winner, raffleWinner})
+})
 
 
 
