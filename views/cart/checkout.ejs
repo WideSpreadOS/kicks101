@@ -181,8 +181,25 @@
         min-height: 110%;
         margin: 0 auto;
         margin-top: 30px;
+        margin-bottom: 30px;
         border-radius: 16px;
         padding-bottom: 50px;
+        text-align: center;
+    }
+    button {
+        width: 90%;
+        margin: 0 auto;
+        margin-top: 20px;
+        background-color: #ecf0f3;
+        border-radius: 16px;
+        box-shadow: -8px -4px 8px 0px #fff, 8px 4px 12px 0px #d1d0e6;
+        width: 90%;
+        outline: none;
+        border: none;
+        color: lightskyblue;
+        font-size: 1.5rem;
+        font-family: 'Rock Salt', cursive;
+
     }
 </style>
 
@@ -198,17 +215,20 @@
 
 <div class="stripe-container">
     <!-- Display a payment form -->
-    <form id="payment-form">
+    <form id="payment-form" action="/cart/checkout-mailing" method="POST">
     <div class="input-form-title">
         <h6>Mailing Address</h6>
     </div>
-        <div class="input-group"><input type="text" name="street" placeholder="House Number and Street"></div>
+
+        <div class="input-group"><input type="text" name="fname" placeholder="First Name" required></div>
+        <div class="input-group"><input type="text" name="lname" placeholder="Last Name" required></div>
+        <div class="input-group"><input type="text" name="street" placeholder="House Number and Street" required></div>
         <div class="input-group"><input type="text" name="building_number" placeholder="Building Number (If applicable)"></div>
         <div class="input-group"><input type="text" name="apartment_number" placeholder="Apartment Number (If applicable)">
         </div>
-        <div class="input-group"><input type="text" name="city" placeholder="City"></div>
+        <div class="input-group"><input type="text" name="city" placeholder="City" required></div>
         <div class="custom-select">
-            <select name="state" id="state">
+            <select name="state" id="state" required>
                 <option value="" selected disabled hidden>State</option>
                 <option value="AL">Alabama</option>
                 <option value="AK">Alaska</option>
@@ -264,22 +284,19 @@
             </select>
         
         </div>
-        <div class="input-group"><input type="text" name="country" placeholder="Country"></div>
-        <div class="input-group"><input type="number" name="zip" placeholder="Zip"></div>
+        <div class="input-group"><input type="text" name="country" placeholder="Country" hidden></div>
+        <div class="input-group"><input type="number" name="zip" placeholder="Zip" required></div>
         <div class="input-group"><textarea name="special_instructions" id=""
                 placeholder="Special Delivery Instructions"></textarea></div>
 
-        <div id="payment-element">
-            <!--Stripe.js injects the Payment Element-->
-        </div>
-        <button id="submit">
-            <div class="spinner hidden" id="spinner"></div>
-            <span id="button-text" style="width: 100%;">Pay now</span>
-        </button>
-        <div id="payment-message" class="hidden"></div>
-    </form>
-</div>
+                <div id="payment-message" class="hidden"></div>
 
+                <button id="submit">
+                    <div class="spinner hidden" id="spinner"></div>
+                    <span class="pay-button" id="button-text" style="width: 100%;">Pay now</span>
+                </button>
+            </form>
+</div>
 
 
 
@@ -363,4 +380,6 @@
     then close all select boxes:*/
     document.addEventListener("click", closeAllSelect);
 </script>
-
+<!-- 
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="/js/checkout.js"></script> -->

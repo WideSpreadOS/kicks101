@@ -28,19 +28,18 @@ const cartSchema = new mongoose.Schema({
         {
             product: { type: mongoose.Schema.Types.ObjectId, ref: 'Product' },
             quantity: Number,
-            choses_size: Number
+            chosen_size: String
         }
     ],
+    total_price: Number,
+    total_quantity: Number,
     ship_to: { type: mongoose.Schema.Types.ObjectId, ref: 'Address' },
     payment: { type: mongoose.Schema.Types.ObjectId, ref: 'PaymentMethod' },
     order_date: {
         type: Date,
         default: Date.now()
     },
-    shipped_date: {
-        type: Date,
-        default: Date.now()
-    }
+    shipped_date: Date
 });
 
 

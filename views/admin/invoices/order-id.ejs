@@ -1,0 +1,153 @@
+<style>
+    .order-placed-container {
+        margin-bottom: 30px;
+        text-align: center;
+    }
+    .order-placed-container h5 {
+        font-size: 1.3rem;
+        color: lightskyblue;
+        padding: 15px;
+    }
+    
+    .shipping-address {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    .shipping-address h5 {
+        font-size: 1.3rem;
+        color: lightskyblue;
+        padding: 15px;
+    }
+    .item-container {
+        text-align: center;
+        margin-bottom: 30px;;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .items-container h3 {
+        font-size: 2rem;
+        padding: 20px;
+        text-align: center;
+        color: lightskyblue;
+    }
+    .item-container {
+        box-shadow: -8px -4px 8px 0px #fff, 8px 4px 12px 0px #d1d0e6;
+        border-radius: 16px;
+        width: 90%;
+        margin: 0 auto;
+        margin-bottom: 20px;
+    }
+    .item-container h5 {
+        font-size: 1.3rem;
+        color: lightskyblue;
+        padding: 15px;
+    }
+    .item-container img {
+        width: 30%;
+        box-shadow: -8px -4px 8px 0px #fff, 8px 4px 12px 0px #d1d0e6;
+        border-radius: 16px;
+        margin-left: 15px;
+    }
+    .item-data {
+        width: 65%;
+        
+    }
+    .item-data-header {
+        padding: 10px;
+    }
+    .item-data-header p {
+        font-size: 1.2rem;
+    }
+    .item-link {
+        
+        padding: 10px;
+    }
+    .item-link a {
+        text-decoration: none;
+        color: lightskyblue;
+    }
+    .print-label a {
+        text-decoration: none;
+        color: lightskyblue;
+    }
+
+    .order-placed {
+        text-align: center;
+        margin: 0 auto;
+        margin-top: 40px;
+        margin-bottom: 40px;
+        box-shadow: -8px -4px 8px 0px #fff, 8px 4px 12px 0px #d1d0e6;
+        width: 90%;
+        border-radius: 16px;
+        padding: 10px;
+    }
+    .order-placed a {
+        font-size: 3rem;
+        color: green;
+        text-decoration: none;
+        padding: 20px;
+    }
+</style>
+
+<div class="page-title">
+    <h1>New Order</h1>
+</div>
+
+    <div class="go-back-button">
+        <a href="/admin/invoices/new"><i class="fas fa-long-arrow-alt-left"></i>  Back to All New Orders</a>
+    </div>
+<div class="order-placed-container">
+    <h5>Order Placed: </h5>
+    <p><%= order.order_date.toDateString() %></p>
+    <p><%= order.order_date.toLocaleTimeString() %></p>
+</div>
+
+<div class="shipping-address">
+    <h5>Ship To:</h5>
+    <p><%= order.unregistered_user.fname %> <%= order.unregistered_user.lname %></p>
+    <p><%= order.unregistered_user.mailing_address.street %></p>
+    <% if (!order.unregistered_user.mailing_address.building_number) { %>
+        <span style="display: none;"></span>
+    <% } else { %>
+        <p>Building Number: <%= order.unregistered_user.mailing_address.building_number %></p>
+    <% } %>
+    <% if (!order.unregistered_user.mailing_address.apartment_number) { %>
+        <span style="display: none;"></span>
+    <% } else { %>
+        <p>Apartment: <%= order.unregistered_user.mailing_address.apartment_number %></p>
+    <% } %>
+
+    <p><%= order.unregistered_user.mailing_address.city %>, <%= order.unregistered_user.mailing_address.state %></p>
+    <p><%= order.unregistered_user.mailing_address.zip %></p>
+    <p><%= order.unregistered_user.mailing_address.special_instructions %></p>
+    <div class="print-label">
+        <a href="/admin/invoices/new/order/<%= order.id %>/label">Print Label</a>
+    </div>
+</div>
+<div class="items-container">
+    <h3>Items:</h3>
+    <% order.items.forEach(function(item) { %>
+        <div class="item-container">
+            <img src="<%= item.product.main_image %>" alt="">
+            <div class="item-data">
+                <div class="item-data-header">
+                    <p><%= item.product.name %></p>
+                </div>
+                <p>$<%= item.product.price.base %></p>
+                <p>Quantity: <%= item.quantity %></p>
+                <p>Size: <%= item.chosen_size %></p>
+                <div class="item-link">
+                    <a href="/admin/products/details/<%= item.product.id %>">See Product</a>
+                </div>
+            </div>
+
+        </div>
+        <% }) %>
+</div>
+
+<div class="order-placed">
+    <a href="/admin/invoices/new/<%= order.id %>/shipped">Order Shipped</a>
+</div>

@@ -9,6 +9,7 @@ const Address = require('../models/Address');
 const Company = require('../models/Company');
 const Product = require('../models/Product');
 const RaffleTicket = require('../models/RaffleTicket');
+const Cart = require('../models/Cart');
 
 
 // Welcome Page
@@ -121,7 +122,30 @@ router.get('/raffle', async (req, res) => {
 });
 
 
+/* Orders Routes */
 
+router.get('/invoices', async (req, res) => {
+    const allOrders = await Cart.find()
+    res.render('admin/invoices/home', {allOrders})
+})
+
+router.get('/invoices/new', async (req, res) => {
+    const allOrders = await Cart.find()
+    res.render('admin/invoices/all-orders', {allOrders})
+})
+
+
+router.get('/invoices/new/order/:orderId', async (req, res) => {
+    const orderId = req.params.orderId;
+    const order = await Cart.findById(orderId).populate('items.product').exec()
+    res.render('admin/invoices/order-id', {order})
+})
+
+router.get('/invoices/new/order/:orderId/label', async (req, res) => {
+    const orderId = req.params.orderId;
+    const order = await Cart.findById(orderId)
+    res.render('admin/invoices/print-label-single', {order})
+})
 
 
 // Shoe Page

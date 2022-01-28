@@ -1,5 +1,6 @@
 const express = require('express');
-const app = express();
+const https = require('https');
+const app = express(https);
 const ejs = require('ejs');
 const expressLayouts = require('express-ejs-layouts');
 const passport = require('passport');
@@ -20,13 +21,11 @@ const fs = require('fs')
 const mongoStore = require('connect-mongo').default;
 // DB Config
 const db = require('./config/keys').MongoURI;
-const stripeKey = require('./config/stripe').StripeKey;
 const Product = require('./models/Product');
 const ProductImage = require('./models/ProductImage');
 const MongoStore = require('connect-mongo');
 //const CompanyImage = require('./models/CompanyImage');
 
-const stripe = require("stripe")(stripeKey);
 // Connect to MongoDB
 mongoose.connect(db, {
     useNewUrlParser: true,

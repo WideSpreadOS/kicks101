@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
-const stripe = require("stripe")('sk_test_51KM9AXD6vjKKpvO4zQmeJsEPuSuHSLpcHdPlSWhfwBb6jIuM5Q31tWQH4Sc9Y83YZbbfrAvq9usI6uAxNQPCuztf009t8ngN1Q');
+const env = require('dotenv').config()
+const Stripe = require('stripe')
+const stripe = require("stripe")(process.env.STRIPE_PRIVATE_KEY);
 
 
 // Models
@@ -23,7 +25,13 @@ router.get('/shopping-cart', async (req, res) => {
         return res.render('cart/home', {products: null})
     }
     const cart = new UnregisteredCart(req.session.cart)
-    console.log(req.session)
+    const itemArray = cart.generateArray()
+    
+    for (i of itemArray) {
+        console.log(i.item._id)
+    }
+    
+    //console.log(cart.generateArray())
     res.render('cart/home', { page: 'Current Cart', companies, products: cart.generateArray(), totalPrice: cart.totalPrice, totalQty: cart.totalQty  });
 });
 
@@ -105,10 +113,77 @@ router.get('/checkout', (req, res, next) => {
     if (!req.session.cart) {
         return res.redirect('/cart/shopping-cart')
     }
-    const cart = new Cart(req.session.cart);
-    res.render('cart/checkout', {page: 'Checkout', total: cart.totalPrice, cart})
+    const cart = new UnregisteredCart(req.session.cart)
+    const items = cart.generateArray()
+    for (i of items) {
+        console.log(i.item._id)
+    }
+    res.render('cart/checkout', {page: 'Checkout', products: cart.generateArray(), total: cart.totalPrice, cart})
 });
 
+
+
+
+
+/* 
+*/
+
+
+
+/*       
+router.post('/create-checkout-session', async (req, res) => {
+
+    try {
+        console.log(itemsInCart)
+        for (item of itemsInCart) {
+            console.log(item)
+        } */
+/* 
+        const itemsInCart = req.body.items;
+        console.log(itemsInCart)
+        
+            for ( i of itemsInCart ) {
+            let product = await Product.findById(i)
+            }
+            
+            const mappedItems = new Map([
+                [{name: product.name, price: product.price.base, quantity: req.session.cart.items[i].qty }],
+            ])
+            
+    
+
+        const session = await stripe.checkout.sessions.create({
+            payment_method_types: ['card'],
+            mode: 'payment',
+            line_items: req.body.items.map(item => {
+                mappedItems.get(item)
+                return {
+
+                    name: item.name,
+                    amount: req.session.cart.totalPrice,
+                    unit_amount: item.price,
+                    currency: 'usd',
+                    quantity: 1
+                }
+            }),
+            success_url: 'http://localhost/cart/success',
+            cancel_url: 'http://localhost/cart/shopping-cart'
+        })
+        res.json({url: session.url})
+    }).catch (e) {
+        res.status(500).json({error: e.message})
+    }
+})
+    
+ */
+
+
+
+
+
+
+
+/* 
 const calculateOrderAmount = (items) => {
     // Replace this constant with a calculation of the order's amount
     // Calculate the order total on the server to prevent
@@ -116,8 +191,52 @@ const calculateOrderAmount = (items) => {
     
     return 1400;
 };
+const storeItems = new Map(items, {
+    product: item.id,
+    price: item.price
 
-router.post("/create-payment-intent", async (req, res) => {
+}); */
+
+/* router.post('/create-checkout-session', async (req, res) => {
+    const domainURL = 'http://localhost:5000/cart/checkout';
+    const { quantity, price, name, id } = req.body;
+    stripe.charges.create({
+        amount: price,
+        currency: "usd",
+        source: "tok_amex", // obtained with Stripe.js
+        metadata: { 'order_id': '6735' }
+    });
+
+    // Create new Checkout Session for the order
+    // Other optional params include:
+    // [billing_address_collection] - to display billing address details on the page
+    // [customer] - if you have an existing Stripe Customer ID
+    // [customer_email] - lets you prefill the email input in the Checkout page
+    // [automatic_tax] - to automatically calculate sales tax, VAT and GST in the checkout page
+    // For full details see https://stripe.com/docs/api/checkout/sessions/create
+    const session = await stripe.checkout.sessions.create({
+        mode: 'payment',
+        line_items: [
+            {
+
+                price_data: { unit_amoutnt: price },
+                product_data: {
+                    name: name,
+                    id: id
+                },
+                quantity: quantity
+
+            },
+        ],
+        // ?session_id={CHECKOUT_SESSION_ID} means the redirect will have the session ID set as a query param
+        success_url: `${domainURL}/cart/payment-complete?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${domainURL}/cart/checkout`,
+        automatic_tax: {enabled: true},
+    });
+
+    return res.redirect(303, session.url);
+}); */
+/* router.post("/create-payment-intent", async (req, res) => {
     const { items } = req.body;
 
     // Create a PaymentIntent with the order amount and currency
@@ -132,7 +251,7 @@ router.post("/create-payment-intent", async (req, res) => {
     res.send({
         clientSecret: paymentIntent.client_secret,
     });
-});
+}); 
 router.get('/payment-complete', (req, res, next) => {
     if (!req.session.cart) {
         return res.redirect('/cart/shopping-cart')
@@ -140,19 +259,81 @@ router.get('/payment-complete', (req, res, next) => {
     const cart = new Cart(req.session.cart);
     res.render('cart/payment-complete', {page: 'Payment Complete', total: cart.totalPrice, cart})
 });
+*/
 
 
 
 router.post('/checkout-mailing', async (req, res) => {
     const mailingData = req.body
-    res.redirect('/cart/checkout-billing')
+    const cart = req.session.cart
+    console.log(mailingData)
+    console.log(cart.totalQty)
+    console.log(cart.totalPrice)
+
+    const order = new Cart({
+                    "unregistered_user.fname": req.body.fname,
+                    "unregistered_user.lname": req.body.lname,
+                    "unregistered_user.mailing_address.street": req.body.street,
+                    "unregistered_user.mailing_address.building": req.body.building_number,
+                    "unregistered_user.mailing_address.apartment": req.body.apartment_number,
+                    "unregistered_user.mailing_address.city": req.body.city,
+                    "unregistered_user.mailing_address.state": req.body.state,
+                    "unregistered_user.mailing_address.zip": req.body.zip,
+                    "unregistered_user.mailing_address.country": req.body.country,
+                    "unregistered_user.mailing_address.special_instructions": req.body.special_instructions,
+                    total_quantity: cart.totalQty,
+                    total_price: cart.totalPrice
+    })
+    order.save()
+
+
+
+    res.redirect(`/cart/checkout-add-items/${order.id}`)
+// Create new Order({})
+
+// Push all Products into order.products[]
+
+// Redirect to billing page with order.id
+
+    //res.redirect(`/cart/checkout-billing/${orderId}`)
+})
+
+router.get('/checkout-add-items/:cartId', async (req, res) => {
+    const cartId = req.params.cartId;
+    const cart = new UnregisteredCart(req.session.cart)
+    const itemArray = cart.generateArray()
+    console.log(itemArray)
+    const addItems = async () => {
+
+        for (i of itemArray) {
+            console.log(i.item)
+            let id = mongoose.Types.ObjectId(i.item._id);
+            let qty = i.qty
+            let size = i.size
+            console.log('Item Quantity: ' + qty)
+            console.log('Item Size: ' + size)
+            await Cart.findByIdAndUpdate(cartId,
+                { $push: { items: {
+                    product: id,
+                    quantity: qty,
+                    chosen_size: size
+                } } },
+                { safe: true, upsert: true },
+            )
+        }
+    }
+
+    addItems()
+    res.redirect(`/cart/checkout-billing/${cartId}`)
 })
 router.get('/checkout-mailing', async (req, res) => {
     res.render('cart/checkout-mailing', {page: 'Mailing Information'})
 })
 
-router.get('/checkout-billing', async (req, res) => {
-    res.render('cart/checkout-billing', {page: 'Billing Information'})
+router.get('/checkout-billing/:cartId', async (req, res) => {
+    const cartId = req.params.cartId;
+    const cart = await Cart.findById(cartId)
+    res.render('cart/checkout-billing', {page: 'Billing Information', cart})
 })
 
 

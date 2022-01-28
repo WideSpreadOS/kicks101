@@ -1,10 +1,70 @@
-
+/* 
 // This is your test publishable API key.
 const stripe = Stripe("pk_test_51KM9AXD6vjKKpvO4CODSAMYTydO6beDQ9DQ4D6nLJ4TyjMcdcCLbsovru7EjMSmhZztht6GvuPMG7NvsEb6oqNHU00TDPgBzGy");
 
+
+const button = document.querySelector('#button-text')
+const itemsInCart = document.querySelectorAll('.items-in-cart')
+itemsInCart.forEach(item => {
+    return item
+})
+button.addEventListener("click", () => {
+    fetch('/cart/create-checkout-session', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            items: [
+                itemsInCart
+            ]
+        }),
+    }).then(res => {
+            if (res.ok) return res.json()
+            return res.json().then(json => Promise.reject(json))
+        }).then(({url}) => {
+           window.location = url
+           //console.log(url)
+        })
+    }).catch(e => {
+        console.error(e.error)
+    })
+
+
+
+
+
+
+
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // The items the customer wants to buy
 
-const items = [{ id: "xl-tshirt" }];
+
+
+/* const items = [{ id: '61eb603fd885be3bbe3e9f78' }];
 
 let elements;
 
@@ -17,9 +77,9 @@ document
 
 // Fetches a payment intent and captures the client secret
 async function initialize() {
-    const response = await fetch("/cart/create-payment-intent", {
+    const response = await fetch("http://localhost:3000/cart/create-checkout-session", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "http://localhost:5000/" },
         body: JSON.stringify({ items }),
     });
     const { clientSecret } = await response.json();
@@ -30,7 +90,14 @@ async function initialize() {
             colorPrimary: '#87CEFA',
             colorBackground: '#ecf0f3',
             colorText: '#555',
+            borderRadius: '16px'
         },
+        rules: {
+            '.Tab--selected': {
+                boxShadow: '2px 2px 5px #00ff00'
+            }
+        },
+        labels: 'floating'
     };
     elements = stripe.elements({ appearance, clientSecret });
 
@@ -118,4 +185,4 @@ function setLoading(isLoading) {
         document.querySelector("#spinner").classList.add("hidden");
         document.querySelector("#button-text").classList.remove("hidden");
     }
-}
+} */

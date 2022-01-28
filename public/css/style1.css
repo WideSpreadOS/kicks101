@@ -160,7 +160,7 @@ input, textarea {
     transition: ease-in 0.25s;
 }
 .input-group input:invalid {
-  background: red;
+  box-shadow: inset 0 0 5px rgba(255, 0, 0, 0.25);
 }
 .input-group textarea {
     width: 80%;
