@@ -137,47 +137,50 @@
         padding: 12px;
         font-size: 1.3rem;
     }
-
-    #raffleCountdownClock {
+    .raffle-success-container {
         text-align: center;
-    }
-
-    #raffleCountdownClock p {
-        text-align: center;
-        font-size: 1rem;
-    }
-        .ticket {
-        box-shadow: 4px 4px 6px #d1d9e6, -4px -4px 6px #ffffff;
-        border-radius: 8px;
-        margin: 0 auto;
-        margin-bottom: 15px;
-        width: 80%;
         padding: 10px;
-        font-size: 1.3rem;
     }
-
+    .raffle-success-container h5 {
+        font-size: 1.5rem;
+        color: lightskyblue;
+        margin-bottom: 15px;
+    }
+    .raffle-success-container h2 {
+        font-size: 2rem;
+        color: lightskyblue;
+        margin-bottom: 25px;
+    }
+    .raffle-success-container p {
+        font-size: 1.1rem;
+        margin-bottom: 30px;
+    }
+    .raffle-success-container button {
+        width: 90%;
+        padding: 10px;
+        border-radius: 16px;
+        color: lightskyblue;
+        font-family: 'Rock Salt', cursive;
+        font-size: 1.5rem;
+        background: #ecf0f3;
+        border: none;
+        outline: none;
+        box-shadow: 4px 4px 4px 0px #d1d9e6, -4px -4px 4px 0px #fff;
+    }
 </style>
 
-<div class="page-title">
-    <h1>
-        <%= page %>
-    </h1>
+<div class="raffle-success-container">
+    <h5>Raffle Ticket Purchased!</h5>
+    <h2>We wish you luck!</h2>
+
+    <p>Increase your chances of winning this raffle by getting more tickets!</p>
+
+    <form action="/raffle/tickets/purchase" method="post">
+        <button>Buy Another</button>
+    </form>
 </div>
 
 
-<div class="raffle-tickets">
-    <ol>
-        <% tickets.forEach(function(ticket) { %>
-            <div class="ticket">
-            <li>
-                    <p>
-                        <%= ticket.id %>
-                    </p>
-                </li>
-            </div>
-            <% }) %>
-    </ol>
-</div>
 
 <div id="raffleContainer" class="raffle-overlay">
     <a href="javascript:void(0)" class="closebtn" onclick="closeRaffle()">&times;</a>
@@ -193,11 +196,13 @@
             </div>
             <h5>Dior Kim Jones KAWS velvet bomber jacket</h5>
             <div id="raffleCountdownClock">
-                    <% if (ticketsLeft <= 0) { %>
-                        <p>Tickets Left : <span id="ticketsRemaining">0</span></p>
+                <% if (ticketsLeft <=0) { %>
+                    <p>Tickets Left : <span id="ticketsRemaining">0</span></p>
                     <% } else { %>
-                        <p>Tickets Left : <span id="ticketsRemaining"><%= ticketsLeft %></span></p>
-                    <% } %>
+                        <p>Tickets Left : <span id="ticketsRemaining">
+                                <%= ticketsLeft %>
+                            </span></p>
+                        <% } %>
             </div>
         </div>
     </div>
