@@ -349,8 +349,8 @@ router.get('/checkout-billing/:cartId', async (req, res) => {
             }
         ],
         mode: 'payment',
-        success_url: `http://localhost:5000/cart/payment/success/${cartId}`,
-        cancel_url: 'http://localhost:5000/cart/shopping-cart',
+        success_url: `http://kicks-101.herokuapp.com/cart/payment/success/${cartId}`,
+        cancel_url: 'http://kicks-101.herokuapp.com/cart/shopping-cart',
     })
     res.redirect(303, session.url)
 })
