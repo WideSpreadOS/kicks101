@@ -61,8 +61,8 @@ router.get(`/tickets/:ticketId/checkout`, ensureAuthenticated, async (req, res) 
             }
         ],
         mode: 'payment',
-        success_url: 'http://localhost:5000/raffle/payment/success',
-        cancel_url: `http://localhost:5000/raffle/payment/cancel/${ticketId}`
+        success_url: 'http://kicks-101.herokuapp.com/raffle/payment/success',
+        cancel_url: `http://kicks-101.herokuapp.com/raffle/payment/cancel/${ticketId}`
     })
     res.redirect(303, session.url)
 })
