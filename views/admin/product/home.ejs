@@ -122,7 +122,7 @@
     </div>
     <form action="/admin/products/add" method="post">
         <div class="custom-select">
-            <select name="manufacturer" id="manufacturer">
+            <select name="manufacturer" id="manufacturer" required>
                 <option value="" selected disabled hidden>Manufacturer (Required)</option>
                 <% companies.forEach(function(manufacturer) { %>
                     <option value="<%= manufacturer.id %>"><%= manufacturer.name %></option>
@@ -130,7 +130,7 @@
             </select>
         </div>
         <div class="input-group">
-            <input type="text" name="name" placeholder="Name of Product (Required)">
+            <input type="text" name="name" placeholder="Name of Product (Required)" required>
         </div>
         <div class="input-group">
             <textarea name="description" placeholder="Description"></textarea>
@@ -151,7 +151,7 @@
             <input type="url" name="images" placeholder="Other Image URL">
         </div>
         <div class="custom-select">
-            <select name="product_type" id="productType">
+            <select name="product_type" id="productType" required>
                 <option value="" selected disabled hidden>Product Type</option>
                 <option value="Sneaker">Sneaker</option>
                 <option value="Outerwear">Outerwear</option>

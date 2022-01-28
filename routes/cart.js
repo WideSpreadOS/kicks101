@@ -333,9 +333,37 @@ router.get('/checkout-mailing', async (req, res) => {
 router.get('/checkout-billing/:cartId', async (req, res) => {
     const cartId = req.params.cartId;
     const cart = await Cart.findById(cartId)
-    res.render('cart/checkout-billing', {page: 'Billing Information', cart})
+    const amount = cart.total_price * 100
+    const tax = amount * 0.06
+    const saleTotal = amount + tax
+    console.log("AMOUNT: " + amount)
+    const session = await stripe.checkout.sessions.create({
+        payment_method_types: ["card"],
+        line_items: [
+            {
+                name: 'Total Sale',
+                price: cart.totalPrice,
+                currency: 'usd',
+                quantity: 1,
+                amount: saleTotal
+            }
+        ],
+        mode: 'payment',
+        success_url: `http://localhost:5000/cart/payment/success/${cartId}`,
+        cancel_url: 'http://localhost:5000/cart/shopping-cart',
+    })
+    res.redirect(303, session.url)
 })
 
+
+router.get('/payment/success/:cartId', async (req, res) => {
+    const cartId = req.params.cartId;
+    const cart = await Cart.findById(cartId)
+/*     if (req.session.cart) {
+        delete req.session.cart
+    } */
+    res.render('cart/success', {cart})
+})
 
 // Product Page
 router.get('/products', async (req, res) => {
