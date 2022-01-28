@@ -9,6 +9,7 @@ const Address = require('../models/Address');
 const Company = require('../models/Company');
 const Product = require('../models/Product');
 const RaffleTicket = require('../models/RaffleTicket');
+const RaffleWinner = require('../models/RaffleWinner');
 const Cart = require('../models/Cart');
 
 
@@ -121,7 +122,40 @@ router.get('/raffle', async (req, res) => {
     res.render('admin/raffle', { page: "Raffle", users, tickets })
 });
 
+router.get('/raffle/drawing', async (req, res) => {
+    const raffleTickets = await RaffleTicket.find()
+    let raffleArray = []
+    for (i of raffleTickets) {
+        raffleArray.push(i.id)
+    }
 
+    const winnerId = raffleArray[Math.floor(Math.random() * raffleArray.length)];
+    console.log('Winner: ' + winnerId)
+    const findWinner = await RaffleTicket.findById(winnerId).populate('ticket_holder').exec()
+    // Random chosen ID is pushed to RaffleWinners Model with ticketId and userId
+    const winner = new RaffleWinner({
+        winning_user: findWinner.id,
+        winning_ticket: winnerId
+    })
+    winner.save()
+    console.log(winner)
+    
+    //res.render(`admin/test`, {raffleTickets})
+    res.redirect(`/admin/raffle/delete-tickets/${findWinner.id}`)
+})
+
+router.get('/raffle/delete-tickets/:winnerId', async (req, res) => {
+    const winnerId = req.params.winnerId;
+    await RaffleTicket.deleteMany()
+    res.redirect(`/admin/raffle/winner/${winnerId}`)
+})
+
+router.get('/raffle/winner/:winnerId', async (req, res) => {
+    const winnerId = req.params.winnerId;
+    const winner = await User.findById(winnerId)
+    console.log(winner)
+    res.render('admin/raffle-winner', {winner})
+})
 /* Orders Routes */
 
 router.get('/invoices', async (req, res) => {

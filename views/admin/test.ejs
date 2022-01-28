@@ -1,0 +1,23 @@
+<style>
+    .raffle-winner-container {
+        text-align: center;
+    }
+
+    .raffle-winner-container h5 {
+        margin-bottom: 30px;
+    }
+</style>
+
+<div class="raffle-winner-container">
+
+    <h5>Raffle Winner:</h5>
+    <p>
+        <% raffleTickets.forEach(function(ticket) { %>
+            <p><%= ticket.id %></p>
+        <% }) %> 
+    </p>
+</div>
+
+<script>
+    
+</script>
