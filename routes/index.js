@@ -15,13 +15,17 @@ router.get('/', async (req, res) => {
     const raffles = await Raffle.find();
     const currentRaffle = raffles[raffles.length - 1]
     if (currentRaffle) {
-        
+        if (currentRaffle.dummy_ticket == false) {
         const totalTicketsAtStart = currentRaffle.total_tickets;
         const currentRafflePrize = await Product.findById(currentRaffle.raffle_product).populate('manufacturer').exec()
         console.log(currentRafflePrize)
         const allTickets = await RaffleTicket.find()
         const ticketsLeft = (totalTicketsAtStart - allTickets.length)
         res.render('landing', { page: 'Home', companies, ticketsLeft, currentRaffle, currentRafflePrize });
+        } else {
+
+            res.render('landing-no-raffle', { page: 'Home', companies });
+        }
     } else {
         res.render('landing-no-raffle', { page: 'Home', companies});
     }

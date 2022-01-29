@@ -286,16 +286,7 @@ router.post('/raffle/claim/:raffleWinnerId/:productId', async (req, res) => {
     const productId = req.params.productId;
     const chosenSize = req.body.chosen_size;
     const product = await Product.findById(productId)
-/*     const raffleWinner = await RaffleWinner.findById(raffleWinnerId).populate({
-        path: 'raffle_product',
-        model: 'Product',
-        populate: {
-            path: 'manufacturer',
-            model: 'Company'
-        }
-    }
-    ).exec();
- */
+
     const order = new Cart({
         for_user: req.user.id,
         total_price: 0,

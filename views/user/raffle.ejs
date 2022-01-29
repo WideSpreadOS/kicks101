@@ -181,14 +181,14 @@
 
 <div class="page-title">
     <h1>
-        <%= page %>
+        Raffle
     </h1>
 </div>
 
-<div class="ticket-header">
-    <h3>Winning Tickets</h3>
-</div>
 <% if (!winner) { %>
+    <div class="ticket-header">
+        <h3>Winning Tickets</h3>
+    </div>
     <p>You haven't won any raffles yet.</p>
 <% } else { %>
     <% winner.forEach(function(ticket) { %>

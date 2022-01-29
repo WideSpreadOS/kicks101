@@ -29,19 +29,31 @@ router.get('/', ensureAuthenticated, async (req, res) => {
     console.log(winner)
     const currentRaffle = raffles[raffles.length - 1]
     
-    const winningTickets = await RaffleWinner.find({winning_user: user.id});
+    const winningTickets = await Raffle.find({ winning_user: user.id }).populate({
+        path: 'raffle_product',
+        model: 'Product',
+        populate: {
+            path: 'manufacturer',
+            model: 'Company'
+        }
+    }
+    ).exec();;
     console.log(winningTickets)
     if(currentRaffle) {
-    const allTickets = await RaffleTicket.find()
-    const ticketsLeft = (100 - allTickets.length )
-    console.log(`Tickets Left: ${ticketsLeft}`)
-        const currentRafflePrize = await Product.findById(currentRaffle.raffle_product).populate('manufacturer').exec()
-        const tickets = await RaffleTicket.find({'ticket_holder': user.id})
-        res.render('user/raffle', { page: 'Your Raffle Tickets', user, winner, raffles, tickets, ticketsLeft, winningTickets, currentRaffle, currentRafflePrize });
+        if (currentRaffle.dummy_ticket == false) {
+            const allTickets = await RaffleTicket.find()
+            const ticketsLeft = (100 - allTickets.length )
+            console.log(`Tickets Left: ${ticketsLeft}`)
+            const currentRafflePrize = await Product.findById(currentRaffle.raffle_product).populate('manufacturer').exec()
+            const tickets = await RaffleTicket.find({'ticket_holder': user.id})
+            res.render('user/raffle', { page: 'Your Raffle Tickets', user, winner, raffles, tickets, ticketsLeft, winningTickets, currentRaffle, currentRafflePrize });
+        } else {
+            res.render('user/raffle-none', { page: 'Your Raffle Tickets', user, winner, winningTickets });
+        }
 
     } else {
 
-        res.render('user/raffle-none' , { page: 'No Current Raffle', user, winner });
+        res.render('user/raffle-none' , { page: 'No Current Raffle', user, winner, winningTickets });
     }
 });
 

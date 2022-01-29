@@ -115,12 +115,47 @@ router.get('/users/details/:userId', async (req, res) => {
 });
 
 
-/* User Info Routes */
+/* Raffle Routes */
 
 router.get('/raffle', async (req, res) => {
     const users = await User.find();
     const tickets = await RaffleTicket.find().populate('ticket_holder').exec()
-    res.render('admin/raffle', { page: "Raffle", users, tickets })
+    const raffles = await Raffle.find().populate([
+        {
+            path: 'winning_user',
+            model: 'User'
+        },
+        {
+            path: 'raffle_product',
+            model: 'Product',
+            populate: {
+                path: 'manufacturer',
+                model: 'Company'
+        }
+    }
+]).exec();
+    
+    const currentRaffle = raffles[raffles.length - 1]
+    if (currentRaffle) {
+        const currentRafflePrize = await Product.findById(currentRaffle.raffle_product).populate('manufacturer').exec()
+        if (currentRaffle.dummy_ticket == false) {
+            const currentPrizePrice = currentRafflePrize.price.base;
+            console.log(currentPrizePrice)
+            const currentTicketIncome = (tickets.length * currentRaffle.ticket_price)
+            console.log(currentTicketIncome)
+            const currentProfit = currentTicketIncome - currentPrizePrice;
+            console.log(currentProfit)
+            res.render('admin/raffle', { page: "Raffle", users, tickets, currentRaffle, currentRafflePrize, currentProfit, raffles })
+
+        } else {
+
+            res.render('admin/raffle-no-product-selected', { page: "Raffle", users, tickets, currentRaffle, raffles })
+        }
+
+
+    } else {
+    res.render('admin/raffle-no-raffle', { page: "Raffle" })
+    }
 });
 
 router.get('/raffle/new', async (req, res) => {
@@ -129,6 +164,9 @@ router.get('/raffle/new', async (req, res) => {
 
 })
 router.post('/raffle/new', async (req, res) => {
+    await Raffle.find({ dummy_ticket: true }).remove().exec(function (err, data) {
+        console.log('Removed: ' + data)
+    })
     const newRaffle = new Raffle({
         raffle_product: req.body.raffle_product,
         ticket_price: req.body.ticket_price,
@@ -156,7 +194,8 @@ router.get('/raffle/drawing', async (req, res) => {
     // Random chosen ID is pushed to RaffleWinners Model with ticketId and userId
     await Raffle.findByIdAndUpdate(currentRaffle.id, {
         winning_user: winningUserId,
-        winning_ticket: winnerId
+        winning_ticket: winnerId,
+        raffle_draw: true
     })
     
     //res.render(`admin/test`, {raffleTickets})
@@ -167,6 +206,14 @@ router.get('/raffle/delete-tickets/:winnerId', async (req, res) => {
     const winnerId = req.params.winnerId;
     await RaffleTicket.deleteMany()
     console.log('Deleted Tickets...')
+    const blankRaffle = new Raffle({
+        raffle_product: null,
+        winning_ticket: null,
+        ticket_price: null,
+        total_tickets: null,
+        dummy_ticket: true
+    })
+    blankRaffle.save()
     res.redirect(`/admin/raffle/winner/${winnerId}`)
 })
 

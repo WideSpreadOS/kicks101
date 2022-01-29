@@ -6,6 +6,10 @@ const raffleSchema = new mongoose.Schema({
     winning_user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     ticket_price: Number,
     total_tickets: Number,
+    raffle_draw: {
+        type: Boolean,
+        default: false
+    },
     date_started: {
         type: Date,
         default: Date.now()
@@ -14,7 +18,12 @@ const raffleSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    claimed_on: Date
+    claimed_on: Date,
+    dummy_ticket: {
+        type: Boolean,
+        default: false
+    }
+
 });
 
 
