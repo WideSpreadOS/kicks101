@@ -84,6 +84,19 @@ input, textarea {
     list-style:lower-alpha;
 }
 
+/* Site Logo */
+
+.site-logo-big {
+    max-width: 90vw;
+    max-height: 50vh;
+    margin-top: 30px;
+    margin: 0 auto;
+    text-align: center;
+}
+.site-logo-big img {
+    max-width: 100%;
+    max-height: 70vh;
+}
 
 
 /* Site Forms */
