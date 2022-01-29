@@ -626,6 +626,8 @@ input, textarea {
 
 .item-card-main-image {
     width: fit-content;
+    max-width: 80%;
+
     max-height: 300px;
     margin: 0 auto;
     margin-bottom: 10px;
