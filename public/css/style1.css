@@ -87,18 +87,40 @@ input, textarea {
 /* Site Logo */
 
 .site-logo-big {
-    max-width: 90vw;
-    max-height: 50vh;
+    max-width: 80vw;
+    max-height: 300px;
     margin-top: 30px;
     margin: 0 auto;
     text-align: center;
 }
 .site-logo-big img {
     max-width: 100%;
-    max-height: 70vh;
+    max-height: 300px;
 }
 
-
+.logo-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 50px;
+    margin-bottom: 30px;
+}
+.company-logo {
+    max-width: 80vw;
+    max-height: 200px;
+    padding: 15px;
+    margin-bottom: 10px;
+}
+.company-logo img {
+    max-width: 100%;
+    max-height: 150px;
+    filter: drop-shadow(0 0 5px rgba(135, 206, 250, 0.75));
+    opacity: 1;
+}
 /* Site Forms */
 
 .input-form {
@@ -534,6 +556,7 @@ input, textarea {
     flex-wrap: nowrap;
     flex-direction: row;
     margin-top: 10px;
+    margin-bottom: 30px;
 }
 .go-back-button a {
     text-decoration: none;

@@ -15,7 +15,6 @@
 <div class="item-card-container">
     <% if(products.length===0) { %>
             <p style="margin-bottom: 30px;">Sorry, we couldn't find any products.</p>
-            <%- include('../partials/filters/products.ejs'); %>
 
         <% } else { %>
             <% products.forEach(function(product) { %>

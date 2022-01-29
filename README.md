@@ -1,6 +1,12 @@
 # kicks101
-61f411c2762888e253bea999
-61f411c2762888e253bea999
+https://dashboard.heroku.com/apps/kicks-101/deploy/github
+
+https://github.com/WideSpreadOS/kicks101
+
+https://dashboard.stripe.com/test/dashboard
+
+https://account.godaddy.com/products
+
 
 /* 
 {

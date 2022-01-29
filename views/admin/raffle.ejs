@@ -154,6 +154,10 @@
     <h1><%= page %></h1>
 </div>
 
+<div class="go-back-button">
+    <a href="/admin">Back to Admin Dashboard</a>
+</div>
+
 <% if (currentRaffle.raffle_draw === true) { %>
     <div class="create-raffle">
         <a href="/admin/raffle/new">Create New Raffle</a>

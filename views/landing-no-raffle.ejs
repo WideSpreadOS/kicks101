@@ -157,6 +157,15 @@
 
 <%- include('./partials/filters/products.ejs'); %>
     <div class="landing-page-container">
+        <div class="logo-container">
+            <% companies.forEach(function(company) { %>
+                <div class="company-logo">
+                    <a href="/products/manufacturer/<%= company.id %>">
+                        <img src="<%= company.logo %>" alt="">
+                    </a>    
+                </div>
+                <% }) %>
+        </div>
 
     </div>
 
