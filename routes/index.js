@@ -14,9 +14,9 @@ router.get('/', async (req, res) => {
     const companies = await Company.find()
     const raffles = await Raffle.find();
     const currentRaffle = raffles[raffles.length - 1]
-    const totalTicketsAtStart = currentRaffle.total_tickets;
     if (currentRaffle) {
-
+        
+        const totalTicketsAtStart = currentRaffle.total_tickets;
         const currentRafflePrize = await Product.findById(currentRaffle.raffle_product).populate('manufacturer').exec()
         console.log(currentRafflePrize)
         const allTickets = await RaffleTicket.find()
