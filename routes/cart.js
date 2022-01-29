@@ -13,6 +13,8 @@ const Company = require('../models/Company');
 const Product = require('../models/Product');
 const Cart = require('../models/Cart');
 const UnregisteredCart = require('../models/UnregisteredCart');
+const RaffleWinner = require('../models/RaffleWinner');
+const Raffle = require('../models/Raffle');
 const { ensureAuthenticated } = require('../config/auth');
 
 
@@ -279,10 +281,86 @@ router.delete('/products/delete/:productId', async (req, res) => {
 
 
 
+router.post('/raffle/claim/:raffleWinnerId/:productId', async (req, res) => {
+    const raffleWinnerId = req.params.raffleWinnerId;
+    const productId = req.params.productId;
+    const chosenSize = req.body.chosen_size;
+    const product = await Product.findById(productId)
+/*     const raffleWinner = await RaffleWinner.findById(raffleWinnerId).populate({
+        path: 'raffle_product',
+        model: 'Product',
+        populate: {
+            path: 'manufacturer',
+            model: 'Company'
+        }
+    }
+    ).exec();
+ */
+    const order = new Cart({
+        for_user: req.user.id,
+        total_price: 0,
+        total_quantity: 1
+    })
+    order.save()
+    res.redirect(`/cart/raffle/claim/${raffleWinnerId}/${productId}/${chosenSize}/${order.id}/add-prize`)
+});
+
+router.get('/raffle/claim/:raffleWinnerId/:productId/:chosenSize/:orderId/add-prize', async (req, res) => {
+    const raffleWinnerId = req.params.raffleWinnerId;
+    const productId = req.params.productId;
+    const chosenSize = req.params.chosenSize;
+    const orderId = req.params.orderId;
+    await Cart.findByIdAndUpdate(orderId,
+        {
+            $push: {
+                items: {
+                    product: productId,
+                    quantity: 1,
+                    chosen_size: chosenSize
+                }
+            }
+        },
+        { safe: true, upsert: true },
+    )
+
+    res.redirect(`/cart/raffle/claim/${raffleWinnerId}/${orderId}/mailing`)
+})
+router.get('/raffle/claim/:raffleWinnerId/:orderId/mailing', async (req, res) => {
+    const raffleWinnerId = req.params.raffleWinnerId;
+    const orderId = req.params.orderId;
+    const order = await Cart.findById(orderId)
+    const userId = req.user.id
+    const user = await User.findById(userId)
+    const userAddresses = await Address.find({address_owner: userId})
+    res.render('user/raffle-mail', {raffleWinnerId, user, userAddresses, orderId})
+})
 
 
+router.post('/raffle/claim/:raffleWinnerId/:orderId/add-address', async (req, res) => {
+    const raffleWinnerId = req.params.raffleWinnerId;
+    const orderId = req.params.orderId;
+    const userId = req.user.id
+    const user = await User.findById(userId)
+    const order = await Cart.findByIdAndUpdate(orderId, {
+        "unregistered_user.fname": user.fname,
+        "unregistered_user.lname": user.lname,
+        "unregistered_user.mailing_address.street": req.body.street,
+        "unregistered_user.mailing_address.building": req.body.building_number,
+        "unregistered_user.mailing_address.apartment": req.body.apartment_number,
+        "unregistered_user.mailing_address.city": req.body.city,
+        "unregistered_user.mailing_address.state": req.body.state,
+        "unregistered_user.mailing_address.zip": req.body.zip,
+        "unregistered_user.mailing_address.country": req.body.country,
+        "unregistered_user.mailing_address.special_instructions": req.body.special_instructions,
+    })
+    res.redirect(`/cart/raffle/claim/${raffleWinnerId}/complete`)
+})
 
+router.get('/raffle/claim/:raffleWinnerId/complete', async (req, res) => {
+    const raffleWinnerId = req.params.raffleWinnerId;
 
-
+    await Raffle.findByIdAndDelete(raffleWinnerId)
+    res.redirect(`/raffle`)
+})
 
 module.exports = router;

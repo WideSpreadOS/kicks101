@@ -9,7 +9,12 @@ const raffleSchema = new mongoose.Schema({
     date_started: {
         type: Date,
         default: Date.now()
-    }
+    },
+    claimed: {
+        type: Boolean,
+        default: false
+    },
+    claimed_on: Date
 });
 
 

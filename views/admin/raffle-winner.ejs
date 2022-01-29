@@ -4,9 +4,25 @@
     }
     .raffle-winner-container h5 {
         margin-bottom: 30px;
+        font-size: 1.5rem;
+        color: lightskyblue;
+        font-family: 'Rock Salt', cursive;
+    }
+    .raffle-winner-container h6 {
+        font-size: 1.3rem;
+        font-weight: bold;
     }
     .raffle-tickets-container {
         margin-top: 30px;
+    }
+    .raffle-winner-container p {
+        padding: 10px;
+    }
+    .raffle-winner-container a {
+        color: lightskyblue;
+        text-decoration: none;
+        font-size: 1.1rem;
+        margin-top: 8px;
     }
     .raffle-ticket {
         width: 90%;
@@ -25,8 +41,8 @@
 
 <div class="raffle-winner-container">
 
-    <h5>Raffle Winner:</h5>
-    <p><%= winner.fname %> <%= winner.lname %></p>
+    <h5>Raffle Winner</h5>
+    <h6><%= winner.fname %> <%= winner.lname %></h6>
     <p>User ID: <%= winner.id %></p>
     <p><a href="mailto:<%= winner.email %>"><%= winner.email %></a></p>
 

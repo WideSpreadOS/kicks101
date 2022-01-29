@@ -165,7 +165,7 @@ router.get('/raffle/drawing', async (req, res) => {
 
 router.get('/raffle/delete-tickets/:winnerId', async (req, res) => {
     const winnerId = req.params.winnerId;
-    //await RaffleTicket.deleteMany()
+    await RaffleTicket.deleteMany()
     console.log('Deleted Tickets...')
     res.redirect(`/admin/raffle/winner/${winnerId}`)
 })

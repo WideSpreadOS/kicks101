@@ -26,17 +26,34 @@ router.get('/', ensureAuthenticated, async (req, res) => {
     
     const raffles = await Raffle.find();
     const winner = await Raffle.find({winning_user: user.id});
+    console.log(winner)
     const currentRaffle = raffles[raffles.length - 1]
-    const currentRafflePrize = await Product.findById(currentRaffle.raffle_product).populate('manufacturer').exec()
-    console.log(currentRaffle)
+    
     const winningTickets = await RaffleWinner.find({winning_user: user.id});
     console.log(winningTickets)
+    if(currentRaffle) {
     const allTickets = await RaffleTicket.find()
     const ticketsLeft = (100 - allTickets.length )
     console.log(`Tickets Left: ${ticketsLeft}`)
-    const tickets = await RaffleTicket.find({'ticket_holder': user.id})
-    res.render('user/raffle', { page: 'Your Raffle Tickets', user, winner, raffles, tickets, ticketsLeft, winningTickets, currentRaffle, currentRafflePrize });
+        const currentRafflePrize = await Product.findById(currentRaffle.raffle_product).populate('manufacturer').exec()
+        const tickets = await RaffleTicket.find({'ticket_holder': user.id})
+        res.render('user/raffle', { page: 'Your Raffle Tickets', user, winner, raffles, tickets, ticketsLeft, winningTickets, currentRaffle, currentRafflePrize });
+
+    } else {
+
+        res.render('user/raffle-none' , { page: 'No Current Raffle', user, winner });
+    }
 });
+
+router.post('/tickets/test/purchase', ensureAuthenticated, async (req, res) => {
+    const userId = req.user.id;
+    const ticket = new RaffleTicket({
+        ticket_holder: userId
+    });
+    ticket.save()
+
+    res.redirect(`/raffle`)
+})
 
 router.post('/tickets/purchase', ensureAuthenticated, async (req, res) => {
     const userId = req.user.id;

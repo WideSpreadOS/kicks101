@@ -9,6 +9,28 @@
         font-size: 1.3rem;
     }
 
+    .create-raffle {
+        width: 90%;
+        margin: 0 auto;
+        margin-bottom: 30px;
+        text-align: center;
+        background: #ecf0f3;
+        box-shadow: 4px 4px 4px 0px #d1d9e6, -4px -4px 4px 0px #fff;
+        border-radius: 16px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        
+    }
+    .create-raffle a {
+        font-family: 'Rock Salt', cursive;
+        font-size: 1.5rem;
+        color: lightskyblue;
+        text-decoration: none;
+        padding: 10px;
+        width: 100%;
+        text-align: center;
+    }
+
     .hold-raffle-drawing {
         width: 90%;
         margin: 0 auto;
@@ -36,6 +58,10 @@
     <h1><%= page %></h1>
 </div>
 
+
+<div class="create-raffle">
+    <a href="/admin/raffle/new">Create New Raffle</a>
+</div>
 <div class="hold-raffle-drawing">
     <a href="/admin/raffle/drawing">Get Winner</a>
 </div>

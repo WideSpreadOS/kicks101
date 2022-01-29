@@ -12,6 +12,7 @@ const Address = require('../models/Address');
 const PaymentMethod = require('../models/PaymentMethod');
 const RaffleWinner = require('../models/RaffleWinner');
 const Raffle = require('../models/Raffle');
+const Product = require('../models/Product');
 
 
 
@@ -178,7 +179,14 @@ router.get('/raffle/claim/:winningId', ensureAuthenticated, async (req, res) => 
 })
 
 
-
+router.get('/raffle/claim/:winningId/:userId/:productId/mailing', ensureAuthenticated, async (req, res) => {
+    const winningId = req.params.winningId;
+    const productId = req.params.productId;
+    const userId = req.params.userId;
+    const user = await User.findById(userId)
+    const product = await Product.findById(productId).populate('manufacturer').exec()
+    res.render('user/raffle-mail', {winningId, user, product})
+})
 
 router.get('/test', ensureAuthenticated, async (req, res) => {
     const userId = req.user.id;
