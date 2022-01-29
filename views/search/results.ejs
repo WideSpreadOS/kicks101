@@ -9,8 +9,12 @@
         
     </div>
 
-
-<%- include('../partials/filters/products.ejs'); %>
+<div class="filter-portrait">
+    <%- include('../partials/filters/products.ejs'); %>
+</div>
+<div class="filter-landscape">
+    <%- include('../partials/filters/products-landscape.ejs'); %>
+</div>
 
 <div class="item-card-container">
     <% if(products.length===0) { %>

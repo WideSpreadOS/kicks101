@@ -12,7 +12,7 @@
         }
         #searchForm {
             width: 100%;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
             margin-top: 30px;
         }
         #searchForm form {
@@ -265,14 +265,16 @@
         flex-wrap: nowrap;
         align-items: center;
         justify-content: space-evenly;
+        position: absolute;
+        bottom: 75px;
     }
     .user-menu-buttons a {
         font-size: 1rem;
     }
 @media screen and (orientation : landscape) {
             #mainMenu {
-                padding-top: 55px;
-                padding-bottom: 50px;
+                padding-top: 0;
+                padding-bottom: 70px;
                 flex-direction: row;
                 flex-wrap: wrap;
                 justify-content: space-evenly;
@@ -295,11 +297,42 @@
                 flex-wrap: wrap;
                 justify-content: flex-start;
             }
-    
+            #searchForm form {
+                width: 75%;
+            }
             .main-menu-item {
                 border-radius: 6px;
                 width: 40%;
                 max-width: 40%;
+            }
+            .user-menu-buttons {
+                min-width: 100%;
+                margin-top: 20px;
+                display: flex;
+                flex-direction: row;
+                flex-wrap: nowrap;
+                align-items: center;
+                justify-content: space-evenly;
+                position: absolute;
+                bottom: 10px;
+            }
+            .user-menu-buttons a {
+                font-size: 1rem;
+            }
+            .overlay .closebtn {
+                padding: 0;
+                top: 5px;
+            }
+            .overlay a {
+                padding: 0;
+            }
+            .overlay2 .closeproductbtn {
+                top: 0;
+                right: 60px;
+            }
+            .overlay3 .closesneakerbtn {
+                top: 0;
+                right: 60px;
             }
     
         }
@@ -314,8 +347,8 @@
         </div>
 
         <div class="main-menu-item"><a href="/">Home</a></div>
-        <div class="main-menu-item"><a href="/about">Our Mission</a></div>
         <div class="main-menu-item"><p>Products <span onclick="openProductsNav()"><i id="openProduct" class="fas fa-caret-right"></i></span></p></div>
+        <div class="main-menu-item"><a href="/about">Our Mission</a></div>
         <div class="main-menu-item"><a href="/contact">Contact Us</a></div>
         <div class="main-menu-item"><a href="/social">Social</a></div>
 

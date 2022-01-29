@@ -98,12 +98,31 @@
         text-shadow: 0 0 1px #fff;
         transition: ease-in 0.25s;
     }
+
+@media screen and (orientation : landscape) {
+
+    .item-card-main-image {
+        max-height: 80vh;
+        max-width: 100%;
+    }
+    .item-card-main-image img {
+        max-height: 80vh;
+        max-width: 100%;
+    }
+}
 </style>
     <div class="go-back-button">
         <a href="/products"><i class="fas fa-long-arrow-alt-left"></i>  Back to All Products</a>
     </div>
     <div class="go-back-button">
         <a href="/products/manufacturer/<%= product.manufacturer.id %>"><i class="fas fa-long-arrow-alt-left"></i>  Back to <%= product.manufacturer.name %></a>
+    </div>
+
+    <div class="filter-portrait">
+        <%- include('../partials/filters/products.ejs'); %>
+    </div>
+    <div class="filter-landscape">
+        <%- include('../partials/filters/products-landscape.ejs'); %>
     </div>
 
     <div class="item-card-body">

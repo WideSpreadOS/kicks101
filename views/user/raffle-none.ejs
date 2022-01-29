@@ -70,15 +70,38 @@
         font-family: 'Rock Salt', cursive;
         font-size: 1.2rem;
     }
+    @media screen and (orientation : landscape) {
+        .text-container {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(4px);
+            text-align: center;
+            margin: 0 auto;
+            margin-top: 0;
+            padding: 15px;
+            color: lightskyblue;
+            font-size: 1.3rem;
+            text-shadow: 0 0 2px #000;
+            font-weight: bold;
+            border-radius: 16px;
+            width: fit-content;
+        }
+    }
 </style>
+
+
 <div class="go-back-button">
-    <a href="/user/dashboard">Back to Dashboard</a>
+    <a href="/user/dashboard"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
 </div>
 <% if (winningTickets.length <= 0) { %>
     <div class="text-container">
-        <h4>No Raffle at the moment.</h4>
+        <h4>Sorry, no Raffle at the moment.</h4>
         <h4>Please Come Back Soon!</h4>
     </div>
+
+        <div class="site-logo-big">
+            <img src="/images/logo_1a1a1c.png" alt="">
+        </div>
+
 <% } else { %>
     <div class="unclaimed-raffles-header">
         <h3>You Won!</h3>

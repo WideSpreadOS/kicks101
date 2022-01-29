@@ -51,8 +51,9 @@ router.get('/manufacturer/:manufacturerId/type/:productType', async (req, res) =
 router.get('/manufacturer/:companyId/product/:productId', async (req, res) => {
     const companyId = req.params.companyId;
     const productId = req.params.productId;
+    const companies = await Company.find()
     const product = await Product.findById(productId).populate('manufacturer').exec();
-    res.render('products/single-product', { page: product.name, product });
+    res.render('products/single-product', { page: product.name, product, companies });
 });
 
 

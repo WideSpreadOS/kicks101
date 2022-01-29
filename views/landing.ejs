@@ -1,4 +1,8 @@
 <style>
+        .site-logo-big {
+        bottom: 50%;
+        transform: translate(-50%, 50%);
+    }
     #raffleHeader {
         position: fixed;
         bottom: 0;
@@ -135,6 +139,17 @@
         text-align: center;
         font-size: 1rem;
     }
+
+@media screen and (orientation : landscape) {
+    .logo-container {
+        margin-top: 100px;
+        width: 95%;
+        filter: blur(3px);
+    }
+    .company-logo img {
+        max-height: 100px;
+    }
+}
 </style>
 
 
@@ -143,8 +158,13 @@
     <img src="/images/logo_1a1a1c.png" alt="">
 </div>
 
-    
-<%- include('./partials/filters/products.ejs'); %>
+
+<div class="filter-portrait">
+    <%- include('./partials/filters/products.ejs'); %>
+</div>
+<div class="filter-landscape">
+    <%- include('./partials/filters/products-landscape.ejs'); %>
+</div>
 
 <div class="landing-page-container">
     

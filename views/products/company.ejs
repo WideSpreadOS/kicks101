@@ -11,7 +11,13 @@
         <a href="/products"><i class="fas fa-long-arrow-alt-left"></i>  Back to All Products</a>
     </div>
 
-<%- include('../partials/filters/products.ejs'); %>
+<div class="filter-portrait">
+    <%- include('../partials/filters/products.ejs'); %>
+</div>
+<div class="filter-landscape">
+    <%- include('../partials/filters/products-landscape.ejs'); %>
+</div>
+
 <div class="item-card-container">
     <% if(products.length===0) { %>
             <p style="margin-bottom: 30px;">Sorry, we couldn't find any products.</p>

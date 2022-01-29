@@ -1,13 +1,29 @@
 <style>
- 
+@media screen and (orientation : landscape) {
+    .logo-container {
+    margin-top: 100px;
+    width: 95%;
+    filter: blur(3px);
+    }
+    .company-logo img {
+    max-height: 100px;
+    }
+    .item-card-container {
+        align-items: flex-start;
+    }
+}
 </style>
 
-<div class="page-title">
-    <h1><%= page %></h1>
+
+
+
+
+<div class="filter-portrait">
+    <%- include('../partials/filters/products.ejs'); %>
 </div>
-
-
-<%- include('../partials/filters/products.ejs'); %>
+<div class="filter-landscape">
+    <%- include('../partials/filters/products-landscape.ejs'); %>
+</div>
 
 <div class="item-card-container">
     <% products.forEach(function(product) { %>

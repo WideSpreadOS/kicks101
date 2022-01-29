@@ -97,6 +97,20 @@
         padding: 8px;
         font-size: 2.2rem;
     }
+    
+@media screen and (orientation : landscape) {
+    #coreMenu {
+        width: 100px;
+        right: 85%;
+        box-shadow: none;
+        backdrop-filter: blur(0);
+        border-bottom: none;
+    }
+    .site-logo {
+        display: none;
+    }
+
+}
 </style>
 
 
@@ -108,12 +122,26 @@
     </div>
 </div>
 
-<div id="coreMenu">
-    <span onclick="openNav()"><i id="open" class="fa-solid fa-bars"></i></span>
-    <div class="site-logo">
+<div class="landscape-header-logo">
+    <div class="landscape-nav-logo-under">
         <img src="/images/logo_1a1a1c.png" alt="">
     </div>
-</div>
+    <div class="splitter-bar-lower"></div>
+    <div class="splitter-bar"></div>
+    <div class="core-menu-container">
+    </div>
+        <div class="landscape-nav-logo">
+                <img src="/images/logo_1a1a1c.png" alt="">
+        </div>
+    </div>
+    <div id="coreMenu">
+
+        <span onclick="openNav()"><i id="open" class="fa-solid fa-bars"></i></span>
+        <div class="site-logo">
+            <img src="/images/logo_1a1a1c.png" alt="">
+        </div>
+        
+    </div>
 
 
 

@@ -23,10 +23,11 @@
     }
 </style>
 
-<div class="page-title">
-    <h1>New Orders</h1>
-</div>
-
+<%- include('../../partials/menus/admin-nav.ejs'); %>
+<div class="admin-container">
+    <div class="page-title">
+        <h1>New Orders</h1>
+    </div>
 <div class="all-orders-container">
 
     <% allOrders.forEach(function(order) { %>
@@ -42,4 +43,5 @@
             <div class="go-to-order"><a href="/admin/invoices/new/order/<%= order.id %>">Open</a></div>
         </div>
     <% }) %>
+</div>
 </div>

@@ -1,4 +1,5 @@
 <style>
+
     #raffleHeader {
         position: fixed;
         bottom: 0;
@@ -146,16 +147,36 @@
         text-align: center;
         font-size: 1rem;
     }
+
+@media screen and (orientation : landscape) {
+    .logo-container {
+        margin-top: 100px;
+        width: 95%;
+        filter: blur(3px);
+    }
+    .company-logo img {
+        max-height: 100px;
+    }
+    #raffleHeader {
+        width: 40%;    
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
 </style>
 
 
 
-<div class="site-logo-big">
-    <img src="/images/logo_1a1a1c.png" alt="">
+
+
+<div class="filter-portrait">
+    <%- include('./partials/filters/products.ejs'); %>
+</div>
+<div class="filter-landscape">
+    <%- include('./partials/filters/products-landscape.ejs'); %>
 </div>
 
 
-<%- include('./partials/filters/products.ejs'); %>
     <div class="landing-page-container">
         <div class="logo-container">
             <% companies.forEach(function(company) { %>
