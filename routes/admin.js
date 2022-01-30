@@ -70,6 +70,15 @@ router.get('/products/manufacturer/:manufacturerId', async (req, res) => {
     res.render('admin/product/manufacturer', { page: company.name, products, companies })
 });
 
+
+router.get('/products/color/:color', async (req, res) => {
+    const color = req.params.color;
+    const companies = await Company.find();
+    const products = await Product.find({ main_color: ("#" + color) }).populate('manufacturer').exec();
+    res.render('admin/product/color', { page: 'Products By Color', color: ('#' + color),products, companies })
+});
+
+
 router.get('/products/edit/:productId', async (req, res) => {
     const companies = await Company.find();
     const productId = req.params.productId;
@@ -83,7 +92,7 @@ router.patch('/products/edit/:productId', async (req, res) => {
         const updates = req.body;
         const options = { new: true }
         await Product.findByIdAndUpdate(productToEdit, updates, options);
-        res.redirect(`/admin/products/edit/${productToEdit}`)
+        res.redirect(`/admin/products`)
     } catch (error) {
         console.log(error);
     }

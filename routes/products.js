@@ -29,11 +29,18 @@ router.get('/manufacturer/:companyId', async (req, res) => {
 });
 
 // Type of Product Page
-router.get('/type/:productType', async (req, res) => {
-    const productType = req.params.productType;
+router.get('/color/:color', async (req, res) => {
+    const color = req.params.color;
     const companies = await Company.find()
-    const products = await Product.find({'product_type': productType}).populate('manufacturer').exec();
-    res.render('products/company', { page: productType, companies, products });
+    const products = await Product.find({main_color: ("#" + color)}).populate('manufacturer').exec();
+    res.render('products/color', { page: 'Products By Color', color: ("#" + color), companies, products });
+});
+
+router.get('/products/color/:color', async (req, res) => {
+    const color = req.params.color;
+    const companies = await Company.find();
+    const products = await Product.find({ main_color: ("#" + color) }).populate('manufacturer').exec();
+    res.render('product/color', { page: 'Products By Color', color: ('#' + color), products, companies })
 });
 
 

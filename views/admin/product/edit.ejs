@@ -294,14 +294,8 @@
                 <div class="input-size"><input type="text" name="available_sizes" placeholder="Size" value="<%= product.available_sizes[19] %>"></div>
             </div>
             <div class="colors">
-                <div class="color">
-                    <label for="main_color">Main Color</label>
-                    <input type="color" name="main_color" id="main_color" value="<%= product.main_color %>">
-                </div>
-                <div class="color">
-                    <label for="accent_colors">Accent Color</label>
-                    <input type="color" name="accent_colors" id="accent_colors" value="<%= product.accent_colors[0] %>">
-                </div>
+                <%- include('../../partials/forms/color-selection.ejs'); %>
+            
             </div>
             <div class="input-group">
                 <label for="price.base">Price</label>
