@@ -132,13 +132,30 @@ router.post('/mailing', ensureAuthenticated, (req, res) => {
     res.redirect('/user/mailing')
 });
 
-router.patch('/mailing', ensureAuthenticated, (req, res) => {
+router.get('/mailing/address/:addressId/edit', ensureAuthenticated, async (req, res) => {
     const user = req.user;
-    res.redirect('/user/mailing')
+    const addressId = req.params.addressId;
+    const address = await Address.findById(addressId)
+    res.render('user/mailing-edit', {address, user})
 });
 
-router.delete('/mailing', ensureAuthenticated, (req, res) => {
+router.patch('/mailing/address/:addressId/edit', ensureAuthenticated, async (req, res) => {
+    try {
+        const user = req.user;
+        const addressId = req.params.addressId;
+        const updates = req.body;
+        const options = { new: true }
+        await Address.findByIdAndUpdate(addressId, updates, options);
+        res.redirect(`/user/mailing`)
+} catch (error) {
+    console.log(error);
+}
+});
+
+router.get('/mailing/address/:addressId/delete', ensureAuthenticated, async (req, res) => {
     const user = req.user;
+    const addressId = req.params.addressId;
+    await Address.findByIdAndDelete(addressId)
     res.redirect('/user/mailing')
 });
 
