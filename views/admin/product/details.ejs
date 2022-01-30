@@ -45,15 +45,28 @@
             <%= product.description %>
         </p>
     </div>
-    <div class="item-card-main-image">
-        <img src="<%= product.main_image %>" alt="">
+    <div class="item-card-main-image-container">
+        <div class="item-card-main-image">
+            <img src="<%= product.main_image %>" alt="">
+        </div>
     </div>
-    <div class="item-card-images">
-        <% product.images.forEach(function(image) { %>
-            <img src="<%= image %>" alt="">
-            <% }) %>
-    </div>
-
+    <% if (product.images=='' ) {%>
+        <span style="display: none;"></span>
+        <% } else { %>
+            <div class="item-card-images">
+                <% product.images.forEach(function(image) { %>
+                    <% if (image=='' ) { %>
+                        <span style="display: none;"></span>
+                        <% } else { %>
+                            <div class="item-card-image-container">
+                                <div class="item-card-image">
+                                    <img src="<%= image %>" alt="">
+                                </div>
+                            </div>
+                            <% } %>
+                                <% }) %>
+            </div>
+            <% } %>
     <% if (product.available_sizes.length === 0) { %>
         <span style="display: none;"></span>
     <% } else { %>

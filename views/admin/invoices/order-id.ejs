@@ -34,7 +34,7 @@
         color: lightskyblue;
     }
     .item-container {
-        box-shadow: -8px -4px 8px 0px #fff, 8px 4px 12px 0px #d1d0e6;
+        box-shadow: -8px -4px 8px 0px #fff, 8px 4px 12px 0px #d1d9e6;
         border-radius: 16px;
         width: 90%;
         margin: 0 auto;
@@ -46,8 +46,12 @@
         padding: 15px;
     }
     .item-container img {
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+    .item-container img {
         width: 30%;
-        box-shadow: -8px -4px 8px 0px #fff, 8px 4px 12px 0px #d1d0e6;
+        box-shadow: -8px -4px 8px 0px #fff, 8px 4px 12px 0px #d1d9e6;
         border-radius: 16px;
         margin-left: 15px;
     }
@@ -58,7 +62,17 @@
     .item-data-header {
         padding: 10px;
     }
+    .item-data-header h6 {
+        font-weight: bold;
+        padding: 10px;
+        font-size: 1.4rem;
+    }
     .item-data-header p {
+    }
+    .item-data-body {
+        padding: 8px;
+    }
+    .item-data-body p {
         font-size: 1.2rem;
     }
     .item-link {
@@ -79,7 +93,7 @@
         margin: 0 auto;
         margin-top: 40px;
         margin-bottom: 40px;
-        box-shadow: -8px -4px 8px 0px #fff, 8px 4px 12px 0px #d1d0e6;
+        box-shadow: -8px -4px 8px 0px #fff, 8px 4px 12px 0px #d1d9e6;
         width: 90%;
         border-radius: 16px;
         padding: 10px;
@@ -138,11 +152,14 @@
             <img src="<%= item.product.main_image %>" alt="">
             <div class="item-data">
                 <div class="item-data-header">
+                    <h6><%= item.product.manufacturer.name %></h6>
                     <p><%= item.product.name %></p>
                 </div>
-                <p>$<%= item.product.price.base %></p>
-                <p>Quantity: <%= item.quantity %></p>
-                <p>Size: <%= item.chosen_size %></p>
+                <div class="item-data-body">
+                    <p>$<%= item.product.price.base %></p>
+                    <p>Quantity: <%= item.quantity %></p>
+                    <p>Size: <%= item.chosen_size %></p>
+                </div>
                 <div class="item-link">
                     <a href="/admin/products/details/<%= item.product.id %>">See Product</a>
                 </div>
@@ -153,7 +170,7 @@
 </div>
 
 <div class="order-placed">
-    <a href="/admin/invoices/new/<%= order.id %>/shipped">Order Shipped</a>
+    <a href="/admin/invoices/new/order/<%= order.id %>/shipped">Ship Order</a>
 </div>
 
 </div>

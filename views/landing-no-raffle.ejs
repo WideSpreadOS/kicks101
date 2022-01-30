@@ -1,5 +1,8 @@
 <style>
-
+    .site-logo-big {
+        display: block;
+        bottom: 35%;
+    }
     #raffleHeader {
         position: fixed;
         bottom: 0;
@@ -7,7 +10,7 @@
         right: 0;
         width: 100%;
         height: 65px;
-        box-shadow: 0 -6px 8px rgba(0, 0, 0, 0.25);
+        box-shadow: 0 -6px 10px rgba(135, 206, 250, 0.5);
         border-top: outset 1px rgba(255, 255, 255, 0.75);
         background: #ecf0f3;
         display: flex;
@@ -16,8 +19,6 @@
         align-items: center;
         justify-content: space-between;
         z-index: 99993;
-        border-top-left-radius: 8px;
-        border-top-right-radius: 8px;
     }
 
     #raffleHeader h2 {
@@ -43,9 +44,7 @@
         background: #ecf0f3;
         overflow-x: hidden;
         transition: 0.5s;
-        border-top-left-radius: 8px;
-        border-top-right-radius: 8px;
-        box-shadow: 0 -6px 8px rgba(0, 0, 0, 0.25);
+        box-shadow: 0 -6px 10px rgba(135, 206, 250, 0.5);
         border-top: outset 1px rgba(255, 255, 255, 0.75);
     }
 
@@ -149,10 +148,14 @@
     }
 
 @media screen and (orientation : landscape) {
+    .site-logo-big {
+
+        display: none;
+    }
     .logo-container {
         margin-top: 100px;
         width: 95%;
-        filter: blur(3px);
+        filter: blur(2px);
     }
     .company-logo img {
         max-height: 100px;
@@ -161,12 +164,17 @@
         width: 40%;    
         left: 50%;
         transform: translateX(-50%);
+        border-top-left-radius: 16px;
+        border-top-right-radius: 16px;
     }
 }
 </style>
 
 
 
+<div class="site-logo-big">
+    <img src="/images/logo_1a1a1c.png" alt="">
+</div>
 
 
 <div class="filter-portrait">

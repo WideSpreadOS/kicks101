@@ -39,6 +39,10 @@ const cartSchema = new mongoose.Schema({
         type: Date,
         default: Date.now()
     },
+    shipped: {
+        type: Boolean,
+        default: false
+    },
     shipped_date: Date
 });
 

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const AddressSchema = new mongoose.Schema({
-    address_owner: String,
+    address_owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     street: String,
     building_number: String,
     apartment_number: String,

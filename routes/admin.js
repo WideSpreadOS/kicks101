@@ -12,6 +12,7 @@ const RaffleTicket = require('../models/RaffleTicket');
 const RaffleWinner = require('../models/RaffleWinner');
 const Cart = require('../models/Cart');
 const Raffle = require('../models/Raffle');
+const { populate } = require('../models/User');
 
 
 // Welcome Page
@@ -257,10 +258,44 @@ router.get('/invoices/new', async (req, res) => {
 
 router.get('/invoices/new/order/:orderId', async (req, res) => {
     const orderId = req.params.orderId;
-    const order = await Cart.findById(orderId).populate('items.product').exec()
+    const order = await Cart.findById(orderId).populate({
+        path: 'items.product',
+        model: 'Product',
+        populate: {
+            path: 'manufacturer',
+            model: 'Company'
+        }
+    }).exec()
     res.render('admin/invoices/order-id', {order})
 })
 
+router.get('/invoices/new/order/:orderId/shipped', async (req, res) => {
+    const orderId = req.params.orderId;
+    await Cart.findByIdAndUpdate(orderId, {
+        shipped: true,
+        shipped_date: Date.now()
+    })
+    res.redirect(`/admin/invoices/new/order/${orderId}/reciept`)
+})
+
+router.get('/invoices/new/order/:orderId/reciept', async (req, res) => {
+    const orderId = req.params.orderId;
+    const order = await Cart.findById(orderId).populate([
+        {
+            path: 'for_user',
+            model: 'User'
+        },
+        {
+            path: 'items.product',
+            model: 'Product',
+            populate: {
+                path: 'manufacturer',
+                model: 'Company'
+            }
+        }
+    ]).exec()
+    res.render('admin/invoices/reciept', {order})
+})
 router.get('/invoices/new/order/:orderId/label', async (req, res) => {
     const orderId = req.params.orderId;
     const order = await Cart.findById(orderId)

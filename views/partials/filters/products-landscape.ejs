@@ -1,28 +1,119 @@
-<div class="product-filter-container-landscape">
-    <div class="product-filter">
-        <div class="filter-options-header">
-            <h6>Filter By Type</h6>
+<style>
+    .filter-container {
+        width: 95%;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: space-between;
+        margin-top: -15px;
+    }
+    .filter-left {
+        background: #eee;
+        color: #333;
+        position:relative;
+        overflow:hidden;
+        width: 40%;
+        margin-left: 5%;
+        margin-bottom: 30px;
+        border-radius: 16px;
+        padding: 4px;
+        }
+    .filter-right {
+        background: #eee;
+        color: #333;
+        position:relative;
+        overflow:hidden;
+        width: 40%;
+        margin-right: 5%;
+        margin-bottom: 30px;
+        border-radius: 16px;
+        padding: 4px;
+        }
+        .filter-text{
+            box-shadow: 4px 4px 6px #d1d9e6, -4px -4px 6px #ffffff;
+        padding:8px 20px 8px;
+        background: #ecf0f3;
+        border-radius: 16px;
+        height: 145px;
+        z-index: 30;
+
+        }
+        .arc-top-left {
+        position: absolute;
+        width: 50px;
+        height: 100%;
+        top: 0; right: 0;
+        }
+        .arc-top-left::after {
+        content:'';
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        background: #ecf0f3;
+        box-shadow: -4px -4px 6px #d1d9e6, 4px 4px 6px #ffffff;
+        border-radius: 50%; 
+        }
+
+        .arc-top-left:after {
+        top: -50px;
+        right: -50px;
+        }
+.arc-top-right:before {
+  content:'';
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background: #ecf0f3;
+  box-shadow: -4px -4px 6px #d1d9e6, 4px 4px 6px #ffffff;
+  border-radius: 50%;
+}
+.arc-top-right:before {
+  top: -50px;
+  left: -50px;
+}
+
+
+</style>
+
+<div class="filter-container-landscape">
+
+    <div class="filter-left">
+        <div class="arc-top-left">
+            
         </div>
-        <div class="filter-options">
-            <div class="filter-option"><a href="/products/type/Sneaker">Sneakers</a></div>
-            <div class="filter-option"><a href="/products/type/Outerwear">Outerwear</a></div>
-            <div class="filter-option"><a href="/products/type/T-Shirt">T-Shirts</a></div>
-            <div class="filter-option"><a href="/products/type/Accessory">Accessories</a></div>
+        <div class="filter-text">
+                <div class="filter-options-header">
+                    <h6>Filter By Type</h6>
+                </div>
+                <div class="filter-options">
+                    <div class="filter-option"><a href="/products/type/Sneaker">Sneakers</a></div>
+                    <div class="filter-option"><a href="/products/type/Outerwear">Outerwear</a></div>
+                    <div class="filter-option"><a href="/products/type/T-Shirt">T-Shirts</a></div>
+                    <div class="filter-option"><a href="/products/type/Accessory">Accessories</a></div>
+                </div>
+
         </div>
+
+        <div class="arc-bottom-left"></div>
     </div>
 
-    <div class="product-filter">
-        <div class="filter-options-header">
-            <h6>Filter By Brand</h6>
+    <div class="filter-right">
+        <div class="arc-top-right"></div>
+        <div class="filter-text">
+                <div class="filter-options-header">
+                    <h6>Filter By Brand</h6>
+                </div>
+                <div class="filter-options">
+                    <% companies.forEach(function(manufacturer) { %>
+                        <div class="filter-option"><a href="/products/manufacturer/<%= manufacturer.id %>">
+                                <%= manufacturer.name %>
+                            </a></div>
+                        <% }) %>
+                </div>
         </div>
-        <div class="filter-options">
-            <% companies.forEach(function(manufacturer) { %>
-                <div class="filter-option"><a href="/products/manufacturer/<%= manufacturer.id %>">
-                        <%= manufacturer.name %>
-                    </a></div>
-            <% }) %>
-        </div>
+        <div class="arc-bottom-right"></div>
     </div>
-
 
 </div>
+

@@ -111,18 +111,19 @@
     }
 }
 </style>
-    <div class="go-back-button">
-        <a href="/products"><i class="fas fa-long-arrow-alt-left"></i>  Back to All Products</a>
-    </div>
-    <div class="go-back-button">
-        <a href="/products/manufacturer/<%= product.manufacturer.id %>"><i class="fas fa-long-arrow-alt-left"></i>  Back to <%= product.manufacturer.name %></a>
-    </div>
 
     <div class="filter-portrait">
         <%- include('../partials/filters/products.ejs'); %>
     </div>
     <div class="filter-landscape">
         <%- include('../partials/filters/products-landscape.ejs'); %>
+    </div>
+    <div class="go-back-button">
+        <a href="/products"><i class="fas fa-long-arrow-alt-left"></i> Back to All Products</a>
+    </div>
+    <div class="go-back-button">
+        <a href="/products/manufacturer/<%= product.manufacturer.id %>"><i class="fas fa-long-arrow-alt-left"></i> Back to
+            <%= product.manufacturer.name %></a>
     </div>
 
     <div class="item-card-body">
@@ -143,9 +144,11 @@
         <div class="item-card-description">
             <p><%= product.description %></p>
         </div>
-        <div class="item-card-main-image">
-            <img src="<%= product.main_image %>" alt="">
-        </div>
+                <div class="item-card-main-image-container">
+                    <div class="item-card-main-image">
+                        <img src="<%= product.main_image %>" alt="">
+                    </div>
+                </div>
         <% if (product.images == '') {%>
             <span style="display: none;"></span>
         <% } else { %>
@@ -154,7 +157,11 @@
                 <% if (image == '') { %>
                     <span style="display: none;"></span>
                 <% } else { %>
-                <img src="<%= image %>" alt="">
+                <div class="item-card-image-container">
+                    <div class="item-card-image">
+                        <img src="<%= image %>" alt="">
+                    </div>
+                </div>
                 <% } %>
             <% }) %>
         </div>
