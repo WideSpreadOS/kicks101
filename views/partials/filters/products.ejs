@@ -194,30 +194,83 @@
     .color-link:nth-child(20n + 20)>a>.a_palette_color {
         background-color: #98FB98;
     }
+
+
+    .active {
+        border-bottom: none;
+    }
+
+    .product-filter-header {}
+
+    .collapse-buttons {
+        position: relative;
+        width: 95%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-end;
+    }
+    
+    .collapse-buttons>span {
+        padding: 5px;
+        display: absolute;
+        bottom: 5px;
+        right: 5px;
+
+    }
+
+    .collapse-buttons>span>i {
+        color: lightskyblue;
+        font-size: 1.3rem;
+
+
+    }
+
+    .openFilter {
+        opacity: 1;
+    }
+
+    .closeFilter {
+
+        opacity: 0;
+    }
+
+    .filter-container {
+        display: none;
+
+    }
 </style>
 <div class="product-filter-container">
-    <div class="product-filter-header">
-        <h5>Filter Products</h5>
+    <div class="collapsible-filter">
+        <div class="collapse-buttons">
+            <div class="product-filter-header">
+                <h5>Filter Products</h5>
+            </div>
+            <span onclick="closeFilter()"><i class="fas fa-angle-double-up closeFilter"></i></span>
+            <span onclick="openFilter()"><i class="fas fa-angle-double-down openFilter"></i></span>
+        </div>
     </div>
-    <div class="filter-options-header">
-        <h6>Product Type</h6>
-    </div>
-    <div class="filter-options">
-        <div class="filter-option"><a href="/products/type/Sneaker">Sneakers</a></div>
-        <div class="filter-option"><a href="/products/type/Outerwear">Outerwear</a></div>
-        <div class="filter-option"><a href="/products/type/T-Shirt">T-Shirts</a></div>
-        <div class="filter-option"><a href="/products/type/Accessory">Accessories</a></div>
-    </div>
-    <div class="filter-options-header">
-        <h6>Brand</h6>
-    </div>
-    <div class="filter-options">
-        <% companies.forEach(function(manufacturer) { %>
-            <div class="filter-option"><a href="/products/manufacturer/<%= manufacturer.id %>">
-                    <%= manufacturer.name %>
-                </a></div>
-            <% }) %>
-    </div>
+    <div class="filter-container">
+        <div class="filter-options-header">
+            <h6>Product Type</h6>
+        </div>
+        <div class="filter-options">
+            <div class="filter-option"><a href="/products/type/Sneaker">Sneakers</a></div>
+            <div class="filter-option"><a href="/products/type/Outerwear">Outerwear</a></div>
+            <div class="filter-option"><a href="/products/type/T-Shirt">T-Shirts</a></div>
+            <div class="filter-option"><a href="/products/type/Accessory">Accessories</a></div>
+        </div>
+        <div class="filter-options-header">
+            <h6>Manufacturer</h6>
+        </div>
+        <div class="filter-options">
+            <% companies.forEach(function(manufacturer) { %>
+                <div class="filter-option"><a href="/products/manufacturer/<%= manufacturer.id %>">
+                        <%= manufacturer.name %>
+                    </a></div>
+                <% }) %>
+        </div>
+
         <div class="filter-options-header">
             <h6>Color</h6>
         </div>
@@ -324,7 +377,25 @@
                         <div class="a_palette_color"></div>
                     </a>
                 </div>
-        
+
             </div>
         </div>
+    </div>
 </div>
+
+<script>
+
+
+
+    function openFilter() {
+        document.querySelector('.filter-container').style.display = "block";
+        document.querySelector('.openFilter').style.opacity = 0
+        document.querySelector('.closeFilter').style.opacity = 1
+    }
+    function closeFilter() {
+        document.querySelector('.filter-container').style.display = "none";
+        document.querySelector('.openFilter').style.opacity = 1
+        document.querySelector('.closeFilter').style.opacity = 0
+    }
+
+</script>

@@ -191,141 +191,202 @@
     .color-link:nth-child(20n + 20) > a > .a_palette_color {
         background-color: #98FB98;
     }
+
+
+    .active {
+        border-bottom: none;
+    }
+    .product-filter-header {
+    }
+    .collapse-buttons {
+        position: relative;
+        width: 95%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-end;
+    }
+    .collapse-buttons > span {
+            display: absolute;
+            bottom: 5px;
+            right: 5px;
+            padding: 5px;
+        }
+        .collapse-buttons > span > i {
+            color: lightskyblue;
+            font-size: 1.3rem;
+ 
+        
+    }
+    .openFilter {
+        opacity: 1;
+    }
+    .closeFilter {
+        
+            opacity: 0;
+        }
+
+       .filter-container {
+            display: none;
+            
+        }
 </style>
 <div class="product-filter-container">
-    <div class="product-filter-header">
-        <h5>Filter Products</h5>
-    </div>
-    <div class="filter-options-header">
-        <h6>Product Type</h6>
-    </div>
-    <div class="filter-options">
-        <div class="filter-option"><a href="/admin/products/type/Sneaker">Sneakers</a></div>
-        <div class="filter-option"><a href="/admin/products/type/Outerwear">Outerwear</a></div>
-        <div class="filter-option"><a href="/admin/products/type/T-Shirt">T-Shirts</a></div>
-        <div class="filter-option"><a href="/admin/products/type/Accessory">Accessories</a></div>
-    </div>
-    <div class="filter-options-header">
-        <h6>Manufacturer</h6>
-    </div>
-    <div class="filter-options">
-        <% companies.forEach(function(manufacturer) { %>
-            <div class="filter-option"><a href="/admin/products/manufacturer/<%= manufacturer.id %>">
-                    <%= manufacturer.name %>
-                </a></div>
-            <% }) %>
-    </div>
-
-    <div class="filter-options-header">
-        <h6>Color</h6>
-    </div>
-    <div class="color-filter">
-        <i class="fas fa-arrows-alt-h"></i>
-        <div class="palette">
-            <div class="color-link">
-                <a href="/admin/products/color/fffafa">
-                    <div class="a_palette_color"></div>
-                </a>
+    <div class="collapsible-filter">
+        <div class="collapse-buttons">
+            <div class="product-filter-header">
+                <h5>Filter Products</h5>
             </div>
-            <div class="color-link">
-                <a href="/admin/products/color/d3d3d3">
-                    <div class="a_palette_color"></div>
-                </a>
-            </div>
-            <div class="color-link">
-                <a href="/admin/products/color/696969">
-                    <div class="a_palette_color"></div>
-                </a>
-            </div>
-            <div class="color-link">
-                <a href="/admin/products/color/000000">
-                    <div class="a_palette_color"></div>
-                </a>
-            </div>
-            <div class="color-link">
-                <a href="/admin/products/color/000080">
-                    <div class="a_palette_color"></div>
-                </a>
-            </div>
-            <div class="color-link">
-                <a href="/admin/products/color/87cefa">
-                    <div class="a_palette_color"></div>
-                </a>
-            </div>
-            <div class="color-link">
-                <a href="/admin/products/color/ddA0dd">
-                    <div class="a_palette_color"></div>
-                </a>
-            </div>
-            <div class="color-link">
-                <a href="/admin/products/color/9400d3">
-                    <div class="a_palette_color"></div>
-                </a>
-            </div>
-            <div class="color-link">
-                <a href="/admin/products/color/ff1493">
-                    <div class="a_palette_color"></div>
-                </a>
-            </div>
-            <div class="color-link">
-                <a href="/admin/products/color/ffb6c1">
-                    <div class="a_palette_color"></div>
-                </a>
-            </div>
-            <div class="color-link">
-                <a href="/admin/products/color/dc143c">
-                    <div class="a_palette_color"></div>
-                </a>
-            </div>
-            <div class="color-link">
-                <a href="/admin/products/color/ff4500">
-                    <div class="a_palette_color"></div>
-                </a>
-            </div>
-            <div class="color-link">
-                <a href="/admin/products/color/ffa500">
-                    <div class="a_palette_color"></div>
-                </a>
-            </div>
-            <div class="color-link">
-                <a href="/admin/products/color/ffa07a">
-                    <div class="a_palette_color"></div>
-                </a>
-            </div>
-            <div class="color-link">
-                <a href="/admin/products/color/ffff00">
-                    <div class="a_palette_color"></div>
-                </a>
-            </div>
-            <div class="color-link">
-                <a href="/admin/products/color/d2691e">
-                    <div class="a_palette_color"></div>
-                </a>
-            </div>
-            <div class="color-link">
-                <a href="/admin/products/color/884513">
-                    <div class="a_palette_color"></div>
-                </a>
-            </div>
-            <div class="color-link">
-                <a href="/admin/products/color/ffD700">
-                    <div class="a_palette_color"></div>
-                </a>
-            </div>
-            <div class="color-link">
-                <a href="/admin/products/color/6B8e23">
-                    <div class="a_palette_color"></div>
-                </a>
-            </div>
-            <div class="color-link">
-                <a href="/admin/products/color/98fb98">
-                    <div class="a_palette_color"></div>
-                </a>
-            </div>
-        
+            <span onclick="closeFilter()"><i class="fas fa-angle-double-up closeFilter"></i></span>
+            <span onclick="openFilter()"><i class="fas fa-angle-double-down openFilter"></i></span>
         </div>
     </div>
+    <div class="filter-container">
+        <div class="filter-options-header">
+            <h6>Product Type</h6>
+        </div>
+        <div class="filter-options">
+            <div class="filter-option"><a href="/admin/products/type/Sneaker">Sneakers</a></div>
+            <div class="filter-option"><a href="/admin/products/type/Outerwear">Outerwear</a></div>
+            <div class="filter-option"><a href="/admin/products/type/T-Shirt">T-Shirts</a></div>
+            <div class="filter-option"><a href="/admin/products/type/Accessory">Accessories</a></div>
+        </div>
+        <div class="filter-options-header">
+            <h6>Manufacturer</h6>
+        </div>
+        <div class="filter-options">
+            <% companies.forEach(function(manufacturer) { %>
+                <div class="filter-option"><a href="/admin/products/manufacturer/<%= manufacturer.id %>">
+                        <%= manufacturer.name %>
+                    </a></div>
+                <% }) %>
+        </div>
 
+        <div class="filter-options-header">
+            <h6>Color</h6>
+        </div>
+        <div class="color-filter">
+            <i class="fas fa-arrows-alt-h"></i>
+            <div class="palette">
+                <div class="color-link">
+                    <a href="/admin/products/color/fffafa">
+                        <div class="a_palette_color"></div>
+                    </a>
+                </div>
+                <div class="color-link">
+                    <a href="/admin/products/color/d3d3d3">
+                        <div class="a_palette_color"></div>
+                    </a>
+                </div>
+                <div class="color-link">
+                    <a href="/admin/products/color/696969">
+                        <div class="a_palette_color"></div>
+                    </a>
+                </div>
+                <div class="color-link">
+                    <a href="/admin/products/color/000000">
+                        <div class="a_palette_color"></div>
+                    </a>
+                </div>
+                <div class="color-link">
+                    <a href="/admin/products/color/000080">
+                        <div class="a_palette_color"></div>
+                    </a>
+                </div>
+                <div class="color-link">
+                    <a href="/admin/products/color/87cefa">
+                        <div class="a_palette_color"></div>
+                    </a>
+                </div>
+                <div class="color-link">
+                    <a href="/admin/products/color/ddA0dd">
+                        <div class="a_palette_color"></div>
+                    </a>
+                </div>
+                <div class="color-link">
+                    <a href="/admin/products/color/9400d3">
+                        <div class="a_palette_color"></div>
+                    </a>
+                </div>
+                <div class="color-link">
+                    <a href="/admin/products/color/ff1493">
+                        <div class="a_palette_color"></div>
+                    </a>
+                </div>
+                <div class="color-link">
+                    <a href="/admin/products/color/ffb6c1">
+                        <div class="a_palette_color"></div>
+                    </a>
+                </div>
+                <div class="color-link">
+                    <a href="/admin/products/color/dc143c">
+                        <div class="a_palette_color"></div>
+                    </a>
+                </div>
+                <div class="color-link">
+                    <a href="/admin/products/color/ff4500">
+                        <div class="a_palette_color"></div>
+                    </a>
+                </div>
+                <div class="color-link">
+                    <a href="/admin/products/color/ffa500">
+                        <div class="a_palette_color"></div>
+                    </a>
+                </div>
+                <div class="color-link">
+                    <a href="/admin/products/color/ffa07a">
+                        <div class="a_palette_color"></div>
+                    </a>
+                </div>
+                <div class="color-link">
+                    <a href="/admin/products/color/ffff00">
+                        <div class="a_palette_color"></div>
+                    </a>
+                </div>
+                <div class="color-link">
+                    <a href="/admin/products/color/d2691e">
+                        <div class="a_palette_color"></div>
+                    </a>
+                </div>
+                <div class="color-link">
+                    <a href="/admin/products/color/884513">
+                        <div class="a_palette_color"></div>
+                    </a>
+                </div>
+                <div class="color-link">
+                    <a href="/admin/products/color/ffD700">
+                        <div class="a_palette_color"></div>
+                    </a>
+                </div>
+                <div class="color-link">
+                    <a href="/admin/products/color/6B8e23">
+                        <div class="a_palette_color"></div>
+                    </a>
+                </div>
+                <div class="color-link">
+                    <a href="/admin/products/color/98fb98">
+                        <div class="a_palette_color"></div>
+                    </a>
+                </div>
+            
+            </div>
+        </div>
     </div>
 </div>
 
+<script>
+
+
+
+    function openFilter() {
+        document.querySelector('.filter-container').style.display = "block";
+        document.querySelector('.openFilter').style.display = "none"
+        document.querySelector('.closeFilter').style.display = "block"
+    }
+    function closeFilter() {
+        document.querySelector('.filter-container').style.display = "none";
+        document.querySelector('.closeFilter').style.display = "none"
+        document.querySelector('.openFilter').style.display = "block"
+    }
+
+</script>
