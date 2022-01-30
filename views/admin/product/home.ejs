@@ -206,14 +206,8 @@
             <div class="input-size"><input type="text" name="available_sizes" placeholder="Size"></div>
         </div>
         <div class="colors">
-            <div class="color">
-                <label for="main_color">Main Color</label>
-                <input type="color" name="main_color" id="main_color">
-            </div>
-            <div class="color">
-                <label for="accent_colors">Accent Color</label>
-                <input type="color" name="accent_colors" id="accent_colors">
-            </div>
+            <%- include('../../partials/forms/color-selection.ejs'); %>
+
         </div>
         <div class="input-group">
             <input type="number" name="price.base" placeholder="Price (Required)">
@@ -227,6 +221,7 @@
         <button type="submit">Add Product</button>
     </form>
 </div>
+
 
 
 <%- include('../../partials/filters/admin-products.ejs'); %>
