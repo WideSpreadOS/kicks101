@@ -28,6 +28,15 @@ router.get('/manufacturer/:companyId', async (req, res) => {
     res.render('products/company', { page: company.name, company, companies, products });
 });
 
+
+router.get('/type/:type', async (req, res) => {
+    const type = req.params.type;
+    const companies = await Company.find();
+    const products = await Product.find({ product_type: type}).populate('manufacturer').exec();
+    res.render('products/type', { page: 'Products By Type', type: (type + "'s"), products, companies })
+});
+
+
 // Type of Product Page
 router.get('/color/:color', async (req, res) => {
     const color = req.params.color;
@@ -36,7 +45,7 @@ router.get('/color/:color', async (req, res) => {
     res.render('products/color', { page: 'Products By Color', color: ("#" + color), companies, products });
 });
 
-router.get('/products/color/:color', async (req, res) => {
+router.get('/color/:color', async (req, res) => {
     const color = req.params.color;
     const companies = await Company.find();
     const products = await Product.find({ main_color: ("#" + color) }).populate('manufacturer').exec();
