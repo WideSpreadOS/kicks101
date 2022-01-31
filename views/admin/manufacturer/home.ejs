@@ -20,6 +20,17 @@
         min-height: 100px;
         filter: drop-shadow(0 0 5px lightskyblue);
     }
+
+    .delete-company {
+        width: 90%;
+        margin: 0 auto;
+        text-align: center;
+    }
+    .delete-company a {
+        color: red;
+        font-size: 1.5rem;
+        text-decoration: none;
+    }
 </style>
 
 <%- include('../../partials/menus/admin-nav.ejs'); %>
@@ -83,6 +94,10 @@
                         <img src="<%= company.logo %>" alt="">
                     </div>
 
+                </div>
+
+                <div class="delete-company">
+                    <a href="/admin/<%= company.id %>/delete">Delete Brand</a>
                 </div>
             </div>
         <% }) %>
