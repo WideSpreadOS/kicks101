@@ -121,6 +121,7 @@ app.use('/raffle', require('./routes/raffle'));
 app.use('/search', require('./routes/search'));
 app.use('/cart', require('./routes/cart'));
 app.use('/products', require('./routes/products'));
+app.use('/todo', require('./routes/todo'));
 app.use('/products/sneakers', require('./routes/sneakers'));
 
 
