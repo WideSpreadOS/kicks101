@@ -35,7 +35,7 @@ router.post('/manufacturers/add', (req, res) => {
 
 router.get('/manufacturer/:companyId/delete', async (req, res) => {
     const companyId = req.params.companyId;
-    Company.findByIdAndDelete(companyId)
+    await Company.findByIdAndDelete(companyId)
     res.redirect('/admin/manufacturers')
 })
 
