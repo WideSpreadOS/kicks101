@@ -9,6 +9,7 @@ const Raffle = require('../models/Raffle');
 const Company = require('../models/Company');
 const Feature = require('../models/Feature');
 const Bug = require('../models/Bug');
+const ToDo = require('../models/ToDo');
 
 // To Do Page
 
@@ -40,12 +41,21 @@ router.post('/bug/add', (req, res) => {
     res.redirect('/todo')
 });
 
-router.get('/social', (req, res) => {
-    res.render('social')
+router.get('/todo-list', async (req, res) => {
+    const todos = await ToDo.find()
+    res.render('todo-list', { page: 'To Do List',todos})
 });
 
-router.get('/help', (req, res) => {
-    res.render('help')
+router.post('/todo-list/add', (req, res) => {
+    const todoItem = new ToDo({
+        name: req.body.name,
+        for_route: req.body.for_route,
+        type: req.body.type,
+        description: req.body.description,
+        importance: req.body.importance
+    })
+    todoItem.save()
+    res.redirect('/todo/todo-list')
 });
 
 

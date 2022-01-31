@@ -4,7 +4,10 @@ const bugSchema = new mongoose.Schema({
     page_url: String,
     action_attempted: String,
     description: String,
-    fixed: Boolean
+    fixed: {
+        type: Boolean,
+        default: false
+    }
 });
 
 
