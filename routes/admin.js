@@ -33,6 +33,26 @@ router.post('/manufacturers/add', (req, res) => {
     res.redirect('/admin/manufacturers');
 })
 
+router.get('/manufacturer/:companyId/edit', async (req, res) => {
+    const companyId = req.params.companyId;
+
+    const company = await Company.findById(companyId)
+    res.render('admin/manufacturer/edit', { page: 'Edit Company', company})
+})
+
+router.patch('/manufacturer/:companyId/update', async (req, res) => {
+    try {
+        const companyId = req.params.companyId;
+        const updates = req.body;
+        const options = { new: true }
+        await Company.findByIdAndUpdate(companyId, updates, options);
+        res.redirect(`/admin/manufacturer/${companyId}/edit`)
+    } catch (error) {
+        console.log(error);
+    }
+
+})
+
 router.get('/manufacturer/:companyId/delete', async (req, res) => {
     const companyId = req.params.companyId;
     await Company.findByIdAndDelete(companyId)

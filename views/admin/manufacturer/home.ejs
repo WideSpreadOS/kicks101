@@ -1,14 +1,14 @@
 <style>
         .item-card-container {
-        width: 100vw;
+        width: 100%;
         margin: 0 auto;
-        padding: 10px;
         justify-content: space-between;
         overflow-x: hidden;
     }
     .item-card {
         width: 90%;
         margin: 0 auto;
+        margin-bottom: 30px;
     }
     .item-card-data-subheader a {
         text-decoration: none;
@@ -17,6 +17,7 @@
     .item-card-main-image {
         max-width: 85%;
         height: auto;
+        margin: 0 auto;
         min-height: 100px;
         padding: 8px;
     }
@@ -26,15 +27,26 @@
         filter: drop-shadow(0 0 5px lightskyblue);
     }
 
-    .delete-company {
+    .company-actions {
         width: 90%;
         margin: 0 auto;
         text-align: center;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: space-evenly;
     }
-    .delete-company a {
-        color: red;
+    .company-actions a {
         font-size: 1.5rem;
         text-decoration: none;
+        padding: 10px;
+        box-shadow: 4px 4px 4px 0px #d1d9e6, -4px -4px 4px 0px #fff;
+        border-radius: 16px;
+        width: 30%;
+        color: lightskyblue;
     }
 </style>
 
@@ -99,8 +111,9 @@
                         <img src="<%= company.logo %>" alt="">
                     </div>
 
-                    <div class="delete-company">
-                        <a href="/admin/manufacturer/<%= company.id %>/delete">Delete Brand</a>
+                    <div class="company-actions">
+                        <a href="/admin/manufacturer/<%= company.id %>/edit">Edit</a>
+                        <a style="color: red;" href="/admin/manufacturer/<%= company.id %>/delete">Delete</a>
                     </div>
                 </div>
 
