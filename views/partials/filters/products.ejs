@@ -202,43 +202,46 @@
 
     .product-filter-header {}
 
-    .collapse-buttons {
+      .collapse-buttons {
         position: relative;
         width: 95%;
         display: flex;
         flex-direction: row;
         align-items: center;
-        justify-content: flex-end;
+        justify-content: flex-start;
+        padding-left: 10px;
     }
-    
-    .collapse-buttons>span {
-        padding: 5px;
-        display: absolute;
-        bottom: 5px;
-        right: 5px;
-
+    .collapse-buttons > span {
+            display: absolute;
+            bottom: 5px;
+            right: 5px;
+            padding: 5px;
+        }
+        .collapse-buttons > span > i {
+            color: lightskyblue;
+            font-size: 1.3rem;
+ 
+        
     }
-
-    .collapse-buttons>span>i {
-        color: lightskyblue;
-        font-size: 1.3rem;
-
-
-    }
-
     .openFilter {
-        opacity: 1;
+        display: block;
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
     }
-
     .closeFilter {
-
-        opacity: 0;
-    }
-
-    .filter-container {
         display: none;
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        }
 
-    }
+       .filter-container {
+            display: none;
+            
+        }
 </style>
 <div class="product-filter-container">
     <div class="collapsible-filter">
@@ -389,13 +392,13 @@
 
     function openFilter() {
         document.querySelector('.filter-container').style.display = "block";
-        document.querySelector('.openFilter').style.opacity = 0
-        document.querySelector('.closeFilter').style.opacity = 1
+        document.querySelector('.openFilter').style.display = "none"
+        document.querySelector('.closeFilter').style.display = "block"
     }
     function closeFilter() {
         document.querySelector('.filter-container').style.display = "none";
-        document.querySelector('.openFilter').style.opacity = 1
-        document.querySelector('.closeFilter').style.opacity = 0
+        document.querySelector('.openFilter').style.display = "block"
+        document.querySelector('.closeFilter').style.display = "none"
     }
 
 </script>
