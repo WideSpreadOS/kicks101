@@ -1,9 +1,14 @@
 <style>
         .item-card-container {
-        width: 90%;
+        width: 100vw;
         margin: 0 auto;
         padding: 10px;
         justify-content: space-between;
+        overflow-x: hidden;
+    }
+    .item-card {
+        width: 90%;
+        margin: 0 auto;
     }
     .item-card-data-subheader a {
         text-decoration: none;
@@ -94,11 +99,11 @@
                         <img src="<%= company.logo %>" alt="">
                     </div>
 
+                    <div class="delete-company">
+                        <a href="/admin/<%= company.id %>/delete">Delete Brand</a>
+                    </div>
                 </div>
 
-                <div class="delete-company">
-                    <a href="/admin/<%= company.id %>/delete">Delete Brand</a>
-                </div>
             </div>
         <% }) %>
     </div>
