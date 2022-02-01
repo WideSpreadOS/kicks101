@@ -696,6 +696,7 @@ input, textarea {
     justify-content: center;
     border-radius: 16px;
     width: 100%;
+    max-width: 40vw;
     max-height: 100px;
 }
 
