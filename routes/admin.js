@@ -354,12 +354,64 @@ router.post('/site/mission-statement', async (req, res) => {
     missionStatement.save()
     res.redirect('/admin/site')
 })
+router.post('/site/contact-site', (req, res) => {
+
+    const contactData = new SiteData({
+        contact_type: req.body.contact_type,
+        contact_data: req.body.contact_data
+    })
+    contactData.save()
+    res.redirect('/admin/site')
+})
+
+router.patch('/site/contact/:id/update', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const updates = req.body;
+        const options = { new: true }
+        await SiteData.findByIdAndUpdate(id, updates, options);
+        res.redirect(`/admin/site`)
+    } catch (error) {
+        console.log(error);
+    }
+});
+
+router.get('/site/contact/:id/delete', async (req, res) => {
+    const id = req.params.id;
+    await SiteData.findByIdAndDelete(id)
+    res.redirect('/admin/site')
+})
+router.get('/site/contact/:id/edit', async (req, res) => {
+    const id = req.params.id
+    const connection = await SiteData.findById(id)
+    res.render('admin/site/edit', {connection})
+})
+router.post('/site/contact-site', (req, res) => {
+
+    const contactData = new SiteData({
+        contact_type: req.body.contact_type,
+        contact_data: req.body.contact_data
+    })
+    contactData.save()
+    res.redirect('/admin/site')
+})
 router.patch('/site/mission-statement/:id', async (req, res) => {
     try {
         const id = req.params.id
         const updates = req.body;
         const options = { new: true }
         await MissionStatement.findByIdAndUpdate(id, updates, options);
+        res.redirect(`/admin/site`)
+    } catch (error) {
+        console.log(error);
+    }
+})
+router.patch('/site/contact-site/:id', async (req, res) => {
+    try {
+        const id = req.params.id
+        const updates = req.body;
+        const options = { new: true }
+        await SiteData.findByIdAndUpdate(id, updates, options);
         res.redirect(`/admin/site`)
     } catch (error) {
         console.log(error);

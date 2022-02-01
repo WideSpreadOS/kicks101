@@ -1,20 +1,8 @@
 const mongoose = require('mongoose');
 
 const siteDataSchema = new mongoose.Schema({
-    contact: {
-        site: [
-            {
-                contact_type: String,
-                contact_data: String
-            }
-        ],
-        social: [
-            {
-                platform: String,
-                platform_data: String
-            }
-        ],
-    }
+    contact_type: String,
+    contact_data: String
 });
 
 

@@ -39,8 +39,8 @@ router.get('/about', async (req, res) => {
 });
 
 router.get('/contact', async (req, res) => {
-    const contactData = await SiteData.find()
-    res.render('contact', {contactData})
+    const siteData = await SiteData.find()
+    res.render('contact', {siteData})
 });
 
 router.get('/social', (req, res) => {

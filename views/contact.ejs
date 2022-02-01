@@ -1,12 +1,12 @@
 <style>
-    .social-container {
+    .contact-data-container {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
         justify-content: start;
         width: 100%;
     }
-    .social-item {
+    .contact-item {
         padding: 10px;
         display: flex;
         width: 90%;
@@ -14,13 +14,13 @@
         align-items: center;
         justify-content: start;
     }
-    .social-item i {
+    .contact-item i {
         color: #555;
         font-size: 1.5rem;
         margin-left: 20px;
         margin-right: 20px;
     }
-    .social-item a {
+    .contact-item a {
         text-decoration: none;
         color: lightskyblue;
         font-size: 1.3rem;
@@ -36,35 +36,54 @@
 </div>
 
 
+<div class="contact-data-container">
 
-<div class="social-container">
-    <div class="social-item">    
-        <i class="fab fa-facebook"></i>
-        <p> <a href="https://www.facebook.com">Facebook Link</a></p>
-    </div>
-    <div class="social-item">    
-        <i class="fab fa-instagram"></i>
-        <p> <a href="https://www.instagram.com">Instagram Link</a></p>
-    </div>
-    <div class="social-item">    
-        <i class="fab fa-snapchat-ghost"></i>
-        <p> <a href="https://snapchat.com">Snapchat Link</a></p>
-    </div>
-    
+
+    <% if (!siteData) { %>
+        <span style="text-align: center; width: 100%;">No Contact Data Yet</span>
+        <% } else { %>
+            <% siteData.forEach(function(connection) { %>
+                <% if (connection.contact_type==='phone' ) { %>
+                    <div class="contact-item">
+                        <i class="fas fa-phone-alt"></i>
+                        <p><a href="tel:<%= connection.contact_data %>">
+                                <%= connection.contact_data %>
+                            </a></p>
+                    </div>
+                    <% } %>
+                        <% if (connection.contact_type==='email' ) { %>
+                            <div class="contact-item">
+                                <i class="far fa-envelope"></i>
+                                <p><a href="mailto:<%= connection.contact_data %>">
+                                        <%= connection.contact_data %>
+                                    </a></p>
+                            </div>
+                            <% } %>
+                                <% if (connection.contact_type==='facebook' ) { %>
+                                    <div class="contact-item">
+                                        <i class="fab fa-facebook"></i>
+                                        <p><a href="<%= connection.contact_data %>">
+                                                <%= connection.contact_data %>
+                                            </a></p>
+                                    </div>
+                                    <% } %>
+                                        <% if (connection.contact_type==='instagram' ) { %>
+                                            <div class="contact-item">
+                                                <i class="fab fa-instagram"></i>
+                                                <p><a href="<%= connection.contact_data %>">
+                                                        <%= connection.contact_data %>
+                                                    </a></p>
+                                            </div>
+                                            <% } %>
+                                                <% if (connection.contact_type==='snapchat' ) { %>
+                                                    <div class="contact-item">
+                                                        <i class="fab fa-snapchat-ghost"></i>
+                                                        <p><a href="<%= connection.contact_data %>">
+                                                                <%= connection.contact_data %>
+                                                            </a></p>
+                                                    </div>
+                                                    <% } %>
+
+                                                        <% }) %>
+                                                            <% } %>
 </div>
-
-<div class="social-container">
-    <div class="social-item">    
-        <i class="fas fa-phone-alt"></i>
-        <p> <a href="tel:8609292249">(860) 929-2249</a></p>
-    </div>
-    <div class="social-item">    
-        <i class="far fa-envelope"></i>
-        <p> <a href="mailto:support@kicks101.store">support@kicks101.store</a></p>
-    </div>
-    <div class="social-item">    
-        <i class="fab fa-whatsapp"></i>
-        <p> <a href="https://www.whatsapp.com">WhatsApp Link</a></p>
-    </div>
-</div>
-
