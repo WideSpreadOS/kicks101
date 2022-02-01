@@ -7,6 +7,8 @@ const Product = require('../models/Product');
 const RaffleTicket = require('../models/RaffleTicket');
 const Raffle = require('../models/Raffle');
 const Company = require('../models/Company');
+const MissionStatement = require('../models/MissionStatement');
+const SiteData = require('../models/SiteData');
 
 // Welcome Page
 router.get('/', async (req, res) => {
@@ -31,12 +33,14 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.get('/about', (req, res) => {
-    res.render('about')
+router.get('/about', async (req, res) => {
+    const missionStatement = await MissionStatement.findOne()
+    res.render('about', {missionStatement})
 });
 
-router.get('/contact', (req, res) => {
-    res.render('contact')
+router.get('/contact', async (req, res) => {
+    const contactData = await SiteData.find()
+    res.render('contact', {contactData})
 });
 
 router.get('/social', (req, res) => {

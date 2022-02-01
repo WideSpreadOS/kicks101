@@ -83,6 +83,9 @@ input, textarea {
     left: 50%;
     transform: translate(-50%);
     z-index: -1000;
+        opacity: 0.5;
+    filter: blur(2px);
+
 }
 .site-logo-big img {
     max-width: 100%;
@@ -99,7 +102,7 @@ input, textarea {
     justify-content: space-evenly;
     width: 80%;
     margin: 0 auto;
-    margin-top: 300px;
+    margin-top: 30px;
     margin-bottom: 120px;
    /*  filter: blur(3px); */
 }
@@ -1423,6 +1426,7 @@ input, textarea {
     .site-logo-big {
         max-width: 50vw;
         max-height: 200px;
+        display: none;
     }
     .site-logo-big img {
         max-width: 50vw;

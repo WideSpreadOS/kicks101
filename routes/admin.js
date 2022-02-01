@@ -12,6 +12,8 @@ const RaffleTicket = require('../models/RaffleTicket');
 const RaffleWinner = require('../models/RaffleWinner');
 const Cart = require('../models/Cart');
 const Raffle = require('../models/Raffle');
+const MissionStatement = require('../models/MissionStatement');
+const SiteData = require('../models/SiteData');
 const { populate } = require('../models/User');
 
 
@@ -336,6 +338,33 @@ router.get('/invoices/new/order/:orderId/label', async (req, res) => {
 })
 
 
+
+// Site Data
+
+router.get('/site', async (req, res) => {
+    const siteData = await SiteData.find()
+    const missionStatement = await MissionStatement.find()
+    res.render('admin/site/home', { siteData, missionStatement})
+})
+
+router.post('/site/mission-statement', async (req, res) => {
+    const missionStatement = new MissionStatement({
+        mission_statement: req.body.mission_statement
+    })
+    missionStatement.save()
+    res.redirect('/admin/site')
+})
+router.patch('/site/mission-statement/:id', async (req, res) => {
+    try {
+        const id = req.params.id
+        const updates = req.body;
+        const options = { new: true }
+        await MissionStatement.findByIdAndUpdate(id, updates, options);
+        res.redirect(`/admin/site`)
+    } catch (error) {
+        console.log(error);
+    }
+})
 // Shoe Page
 router.get('/shoes', async (req, res) => {
     const shoes = await Shoe.find();

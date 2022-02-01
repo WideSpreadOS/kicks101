@@ -1,0 +1,36 @@
+<style>
+    .input-form {
+        width: 90%;
+    }
+    .input-form textarea {
+        margin-bottom: 30px;
+    }
+</style>
+
+<% if (missionStatement.length === 0) { %>
+<div class="input-form">
+        <div class="input-form-title">
+            <h6>Mission Statement</h6>
+        </div>
+    <form action="/admin/site/mission-statement" method="post">
+        <div class="input-group">
+            <textarea name="mission_statement" id="" placeholder="Enter mission statement"></textarea>
+            <button type="submit">Add</button>
+        </div>
+    </form>
+</div>
+
+<% } else { %>
+<div class="input-form">
+    <div class="input-form-title">
+        <h6>Mission Statement</h6>
+    </div>
+    <form action="/admin/site/mission-statement/<%= missionStatement[0].id %>?_method=PATCH" method="post">
+        <div class="input-group">
+            <textarea name="mission_statement" id=""><%= missionStatement[0].mission_statement %></textarea>
+            <button type="submit">Update</button>
+        </div>
+    </form>
+</div>
+<% } %>
+<%= siteData %>
