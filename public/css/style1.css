@@ -967,9 +967,400 @@ input, textarea {
 
 }
 
+
+.icon-container {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.icon-container i {
+    font-size: 1.5rem;
+    color: #555;
+}
 .admin-container {
     width: 100vw;
 }
+
+
+
+/* Printing Layouts */
+
+.shipping-label-page-layout {
+    width: 8.5in;
+    max-width: 8.5in;
+    height: 11in;
+    max-height: 11in;
+    border: solid 1px #000;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin: 0 auto;
+    position: relative;
+}
+.page-label {
+    height: 2in;
+    max-height: 2in;
+    
+}
+.label-to-print11 {
+    width: 3.5in;
+    max-width: 3.5in;
+    height: 2in;
+    max-height: 2in;
+    position: absolute;
+    border-radius: 16px;
+    top: 0;
+    left: 0;
+}
+
+.label-to-print12 {
+    width: 3.5in;
+    max-width: 3.5in;
+    height: 2in;
+    max-height: 2in;
+    position: absolute;
+    border-radius: 16px;
+    top: 0;
+    right: 0;
+}
+.label-to-print21 {
+    width: 3.5in;
+    max-width: 3.5in;
+    height: 2in;
+    max-height: 2in;
+    position: absolute;
+    border-radius: 16px;
+    top: 2in;
+    left: 0;
+}
+
+.label-to-print22 {
+    width: 3.5in;
+    max-width: 3.5in;
+    height: 2in;
+    max-height: 2in;
+    position: absolute;
+    border-radius: 16px;
+    top: 2in;
+    right: 0;
+}
+.label-to-print31 {
+    width: 3.5in;
+    max-width: 3.5in;
+    height: 2in;
+    max-height: 2in;
+    position: absolute;
+    border-radius: 16px;
+    top: 4in;
+    left: 0;
+}
+
+.label-to-print32 {
+    width: 3.5in;
+    max-width: 3.5in;
+    height: 2in;
+    max-height: 2in;
+    position: absolute;
+    border-radius: 16px;
+    top: 4in;
+    right: 0;
+}
+.label-to-print41 {
+    width: 3.5in;
+    max-width: 3.5in;
+    height: 2in;
+    max-height: 2in;
+    position: absolute;
+    border-radius: 16px;
+    top: 6in;
+    left: 0;
+}
+
+.label-to-print42 {
+    width: 3.5in;
+    max-width: 3.5in;
+    height: 2in;
+    max-height: 2in;
+    position: absolute;
+    border-radius: 16px;
+    top: 6in;
+    right: 0;
+}
+.label-to-print51 {
+    width: 3.5in;
+    max-width: 3.5in;
+    height: 2in;
+    max-height: 2in;
+    position: absolute;
+    border-radius: 16px;
+    top: 8in;
+    left: 0;
+}
+
+.label-to-print52 {
+    width: 3.5in;
+    max-width: 3.5in;
+    height: 2in;
+    max-height: 2in;
+    position: absolute;
+    border-radius: 16px;
+    top: 8in;
+    right: 0;
+}
+.label-to-print {
+    width: 3.5in;
+    max-width: 3.5in;
+    height: 2in;
+    max-height: 2in;
+    position: relative;
+    border-radius: 16px;
+}
+.label-to-print > .company-logo {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 1in;
+    max-width: 1in;
+    height: 1in;
+}
+.label-to-print > .return-address {
+    width: 3in;
+    max-width: 3in;
+    top: 0;
+    left: 0;
+    padding: 10px;
+}
+.label-to-print > .shipping-address {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2in;
+    max-width: 2in;
+}
+
+
+.reciept-page-layout {
+    width: 8.5in;
+    max-width: 8.5in;
+    height: 11in;
+    max-height: 11in;
+    border: solid 1px #000;
+    margin: 0 auto;
+    position: relative;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+ .order-reciept-container {
+        position: relative;
+        width: 7in;
+        margin: 0 auto;
+        height: 10in;
+        padding-bottom: 20px;
+    }
+    #orderReciept {
+        width: 8in;
+        height: 10in;
+        overflow: scroll;
+    }
+
+    .reciept-header {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: space-between;
+        width: 7in;
+        margin: 0 auto;
+        padding-top: 20px;
+        border-bottom: solid 2px lightskyblue;
+    }
+
+    .reciept-header-text {
+        width: 80%;
+        max-width: 80%;
+    }
+    .reciept-header-text h1 {
+        text-align: center;
+        font-size: 3rem;
+    }
+    .reciept-header-logo {
+        width: 1in;
+    }
+    .reciept-header-logo img {
+        width: 100%;
+    }
+
+    .shipping-data {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: flex-start;
+        justify-content: space-between;
+        margin: 0 auto;
+        margin-top: 30px;
+        padding-bottom: 20px;
+        width: 80%;
+        border-bottom: solid 2px lightskyblue;
+    }
+    .order-placed-container {
+        width: 50%;
+        text-align: center;
+    }
+    .order-placed-container h5 {
+        font-size: 1.5rem;
+    }
+    .order-placed-container h5:last-of-type {
+        margin-top: 10px;
+    }
+
+    .shipping-address {
+        width: 35%;
+    }
+    .shipping-address h5 {
+        font-size: 1.5rem;
+    }
+    .address {
+        padding: 8px;
+    }
+
+    .items-container {
+        width: 90%;
+        margin: 0 auto;
+        margin-top: 20px;
+    }
+    .items-container h3 {
+        text-align: center;
+        font-size: 2rem;
+        padding: 10px;
+
+    }
+    .item-container {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: flex-start;
+        justify-content: space-between;
+        padding-bottom: 5px;
+        border-bottom: solid 1px #555;
+        margin-bottom: 20px;
+    }
+    .item-image {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 20%;
+        margin-top: 10px;
+    }
+    .item-image img {
+        width: 1in;
+        border-radius: 8px;
+        outline: solid 1px #555;
+        
+    }
+    .item-data {
+        width: 80%;
+    }
+    .item-product {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: flex-start;
+        justify-content: space-between;
+    }
+
+    .item-data-header {
+        padding: 5px;
+    }
+    .item-data-header h6 {
+        padding: 5px;
+        font-size: 1.3rem;
+        font-weight: bold;
+    }
+    .item-data-header p {
+        padding: 5px;
+    }
+    .item-data-body {
+        padding: 5px;
+    }
+    .item-data-body p {
+        padding: 5px;
+    }
+    .item-link {
+        padding: 5px;    
+    }
+    .item-link p {
+        word-break: break-all;
+    }
+
+
+
+
+    .order-totals {
+         width: fit-content;
+        position: absolute;
+        right: 50px;
+        padding-top: 20px;
+        font-weight: bold;
+    }
+    .order-totals h6 {
+        font-size: 1.5rem;
+    }
+    .order-totals h3 {
+        font-size: 2rem;
+    }
+
+
+
+
+    .print-label a {
+        text-decoration: none;
+        color: lightskyblue;
+    }
+
+    .order-placed {
+        text-align: center;
+        margin: 0 auto;
+        margin-top: 40px;
+        margin-bottom: 40px;
+        box-shadow: -8px -4px 8px 0px #fff, 8px 4px 12px 0px #d1d9e6;
+        width: 90%;
+        border-radius: 16px;
+        padding: 10px;
+    }
+
+    .order-placed a {
+        font-size: 3rem;
+        color: lightskyblue;
+        text-decoration: none;
+        padding: 20px;
+    }
+
+
+
+
+
+
+
+
+
+
 
 
 @media screen and (orientation : landscape) {

@@ -43,3 +43,28 @@ https://account.godaddy.com/products
 
 
 
+
+<i class="fas fa-filter"></i>
+
+<i class="fas fa-star"></i>
+<i class="far fa-star"></i>
+<i class="fas fa-star-half-alt"></i>
+<i class="fas fa-palette"></i>
+
+<i class="far fa-trash-alt"></i>
+<i class="far fa-edit"></i>
+
+<i class="fas fa-external-link-alt"></i>
+<i class="fas fa-sort-alpha-down"></i>
+<i class="fas fa-sort-alpha-up"></i>
+<i class="fas fa-sort-numeric-down"></i>
+<i class="fas fa-sort-numeric-up"></i>
+<i class="fas fa-sliders-h"></i>
+<i class="fas fa-print"></i>
+<i class="fas fa-chart-bar"></i>
+
+
+
+<i class="fas fa-expand"></i>
+<i class="fas fa-compress"></i>
+<i class="far fa-times-circle"></i>
