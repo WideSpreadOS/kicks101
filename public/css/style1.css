@@ -1355,14 +1355,67 @@ input, textarea {
         padding: 20px;
     }
 
+#walkthrough {
+    text-align: center;
+    font-size: 1.3rem;
+    color: lightskyblue;
+}
+.openButton {
+
+}
+.introjs-overlay {
+}
+.introjs-tooltip {
+    position: relative;
+    width: 90%;
+    background: lightskyblue;
+    margin-left: 5%;
+    border-radius: 8px;
+}
+.introjs-arrow.top {
+    border-bottom-color: lightskyblue;
+}
+
+.introjs-tooltip-title {
+    font-family: 'Poiret One', cursive;
+    color: #fff;
+    font-size: 1.3rem;
+}
+.introjs-skipbutton {
+    color: #fff;
+}
+.introjs-tooltiptext {
+    font-family: 'Poiret One', cursive;
+    color: #fff;
+    font-size: 1.2rem;
+}
 
 
+.introjs-bullets > ul > li > a {
+    background: #fff;
+}
+.introjs-bullets > ul > li > a.active {
+    background: #555;
+}
+.introjs-button {
+    border-radius: 8px;
+    background: lightskyblue;
+    outline: none;
+    border: none;
+    color: #fff;
+    text-shadow: none;
+    box-shadow: 4px 4px 4px rgb(101, 171, 214), -4px -4px 4px rgb(159, 220, 255);
+}
+.introjs-button:focus {
+    border-radius: 8px;
+    background: lightskyblue;
+    outline: none;
+    border: none;
+    color: #fff;
+    text-shadow: none;
+    box-shadow: 4px 4px 4px rgb(101, 171, 214), -4px -4px 4px rgb(159, 220, 255);
 
-
-
-
-
-
+}
 
 
 

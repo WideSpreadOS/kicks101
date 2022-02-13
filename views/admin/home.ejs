@@ -2,7 +2,10 @@
 
 </style>
 
-<%- include('../partials/menus/admin-nav.ejs'); %>
+<div data-title="Tutorial" data-intro="A quick walkthrough on how this page works." class="card-demo">
+    <div class="card__image" data-title="Admin Nav" data-intro="This is your admin navigation. Scroll Left & Right to see more options.">
+            <%- include('../partials/menus/admin-nav.ejs'); %>
+    </div>
 <div class="admin-container">
 <div class="page-title">
     <h1>
@@ -10,7 +13,19 @@
     </h1>
 </div>
 
-
-
-
+<div id="walkthrough">
+    <h3>Page Tutorial</h3>
 </div>
+
+    
+</div>
+</div>
+
+
+<script>
+
+    document.getElementById('walkthrough').addEventListener("click", walkthrough);
+    function walkthrough() {
+        introJs().start()
+    }
+</script>
