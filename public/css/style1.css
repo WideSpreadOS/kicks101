@@ -646,11 +646,10 @@ input, textarea {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #ecf0f3;
 }
 .item-card-main-image img {
+    max-width: 90%;
     border-radius: 16px;
-    max-width: 100%;
     max-height: 300px;
 }
 
