@@ -648,7 +648,7 @@ input, textarea {
     justify-content: center;
 }
 .item-card-main-image img {
-    max-width: 90%;
+    max-width: 100%;
     border-radius: 16px;
     max-height: 300px;
 }
