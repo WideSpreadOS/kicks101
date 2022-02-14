@@ -143,7 +143,7 @@
     <p><%= order.unregistered_user.mailing_address.city %>, <%= order.unregistered_user.mailing_address.state %></p>
     <p><%= order.unregistered_user.mailing_address.zip %></p>
     <p><%= order.unregistered_user.mailing_address.special_instructions %></p>
-    <div class="print-label">
+    <div class="order-placed">
         <a href="/admin/invoices/new/order/<%= order.id %>/label">Print Label</a>
     </div>
 </div>
