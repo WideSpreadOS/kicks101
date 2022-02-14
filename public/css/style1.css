@@ -623,6 +623,7 @@ input, textarea {
     border-radius: 16px;
     padding-top: 15px;
     margin-bottom: 30px;
+    margin-right: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -755,21 +756,36 @@ input, textarea {
 }
 .item-card-data-header {
     margin-bottom: 5px;
-    padding-bottom: 10px;
+    padding-bottom: 5px;
     border-bottom: solid 1px #fff;   
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
 }
 .item-card-data-header h3 {
     font-size: 1.5rem;
     font-weight: bold;
     color: #fff;
+    padding-left: 8px;
+    padding-top: 8px;
     text-shadow: 0 0 1px lightskyblue;
 }
-
+.item-card-data-header-logo {
+    max-width: 40px;
+    padding: 5px;
+}
+.item-card-data-header-logo img {
+    max-width: 100%;
+    max-height: 30px;
+    border-radius: 6px;
+}
 .item-card-data-subheader {
     
 }
 .item-card-data-subheader h5 {
     color: #fff;
+    padding-left: 8px;
 }
 
 .item-card-description {
@@ -1419,6 +1435,67 @@ input, textarea {
 
 
 @media screen and (orientation : landscape) {
+#walkthrough {
+    text-align: center;
+    font-size: 1.3rem;
+    color: lightskyblue;
+}
+.openButton {
+
+}
+.introjs-overlay {
+}
+.introjs-tooltip {
+    position: relative;
+    width: 90%;
+    background: lightskyblue;
+    margin-left: 5%;
+    border-radius: 8px;
+}
+.introjs-arrow.top {
+    border-bottom-color: lightskyblue;
+}
+
+.introjs-tooltip-title {
+    font-family: 'Poiret One', cursive;
+    color: #fff;
+    font-size: 1.3rem;
+}
+.introjs-skipbutton {
+    color: #fff;
+}
+.introjs-tooltiptext {
+    font-family: 'Poiret One', cursive;
+    color: #fff;
+    font-size: 1.2rem;
+}
+
+
+.introjs-bullets > ul > li > a {
+    background: #fff;
+}
+.introjs-bullets > ul > li > a.active {
+    background: #555;
+}
+.introjs-button {
+    border-radius: 8px;
+    background: lightskyblue;
+    outline: none;
+    border: none;
+    color: #fff;
+    text-shadow: none;
+    box-shadow: 4px 4px 4px rgb(101, 171, 214), -4px -4px 4px rgb(159, 220, 255);
+}
+.introjs-button:focus {
+    border-radius: 8px;
+    background: lightskyblue;
+    outline: none;
+    border: none;
+    color: #fff;
+    text-shadow: none;
+    box-shadow: 4px 4px 4px rgb(101, 171, 214), -4px -4px 4px rgb(159, 220, 255);
+
+}
 
     .core-menu-container {
         backdrop-filter: blur(4px);

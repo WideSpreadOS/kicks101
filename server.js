@@ -22,6 +22,7 @@ const mongoStore = require('connect-mongo').default;
 // DB Config
 const db = require('./config/keys').MongoURI;
 const Product = require('./models/Product');
+const Company = require('./models/Company');
 const ProductImage = require('./models/ProductImage');
 const MongoStore = require('connect-mongo');
 //const CompanyImage = require('./models/CompanyImage');
@@ -111,6 +112,8 @@ app.use((req, res, next) => {
     next();
 });
 
+
+
 // Routes
 
 app.use('/', require('./routes/index'));
@@ -123,8 +126,6 @@ app.use('/cart', require('./routes/cart'));
 app.use('/products', require('./routes/products'));
 app.use('/todo', require('./routes/todo'));
 app.use('/products/sneakers', require('./routes/sneakers'));
-
-
 
 
 
@@ -228,6 +229,16 @@ app.post('/upload-product-main-image', upload.single('image'), (req, res) => {
 });
 
  */
+
+
+// 404 Page
+app.use(async function (req, res) {
+    res.status(400);
+    const companies = await Company.find()
+    res.render('404', { title: '404: File Not Found', companies });
+});
+
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, console.log(`Server started on ${PORT}`))

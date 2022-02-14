@@ -17,10 +17,12 @@ const SiteData = require('../models/SiteData');
 const { populate } = require('../models/User');
 
 
-// Welcome Page
+// Admin Home Page
 router.get('/', async (req, res) => {
-    res.render('admin/home', { page: 'Admin Dashboard' });
+    const companies = await Company.find()
+    res.render('admin/home', { page: 'Admin Dashboard', companies});
 });
+
 
 // Manufacturer Page
 router.get('/manufacturers', async (req, res) => {
@@ -36,10 +38,10 @@ router.post('/manufacturers/add', (req, res) => {
 })
 
 router.get('/manufacturer/:companyId/edit', async (req, res) => {
+    const companies = await Company.find()
     const companyId = req.params.companyId;
-
     const company = await Company.findById(companyId)
-    res.render('admin/manufacturer/edit', { page: 'Edit Company', company})
+    res.render('admin/manufacturer/edit', { page: 'Edit Company', companies, company})
 })
 
 router.patch('/manufacturer/:companyId/update', async (req, res) => {
@@ -61,6 +63,7 @@ router.get('/manufacturer/:companyId/delete', async (req, res) => {
     res.redirect('/admin/manufacturers')
 })
 
+
 // Product Page
 router.get('/products', async (req, res) => {
     const companies = await Company.find();
@@ -76,9 +79,10 @@ router.post('/products/add', (req, res) => {
 });
 
 router.get('/products/details/:productId', async (req, res) => {
+    const companies = await Company.find()
     const productId = req.params.productId;
     const product = await Product.findById(productId).populate('manufacturer').exec();
-    res.render('admin/product/details', { product})
+    res.render('admin/product/details', { companies, product})
 });
 
 router.get('/products/type/:productType', async (req, res) => {
@@ -96,14 +100,12 @@ router.get('/products/manufacturer/:manufacturerId', async (req, res) => {
     res.render('admin/product/manufacturer', { page: company.name, products, companies })
 });
 
-
 router.get('/products/color/:color', async (req, res) => {
     const color = req.params.color;
     const companies = await Company.find();
     const products = await Product.find({ main_color: ("#" + color) }).populate('manufacturer').exec();
     res.render('admin/product/color', { page: 'Products By Color', color: ('#' + color),products, companies })
 });
-
 
 router.get('/products/edit/:productId', async (req, res) => {
     const companies = await Company.find();
@@ -124,7 +126,6 @@ router.patch('/products/edit/:productId', async (req, res) => {
     }
 });
 
-
 router.delete('/products/delete/:productId', async (req, res) => {
         const productToDelete = req.params.productId;
         await Product.findByIdAndDelete(productToDelete);
@@ -132,28 +133,27 @@ router.delete('/products/delete/:productId', async (req, res) => {
 });
 
 
-
-
-
 /* User Info Routes */
 
 router.get('/users', async (req, res) => {
+    const companies = await Company.find()
     const users = await User.find();
-    res.render('admin/users/home', { page: "All Users", users })
+    res.render('admin/users/home', { page: "All Users", companies, users })
 });
 
-
 router.get('/users/details/:userId', async (req, res) => {
+    const companies = await Company.find()
     const userId = req.params.userId;
     const userAddresses = await Address.find({address_owner: userId})
     const user = await User.findById(userId);
-    res.render('admin/users/single-user', { page: (user.fname + " " + user.lname), user, userAddresses })
+    res.render('admin/users/single-user', { page: (user.fname + " " + user.lname), companies, user, userAddresses })
 });
 
 
 /* Raffle Routes */
 
 router.get('/raffle', async (req, res) => {
+    const companies = await Company.find()
     const users = await User.find();
     const tickets = await RaffleTicket.find().populate('ticket_holder').exec()
     const raffles = await Raffle.find().populate([
@@ -169,8 +169,8 @@ router.get('/raffle', async (req, res) => {
                 model: 'Company'
         }
     }
-]).exec();
-    
+    ]).exec();
+
     const currentRaffle = raffles[raffles.length - 1]
     if (currentRaffle) {
         const currentRafflePrize = await Product.findById(currentRaffle.raffle_product).populate('manufacturer').exec()
@@ -181,24 +181,22 @@ router.get('/raffle', async (req, res) => {
             console.log(currentTicketIncome)
             const currentProfit = currentTicketIncome - currentPrizePrice;
             console.log(currentProfit)
-            res.render('admin/raffle', { page: "Raffle", users, tickets, currentRaffle, currentRafflePrize, currentProfit, raffles })
-
+            res.render('admin/raffle', { page: "Raffle", users, tickets, currentRaffle, currentRafflePrize, currentProfit, raffles, companies })
         } else {
-
-            res.render('admin/raffle-no-product-selected', { page: "Raffle", users, tickets, currentRaffle, raffles })
+            res.render('admin/raffle-no-product-selected', { page: "Raffle", users, tickets, currentRaffle, raffles, companies })
         }
-
-
     } else {
-    res.render('admin/raffle-no-raffle', { page: "Raffle" })
+    res.render('admin/raffle-no-raffle', { page: "Raffle", companies })
     }
 });
 
 router.get('/raffle/new', async (req, res) => {
+    const companies = await Company.find()
     const products = await Product.find().populate('manufacturer').exec()
-    res.render('admin/raffle-new', {products})
+    res.render('admin/raffle-new', {products, companies})
 
-})
+});
+
 router.post('/raffle/new', async (req, res) => {
     await Raffle.find({ dummy_ticket: true }).remove().exec(function (err, data) {
         console.log('Removed: ' + data)
@@ -210,7 +208,8 @@ router.post('/raffle/new', async (req, res) => {
     })
     newRaffle.save()
     res.redirect('/admin/raffle')
-})
+});
+
 router.get('/raffle/drawing', async (req, res) => {
     const raffleTickets = await RaffleTicket.find()
     let raffleArray = []
@@ -226,7 +225,6 @@ router.get('/raffle/drawing', async (req, res) => {
     const findWinner = await RaffleTicket.findById(winnerId).populate('ticket_holder').exec()
     console.log('Ticket Holder: ' + findWinner.ticket_holder.id)
     const winningUserId = findWinner.ticket_holder.id
-    //findWinner.ticket_holder
     // Random chosen ID is pushed to RaffleWinners Model with ticketId and userId
     await Raffle.findByIdAndUpdate(currentRaffle.id, {
         winning_user: winningUserId,
@@ -236,7 +234,7 @@ router.get('/raffle/drawing', async (req, res) => {
     
     //res.render(`admin/test`, {raffleTickets})
     res.redirect(`/admin/raffle/delete-tickets/${currentRaffle.id}`)
-})
+});
 
 router.get('/raffle/delete-tickets/:winnerId', async (req, res) => {
     const winnerId = req.params.winnerId;
@@ -251,9 +249,10 @@ router.get('/raffle/delete-tickets/:winnerId', async (req, res) => {
     })
     blankRaffle.save()
     res.redirect(`/admin/raffle/winner/${winnerId}`)
-})
+});
 
 router.get('/raffle/winner/:currentRaffleId', async (req, res) => {
+    const companies = await Company.find()
     const currentRaffleId = req.params.currentRaffleId;
     const currentRaffle = await Raffle.findById(currentRaffleId)
     console.log(currentRaffle)
@@ -270,28 +269,26 @@ router.get('/raffle/winner/:currentRaffleId', async (req, res) => {
     ).exec();
     
     console.log(currentRaffle)
-    res.render('admin/raffle-winner', { winner, currentRaffle, raffleWinners})
-})
-
-
-
-
+    res.render('admin/raffle-winner', { winner, currentRaffle, raffleWinners, companies})
+});
 
 
 /* Orders Routes */
 
 router.get('/invoices', async (req, res) => {
+    const companies = await Company.find()
     const allOrders = await Cart.find()
-    res.render('admin/invoices/home', {allOrders})
-})
+    res.render('admin/invoices/home', {allOrders, companies})
+});
 
 router.get('/invoices/new', async (req, res) => {
+    const companies = await Company.find()
     const allOrders = await Cart.find()
-    res.render('admin/invoices/all-orders', {allOrders})
-})
-
+    res.render('admin/invoices/all-orders', {allOrders, companies})
+});
 
 router.get('/invoices/new/order/:orderId', async (req, res) => {
+    const companies = await Company.find()
     const orderId = req.params.orderId;
     const order = await Cart.findById(orderId).populate({
         path: 'items.product',
@@ -301,8 +298,8 @@ router.get('/invoices/new/order/:orderId', async (req, res) => {
             model: 'Company'
         }
     }).exec()
-    res.render('admin/invoices/order-id', {order})
-})
+    res.render('admin/invoices/order-id', {order, companies})
+});
 
 router.get('/invoices/new/order/:orderId/shipped', async (req, res) => {
     const orderId = req.params.orderId;
@@ -311,9 +308,10 @@ router.get('/invoices/new/order/:orderId/shipped', async (req, res) => {
         shipped_date: Date.now()
     })
     res.redirect(`/admin/invoices/new/order/${orderId}/reciept`)
-})
+});
 
 router.get('/invoices/new/order/:orderId/reciept', async (req, res) => {
+    const companies = await Company.find()
     const orderId = req.params.orderId;
     const order = await Cart.findById(orderId).populate([
         {
@@ -329,23 +327,25 @@ router.get('/invoices/new/order/:orderId/reciept', async (req, res) => {
             }
         }
     ]).exec()
-    res.render('admin/invoices/reciept', {order})
-})
+    res.render('admin/invoices/reciept', {order, companies})
+});
+
 router.get('/invoices/new/order/:orderId/label', async (req, res) => {
+    const companies = await Company.find()
     const orderId = req.params.orderId;
     const order = await Cart.findById(orderId)
-    res.render('admin/invoices/print-label-single', {order})
-})
-
+    res.render('admin/invoices/print-label-single', {order, companies})
+});
 
 
 // Site Data
 
 router.get('/site', async (req, res) => {
+    const companies = await Company.find()
     const siteData = await SiteData.find()
     const missionStatement = await MissionStatement.find()
-    res.render('admin/site/home', { siteData, missionStatement})
-})
+    res.render('admin/site/home', { siteData, missionStatement, companies})
+});
 
 router.post('/site/mission-statement', async (req, res) => {
     const missionStatement = new MissionStatement({
@@ -353,7 +353,8 @@ router.post('/site/mission-statement', async (req, res) => {
     })
     missionStatement.save()
     res.redirect('/admin/site')
-})
+});
+
 router.post('/site/contact-site', (req, res) => {
 
     const contactData = new SiteData({
@@ -362,7 +363,7 @@ router.post('/site/contact-site', (req, res) => {
     })
     contactData.save()
     res.redirect('/admin/site')
-})
+});
 
 router.patch('/site/contact/:id/update', async (req, res) => {
     try {
@@ -380,12 +381,15 @@ router.get('/site/contact/:id/delete', async (req, res) => {
     const id = req.params.id;
     await SiteData.findByIdAndDelete(id)
     res.redirect('/admin/site')
-})
+});
+
 router.get('/site/contact/:id/edit', async (req, res) => {
+    const companies = await Company.find()
     const id = req.params.id
     const connection = await SiteData.findById(id)
-    res.render('admin/site/edit', {connection})
-})
+    res.render('admin/site/edit', {connection, companies})
+});
+
 router.post('/site/contact-site', (req, res) => {
 
     const contactData = new SiteData({
@@ -394,7 +398,8 @@ router.post('/site/contact-site', (req, res) => {
     })
     contactData.save()
     res.redirect('/admin/site')
-})
+});
+
 router.patch('/site/mission-statement/:id', async (req, res) => {
     try {
         const id = req.params.id
@@ -405,7 +410,8 @@ router.patch('/site/mission-statement/:id', async (req, res) => {
     } catch (error) {
         console.log(error);
     }
-})
+});
+
 router.patch('/site/contact-site/:id', async (req, res) => {
     try {
         const id = req.params.id
@@ -416,55 +422,19 @@ router.patch('/site/contact-site/:id', async (req, res) => {
     } catch (error) {
         console.log(error);
     }
-})
-// Shoe Page
-router.get('/shoes', async (req, res) => {
-    const shoes = await Shoe.find();
-    res.render('admin/shoes/shoes', { page: 'Admin Shoes', shoes });
 });
 
-// Add Shoe
-router.post('/shoes/add', (req, res) => {
-
-    const shoe = new Shoe({
-        company: req.body.company,
-        shoe_name: req.body.shoe_name,
-        description: req.body.description,
-        sku: req.body.sku,
-        supplier_website: req.body.supplier_website,
-        product_webpage: req.body.product_webpage,
-        product_image_url: req.body.product_image_url,
-        color1: req.body.color1,
-        color2: req.body.color2,
-        price: req.body.price
-    })
-    shoe.save()
-    res.redirect('/admin/shoes');
-})
-
-// Edit Shoe
-
-router.get('/shoes/edit/:shoeId', async (req, res) => {
-    const shoeToEdit = req.params.shoeId;
-    const shoe = await Shoe.findById(shoeToEdit);
-    res.render('admin/shoes/edit', {page: 'Edit Shoe', shoe})
-})
-
-router.patch('/shoes/edit/:shoeId', async (req, res) => {
-    try {
-        const shoeToEdit = req.params.shoeId;
-        const updates = req.body;
-        const options = {new: true}
-        await Shoe.findByIdAndUpdate(shoeToEdit, updates, options);
-        res.redirect(`/admin/shoes/edit/${shoeToEdit}`)
-    } catch (error) {
-        console.log(error);
-    }
-
+// Admin Accounts
+router.get('/admin-accounts', async (req, res) => {
+    const companies = await Company.find()
+    res.render('admin/accounts/home', {companies})
 })
 
 
-
-
-
+// Admin Help Pages
+router.get('/help', async (req, res) => {
+    const companies = await Company.find()
+    res.render('admin/help/home', {companies})
+})
+// Export Routes
 module.exports = router;

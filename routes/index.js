@@ -35,21 +35,17 @@ router.get('/', async (req, res) => {
 
 router.get('/about', async (req, res) => {
     const missionStatement = await MissionStatement.findOne()
-    res.render('about', {missionStatement})
+    const companies = await Company.find()
+    res.render('about', {companies, missionStatement})
 });
 
 router.get('/contact', async (req, res) => {
     const siteData = await SiteData.find()
-    res.render('contact', {siteData})
+    const companies = await Company.find()
+    res.render('contact', {companies, siteData})
 });
 
-router.get('/social', (req, res) => {
-    res.render('social')
-});
 
-router.get('/help', (req, res) => {
-    res.render('help')
-});
 
 
 

@@ -17,7 +17,8 @@ const ToDo = require('../models/ToDo');
 router.get('/', async (req, res) => {
     const features = await Feature.find()
     const bugs = await Bug.find()
-    res.render('todo', {page: 'To Do Page', features, bugs})
+    const companies = await Company.find()
+    res.render('todo', {page: 'To Do Page', companies, features, bugs})
 });
 
 router.post('/feature/add', (req, res) => {
@@ -43,7 +44,8 @@ router.post('/bug/add', (req, res) => {
 
 router.get('/todo-list', async (req, res) => {
     const todos = await ToDo.find()
-    res.render('todo-list', { page: 'To Do List',todos})
+    const companies = await Company.find()
+    res.render('todo-list', { page: 'To Do List', companies, todos})
 });
 
 router.post('/todo-list/add', (req, res) => {

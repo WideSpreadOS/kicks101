@@ -13,20 +13,24 @@ const PaymentMethod = require('../models/PaymentMethod');
 const RaffleWinner = require('../models/RaffleWinner');
 const Raffle = require('../models/Raffle');
 const Product = require('../models/Product');
+const Company = require('../models/Company');
 
 
 
-router.get('/login', (req, res) => {
+router.get('/login', async (req, res) => {
     const currentUser = null
-    res.render('user/login', { page: 'Login', currentUser });
+    const companies = await Company.find();
+    res.render('user/login', { page: 'Login', companies, currentUser });
 })
 
-router.get('/register', (req, res) => {
+router.get('/register', async (req, res) => {
     const currentUser = null
-    res.render('user/register', { page: 'Register', currentUser });
+    const companies = await Company.find();
+    res.render('user/register', { page: 'Register', companies, currentUser });
 })
 
-router.post('/register', (req, res) => {
+router.post('/register', async (req, res) => {
+    const companies = await Company.find();
     const { fname, lname, email, password, password2 } = req.body;
     let errors = [];
     if (!fname || !lname || !email || !password || !password2) {
@@ -76,7 +80,7 @@ router.post('/register', (req, res) => {
                         newUser.save()
                             .then(user => {
                                 req.flash('success_msg', 'You are now registered and can log in');
-                                res.render('user/login', { page: 'Login' });
+                                res.render('user/login', { page: 'Login', companies });
                             })
                             .catch(err => console.log(err));
 
@@ -101,15 +105,17 @@ router.get('/logout', (req, res) => {
     res.redirect('/user/login')
 });
 
-router.get('/dashboard', ensureAuthenticated, (req, res) => {
+router.get('/dashboard', ensureAuthenticated, async (req, res) => {
     const user = req.user;
     const userId = req.user.id;
-    res.render('user/dashboard', { page: 'Dashboard', user });
+    const companies = await Company.find();
+    res.render('user/dashboard', { page: 'Dashboard', companies, user });
 });
 
-router.get('/update-profile', ensureAuthenticated, (req, res) => {
+router.get('/update-profile', ensureAuthenticated, async (req, res) => {
     const user = req.user;
-    res.render('user/update-profile', { page: 'Update Your Profile', user })
+    const companies = await Company.find();
+    res.render('user/update-profile', { page: 'Update Your Profile', companies, user })
 });
 
 router.patch('/update-profile', ensureAuthenticated, async (req, res) => {
@@ -121,8 +127,9 @@ router.patch('/update-profile', ensureAuthenticated, async (req, res) => {
 
 router.get('/mailing', ensureAuthenticated, async (req, res) => {
     const user = req.user;
+    const companies = await Company.find();
     const addresses = await Address.find({address_owner: user.id})
-    res.render('user/mailing', { page: 'Update Your Mailing Addresses', user, addresses })
+    res.render('user/mailing', { page: 'Update Your Mailing Addresses', companies, user, addresses })
 });
 
 router.post('/mailing', ensureAuthenticated, (req, res) => {
@@ -136,7 +143,8 @@ router.get('/mailing/address/:addressId/edit', ensureAuthenticated, async (req, 
     const user = req.user;
     const addressId = req.params.addressId;
     const address = await Address.findById(addressId)
-    res.render('user/mailing-edit', {address, user})
+    const companies = await Company.find();
+    res.render('user/mailing-edit', {companies, address, user})
 });
 
 router.patch('/mailing/address/:addressId/edit', ensureAuthenticated, async (req, res) => {
@@ -159,9 +167,10 @@ router.get('/mailing/address/:addressId/delete', ensureAuthenticated, async (req
     res.redirect('/user/mailing')
 });
 
-router.get('/payment', ensureAuthenticated, (req, res) => {
+router.get('/payment', ensureAuthenticated, async (req, res) => {
     const user = req.user;
-    res.render('user/payment', { page: 'Update Your Payment Methods', user })
+    const companies = await Company.find();
+    res.render('user/payment', { page: 'Update Your Payment Methods', companies, user })
 });
 
 
@@ -181,6 +190,7 @@ router.get('/raffle/claim/:winningId', ensureAuthenticated, async (req, res) => 
     const winnerId = req.user.id;
     const winner = await User.findById(winnerId)
     const winningId = req.params.winningId;
+    const companies = await Company.find();
     console.log(winner)
     const raffleWinner = await Raffle.findById(winningId).populate({
         path: 'raffle_product',
@@ -192,7 +202,7 @@ router.get('/raffle/claim/:winningId', ensureAuthenticated, async (req, res) => 
     }
     ).exec();
     console.log(raffleWinner)
-    res.render('user/raffle-claim', {winner, raffleWinner})
+    res.render('user/raffle-claim', { companies, winner, raffleWinner})
 })
 
 
@@ -202,14 +212,15 @@ router.get('/raffle/claim/:winningId/:userId/:productId/mailing', ensureAuthenti
     const userId = req.params.userId;
     const user = await User.findById(userId)
     const product = await Product.findById(productId).populate('manufacturer').exec()
-    res.render('user/raffle-mail', {winningId, user, product})
+    const companies = await Company.find();
+    res.render('user/raffle-mail', {companies, winningId, user, product})
 })
 
 router.get('/test', ensureAuthenticated, async (req, res) => {
     const userId = req.user.id;
     const user = await User.findById(userId);
-
-    res.render('user/test-page', { page: 'Test Page', user})
+    const companies = await Company.find();
+    res.render('user/test-page', { page: 'Test Page', companies, user})
 });
 
 

@@ -382,15 +382,11 @@
                 <hr>
             </div>
 
-            <div class="main-menu-item"><a href="/products/manufacturer/61eb4af3b5efcf5a381be153">Nike</a></div>
-            <div class="main-menu-item"><a href="/products/manufacturer/61eb4dd93929ce5a6038e9d6">Jordan</a></div>
-            <div class="main-menu-item"><a href="/products/manufacturer/61eb4e5f3929ce5a6038e9dc">Adidas</a></div>
-            <div class="main-menu-item"><a href="/products/manufacturer/61eb4ebd3929ce5a6038e9e0">Gucci</a></div>
-            <div class="main-menu-item"><a href="/products/manufacturer/61eb4f303929ce5a6038e9e3">Reebok</a></div>
-            <div class="main-menu-item"><a href="/products/manufacturer/61eb4fdd3929ce5a6038e9ea">Puma</a></div>
-            <div class="main-menu-item"><a href="/products/manufacturer/61eb503e3929ce5a6038e9ed">Converse</a></div>
-            <div class="main-menu-item"><a href="/products/manufacturer/61eb50983929ce5a6038e9f0">New Balance</a></div>
-            <div class="main-menu-item"><a href="/products/manufacturer/61eb51353929ce5a6038e9f3">Louis Vuitton</a></div>
+            <% companies.forEach(function(company) { %>
+                <div class="main-menu-item"><a href="/products/manufacturer/<%= company.id %>"><%= company.name %></a></div>
+                
+            <% }) %>
+
         </div>
     </div>
 
