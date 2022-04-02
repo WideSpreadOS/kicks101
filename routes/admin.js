@@ -295,10 +295,14 @@ router.get('/invoices', ensureAuthenticated, async (req, res) => {
     const allOrders = await Cart.find()
     res.render('admin/invoices/home', {allOrders, companies})
 });
-
+router.post('/invoices/search', ensureAuthenticated, async (req, res) => {
+    const orderId = req.body.order_id
+    await Cart.findById(orderId)
+    res.redirect(`/admin/invoices/new/order/${orderId}`)
+})
 router.get('/invoices/new', ensureAuthenticated, async (req, res) => {
     const companies = await Company.find()
-    const allOrders = await Cart.find()
+    const allOrders = await Cart.find({"shipped": false})
     res.render('admin/invoices/all-orders', {allOrders, companies})
 });
 
@@ -362,7 +366,11 @@ router.get('/invoices/new/order/:orderId/label', ensureAuthenticated, async (req
     res.render('admin/invoices/print-label-single', {order, companies})
 });
 
-
+router.get('/invoices/shipped/all', ensureAuthenticated, async (req, res) => {
+    const companies = await Company.find()
+    const shippedOrders = await Cart.find({"shipped": true})
+    res.render('admin/invoices/all-shipped', {shippedOrders, companies})
+})
 // Site Data
 
 router.get('/site', ensureAuthenticated, async (req, res) => {

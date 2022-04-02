@@ -42,6 +42,7 @@ router.get('/about', async (req, res) => {
 router.get('/contact', async (req, res) => {
     const siteData = await SiteData.find()
     const companies = await Company.find()
+
     res.render('contact', {companies, siteData})
 });
 

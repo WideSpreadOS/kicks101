@@ -35,6 +35,7 @@ const cartSchema = new mongoose.Schema({
     total_quantity: Number,
     ship_to: { type: mongoose.Schema.Types.ObjectId, ref: 'Address' },
     payment: { type: mongoose.Schema.Types.ObjectId, ref: 'PaymentMethod' },
+    stripe_order_id: String,    
     order_date: {
         type: Date,
         default: Date.now()

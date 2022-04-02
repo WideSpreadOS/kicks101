@@ -42,31 +42,30 @@
         <a href="/admin/invoices"><i class="fas fa-long-arrow-alt-left"></i> Back to Invoice Home</a>
     </div>
     <div class="page-title">
-        <h1>New Orders</h1>
+        <h1>Shipped Orders</h1>
     </div>
-    <div data-title="New Orders List" data-intro="These are all orders that haven't been shipped yet." class="card-demo">
+    <div data-title="Shipped Orders List" data-intro="These are all orders that haven't been shipped yet." class="card-demo">
         <div class="all-orders-container">
 
-            <% if (allOrders.length <= 0) { %>
+            <% if (shippedOrders.length <=0) { %>
                 <p style="text-align: center;">No New Orders</p>
-            <% } else { %>
-                <% allOrders.forEach(function(order) { %>
-                    <div class="order-container">
-                        <div class="order-data">
-                            <p><%= order.order_date.toDateString() %></p>
-                            <p><%= order.unregistered_user.fname %> <%= order.unregistered_user.lname %></p>
-                        </div>
-                        <div class="order-info">
-                            <p>Total Price: $<%= order.total_price %></p>
-                            <p>Total Items: <%= order.total_quantity %></p>
-                        </div>
-                        <div data-title="Open Order" data-intro="Click 'Open' to see order details." class="openButton">
-                            <div class="go-to-order"><a href="/admin/invoices/new/order/<%= order.id %>">Open</a></div>
-                        </div>
+                <% } else { %>
+            <% shippedOrders.forEach(function(order) { %>
+                <div class="order-container">
+                    <div class="order-data">
+                        <p><%= order.order_date.toDateString() %></p>
+                        <p><%= order.unregistered_user.fname %> <%= order.unregistered_user.lname %></p>
                     </div>
-                <% }) %>
+                    <div class="order-info">
+                        <p>Total Price: $<%= order.total_price %></p>
+                        <p>Total Items: <%= order.total_quantity %></p>
+                    </div>
+                    <div data-title="Open Order" data-intro="Click 'Open' to see order details." class="openButton">
+                        <div class="go-to-order"><a href="/admin/invoices/new/order/<%= order.id %>">Open</a></div>
+                    </div>
+                </div>
+            <% }) %>
             <% } %>
-
         </div>
     </div>
     </div>

@@ -41,4 +41,8 @@ module.exports = function UnregisteredCart(oldCart) {
           }
           return arr;
       }
+
+      this.emptyCart = function() {
+        console.log(this.items)
+      }
 };

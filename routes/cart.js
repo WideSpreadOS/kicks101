@@ -206,6 +206,13 @@ router.get('/checkout-billing/:cartId', async (req, res) => {
         success_url: `http://localhost:5000/cart/payment/success/${cartId}`,
         cancel_url: 'http://localhost:5000/cart/shopping-cart',
     })
+    console.log(session)
+    const stripeOrderId = session.payment_intent
+    console.log(stripeOrderId)
+    await Cart.findByIdAndUpdate(cartId, {
+        stripe_order_id: stripeOrderId
+    })
+    req.session.cart = {}
     res.redirect(303, session.url)
 })
 
