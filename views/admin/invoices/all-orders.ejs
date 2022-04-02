@@ -30,6 +30,8 @@
     }
 }
 </style>
+<% if (user.admin===true) { %>
+
 
 <%- include('../../partials/menus/admin-nav.ejs'); %>
 <div class="admin-container">
@@ -71,3 +73,10 @@
         introJs().start()
     }
 </script>
+
+
+    
+<% } else { %>
+    <%- include('../../partials/pages/404.ejs'); %>
+    
+<% } %>

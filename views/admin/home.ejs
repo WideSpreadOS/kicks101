@@ -6,6 +6,8 @@
 }
 </style>
 
+
+<% if (user.admin === true) { %>
 <div data-title="Tutorial" data-intro="A quick walkthrough on how this page works." class="card-demo">
     <div class="card__image" data-title="Admin Nav" data-intro="This is your admin navigation. Scroll Left & Right to see more options.">
             <%- include('../partials/menus/admin-nav.ejs'); %>
@@ -33,3 +35,9 @@
         introJs().start()
     }
 </script>
+
+
+<% } else { %>
+    <%- include('../partials/pages/404.ejs'); %>
+    
+<% } %>

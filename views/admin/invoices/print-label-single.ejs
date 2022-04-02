@@ -85,6 +85,8 @@
 }
 </style>
 
+<% if (user.admin===true) { %>
+
 <div class="page-title">
     <h1>Print Shipping Label</h1>
 </div>
@@ -688,3 +690,11 @@
     }
 
 </script>
+
+
+
+    
+<% } else { %>
+    <%- include('../../partials/pages/404.ejs'); %>
+    
+<% } %>

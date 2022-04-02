@@ -113,6 +113,8 @@
     }
 }
 </style>
+<% if (user.admin===true) { %>
+
 
 <%- include('../../partials/menus/admin-nav.ejs'); %>
 
@@ -251,7 +253,11 @@
             <% products.forEach(function(product) { %>
                 <tr>
                     <td>
+                        <% if (product.images.length <= 0) { %>
                         <img class="admin-table-image" src="<%= product.main_image %>" />
+                        <% } else { %>
+                            <img src="/image/<%= product.images[0] %>" alt="">
+                        <% } %>
                     </td>
                     <td>
                             <p style="font-size: 1.1rem; color: lightskyblue;">
@@ -360,3 +366,11 @@
     then close all select boxes:*/
     document.addEventListener("click", closeAllSelect);
 </script>
+
+
+
+    
+<% } else { %>
+    <%- include('../../partials/pages/404.ejs'); %>
+    
+<% } %>

@@ -154,9 +154,19 @@
         right: 50px;
         padding-top: 20px;
         font-weight: bold;
+        text-align: right;
     }
     .order-totals h6 {
         font-size: 1.5rem;
+    }
+    .order-calculations {
+    }
+    .order-detail {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: space-between;
     }
     .order-totals h3 {
         font-size: 2rem;
@@ -218,6 +228,8 @@
 }
 </style>
 
+<% if (user.admin===true) { %>
+
 <%- include('../../partials/menus/admin-nav.ejs'); %>
 
     <div class="admin-container">
@@ -245,7 +257,18 @@
                 <h5>Order Placed On</h5>
                 <p><%= order.order_date.toDateString() %> - <%= order.order_date.toLocaleTimeString() %></p>
                 <h5>Order Shipped On</h5>
-                <p><%= order.shipped_date.toDateString() %></p>
+                <% if (order.shipped_date) { %>
+                    <p><%= order.shipped_date.toDateString() %></p>
+                <% } else { %>
+                    <div id="shipDate">
+                        <form action="/admin/invoices/new/order/<%= order.id %>/ship-date" method="post">
+                            <label for="shipDate">Date To Ship</label>
+                            <input type="date" name="shipped_date" id="shipDate">
+                            <button type="submit">Update</button>
+                        </form>
+                    </div>
+                    <p></p>
+                <% } %>
             </div>
 
             <div class="shipping-address">
@@ -300,9 +323,25 @@
             <% }) %>
         </div>
         <div class="order-totals">
-            <h6>Total Items: <%= order.total_quantity %></h6>
-            <h6>Tax: 0.06%</h6>
-            <h3 style="border-top: solid 2px #555; margin-top: 5px;">Total Price: $<%= order.total_price %></h3>
+            <div class="order-calculations">
+                <div class="order-detail">
+                    <h6>Total Items: </h6>
+                    <h6><%= order.total_quantity %></h6>
+                </div>
+                <% var tax = order.total_price * 0.06 %>
+                <div class="order-detail">
+                    <h6>Price: </h6>
+                    <h6>$<%= order.total_price %>.00</h6>
+                </div>
+                <div class="order-detail">
+                    <h6>Tax: </h6>
+                    <h6>$<%= tax %>.00</h6>
+                </div>
+            </div>
+
+
+            <% var total = tax + order.total_price %>
+            <h3 style="border-top: solid 2px #555; margin-top: 5px;">Total Price: <span style="padding-left: 20px;">$<%= total %>.00</span></h3>
         </div>
     </div>
 </div>
@@ -324,3 +363,10 @@
                 document.body.innerHTML = restorePage
             }
 </script>
+
+
+    
+<% } else { %>
+    <%- include('../../partials/pages/404.ejs'); %>
+    
+<% } %>

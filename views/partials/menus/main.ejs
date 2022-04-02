@@ -354,10 +354,15 @@
 
         <div class="user-menu-buttons">
                 <% if (!user) { %>
-                    <a href="/user/login">Login</a>
+                    <a href="/user/login"><i style="font-size: 1.5rem;" class="fas fa-sign-in"></i></a>
                     <% } else { %>
-                    <a href="/user/logout">Logout</a>
+                    <a href="/user/logout"><i style="font-size: 1.5rem;" class="fas fa-sign-out"></i></a>
                     <a href="/user/dashboard"><i style="font-size: 1.5rem;" class="far fa-user-circle"></i></a>
+                    <% if (user.admin === true) { %>
+                        <a href="/admin"><i style="font-size: 1.5rem;" class="fas fa-user-shield"></i></a>
+                    <% } else { %>
+                        <span style="display: none;"></span>
+                    <% } %>
                 <% } %>
 
                 <a href="/cart/shopping-cart"><i class="fas fa-shopping-cart"></i></a>
@@ -414,7 +419,6 @@
             document.getElementById("productNav").style.width = "100%";
             document.getElementById("openProduct").style.opacity = 0;
             let oldMenu = document.getElementById("rootNav").removeChild[0];
-            console.log(`Old Menu: ${oldMenu.children}`)
         }
         
         function closeProductNav() {

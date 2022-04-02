@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 // Models
 const User = require('../models/User');
 const Address = require('../models/Address');
+const CompanyAddress = require('../models/CompanyAddress');
 const Company = require('../models/Company');
 const Product = require('../models/Product');
 const RaffleTicket = require('../models/RaffleTicket');
@@ -15,36 +16,36 @@ const Raffle = require('../models/Raffle');
 const MissionStatement = require('../models/MissionStatement');
 const SiteData = require('../models/SiteData');
 const { populate } = require('../models/User');
-
+const { ensureAuthenticated } = require('../config/auth');
 
 // Admin Home Page
-router.get('/', async (req, res) => {
+router.get('/', ensureAuthenticated, async (req, res) => {
     const companies = await Company.find()
     res.render('admin/home', { page: 'Admin Dashboard', companies});
 });
 
 
 // Manufacturer Page
-router.get('/manufacturers', async (req, res) => {
+router.get('/manufacturers', ensureAuthenticated, async (req, res) => {
     const companies = await Company.find();
     res.render('admin/manufacturer/home', { page: 'Admin Manufacturers', pageHeader: 'Home', companies });
 });
 
-router.post('/manufacturers/add', (req, res) => {
+router.post('/manufacturers/add', ensureAuthenticated, (req, res) => {
     const newCompanyData = req.body
     const company = new Company(newCompanyData)
     company.save()
     res.redirect('/admin/manufacturers');
 })
 
-router.get('/manufacturer/:companyId/edit', async (req, res) => {
+router.get('/manufacturer/:companyId/edit', ensureAuthenticated, async (req, res) => {
     const companies = await Company.find()
     const companyId = req.params.companyId;
     const company = await Company.findById(companyId)
     res.render('admin/manufacturer/edit', { page: 'Edit Company', companies, company})
 })
 
-router.patch('/manufacturer/:companyId/update', async (req, res) => {
+router.patch('/manufacturer/:companyId/update', ensureAuthenticated, async (req, res) => {
     try {
         const companyId = req.params.companyId;
         const updates = req.body;
@@ -57,7 +58,7 @@ router.patch('/manufacturer/:companyId/update', async (req, res) => {
 
 })
 
-router.get('/manufacturer/:companyId/delete', async (req, res) => {
+router.get('/manufacturer/:companyId/delete', ensureAuthenticated, async (req, res) => {
     const companyId = req.params.companyId;
     await Company.findByIdAndDelete(companyId)
     res.redirect('/admin/manufacturers')
@@ -65,34 +66,34 @@ router.get('/manufacturer/:companyId/delete', async (req, res) => {
 
 
 // Product Page
-router.get('/products', async (req, res) => {
+router.get('/products', ensureAuthenticated, async (req, res) => {
     const companies = await Company.find();
     const products = await Product.find().populate('manufacturer').exec();
     res.render('admin/product/home', { page: 'Admin Products', pageHeader: 'Home', companies, products });
 });
 
-router.post('/products/add', (req, res) => {
+router.post('/products/add', ensureAuthenticated, (req, res) => {
     const newCompanyData = req.body
     const product = new Product(newCompanyData)
     product.save()
     res.redirect('/admin/products');
 });
 
-router.get('/products/details/:productId', async (req, res) => {
+router.get('/products/details/:productId', ensureAuthenticated, async (req, res) => {
     const companies = await Company.find()
     const productId = req.params.productId;
     const product = await Product.findById(productId).populate('manufacturer').exec();
     res.render('admin/product/details', { companies, product})
 });
 
-router.get('/products/type/:productType', async (req, res) => {
+router.get('/products/type/:productType', ensureAuthenticated, async (req, res) => {
     const productType = req.params.productType;
     const companies = await Company.find();
     const products = await Product.find({product_type: productType}).populate('manufacturer').exec();
     res.render('admin/product/type', { page: productType, products, companies })
 });
 
-router.get('/products/manufacturer/:manufacturerId', async (req, res) => {
+router.get('/products/manufacturer/:manufacturerId', ensureAuthenticated, async (req, res) => {
     const manufacturerId = req.params.manufacturerId;
     const companies = await Company.find();
     const company = await Company.findById(manufacturerId)
@@ -100,21 +101,21 @@ router.get('/products/manufacturer/:manufacturerId', async (req, res) => {
     res.render('admin/product/manufacturer', { page: company.name, products, companies })
 });
 
-router.get('/products/color/:color', async (req, res) => {
+router.get('/products/color/:color', ensureAuthenticated, async (req, res) => {
     const color = req.params.color;
     const companies = await Company.find();
     const products = await Product.find({ main_color: ("#" + color) }).populate('manufacturer').exec();
     res.render('admin/product/color', { page: 'Products By Color', color: ('#' + color),products, companies })
 });
 
-router.get('/products/edit/:productId', async (req, res) => {
+router.get('/products/edit/:productId', ensureAuthenticated, async (req, res) => {
     const companies = await Company.find();
     const productId = req.params.productId;
     const product = await Product.findById(productId).populate('manufacturer').exec();
     res.render('admin/product/edit', {  product, companies})
 });
 
-router.patch('/products/edit/:productId', async (req, res) => {
+router.patch('/products/edit/:productId', ensureAuthenticated, async (req, res) => {
     try {
         const productToEdit = req.params.productId;
         const updates = req.body;
@@ -126,7 +127,7 @@ router.patch('/products/edit/:productId', async (req, res) => {
     }
 });
 
-router.delete('/products/delete/:productId', async (req, res) => {
+router.delete('/products/delete/:productId', ensureAuthenticated, async (req, res) => {
         const productToDelete = req.params.productId;
         await Product.findByIdAndDelete(productToDelete);
         res.redirect(`/admin/products`)
@@ -135,13 +136,13 @@ router.delete('/products/delete/:productId', async (req, res) => {
 
 /* User Info Routes */
 
-router.get('/users', async (req, res) => {
+router.get('/users', ensureAuthenticated, async (req, res) => {
     const companies = await Company.find()
     const users = await User.find();
     res.render('admin/users/home', { page: "All Users", companies, users })
 });
 
-router.get('/users/details/:userId', async (req, res) => {
+router.get('/users/details/this-is-for-security-abcdef-zyxwvu/:userId', ensureAuthenticated, async (req, res) => {
     const companies = await Company.find()
     const userId = req.params.userId;
     const userAddresses = await Address.find({address_owner: userId})
@@ -149,10 +150,24 @@ router.get('/users/details/:userId', async (req, res) => {
     res.render('admin/users/single-user', { page: (user.fname + " " + user.lname), companies, user, userAddresses })
 });
 
+router.get('/users/security-level/admin/:userId', ensureAuthenticated, async (req, res) => {
+    const userId = req.params.userId
+    await User.findByIdAndUpdate(userId, {
+        admin: true
+    });
+    res.redirect('/admin/users')
+})
 
+router.get('/users/security-level/none/:userId', ensureAuthenticated, async (req, res) => {
+    const userId = req.params.userId
+    await User.findByIdAndUpdate(userId, {
+        admin: false
+    });
+    res.redirect('/admin/users')
+})
 /* Raffle Routes */
 
-router.get('/raffle', async (req, res) => {
+router.get('/raffle', ensureAuthenticated, async (req, res) => {
     const companies = await Company.find()
     const users = await User.find();
     const tickets = await RaffleTicket.find().populate('ticket_holder').exec()
@@ -190,14 +205,14 @@ router.get('/raffle', async (req, res) => {
     }
 });
 
-router.get('/raffle/new', async (req, res) => {
+router.get('/raffle/new', ensureAuthenticated, async (req, res) => {
     const companies = await Company.find()
     const products = await Product.find().populate('manufacturer').exec()
     res.render('admin/raffle-new', {products, companies})
 
 });
 
-router.post('/raffle/new', async (req, res) => {
+router.post('/raffle/new', ensureAuthenticated, async (req, res) => {
     await Raffle.find({ dummy_ticket: true }).remove().exec(function (err, data) {
         console.log('Removed: ' + data)
     })
@@ -210,7 +225,7 @@ router.post('/raffle/new', async (req, res) => {
     res.redirect('/admin/raffle')
 });
 
-router.get('/raffle/drawing', async (req, res) => {
+router.get('/raffle/drawing', ensureAuthenticated, async (req, res) => {
     const raffleTickets = await RaffleTicket.find()
     let raffleArray = []
     for (i of raffleTickets) {
@@ -236,7 +251,7 @@ router.get('/raffle/drawing', async (req, res) => {
     res.redirect(`/admin/raffle/delete-tickets/${currentRaffle.id}`)
 });
 
-router.get('/raffle/delete-tickets/:winnerId', async (req, res) => {
+router.get('/raffle/delete-tickets/:winnerId', ensureAuthenticated, async (req, res) => {
     const winnerId = req.params.winnerId;
     await RaffleTicket.deleteMany()
     console.log('Deleted Tickets...')
@@ -251,7 +266,7 @@ router.get('/raffle/delete-tickets/:winnerId', async (req, res) => {
     res.redirect(`/admin/raffle/winner/${winnerId}`)
 });
 
-router.get('/raffle/winner/:currentRaffleId', async (req, res) => {
+router.get('/raffle/winner/:currentRaffleId', ensureAuthenticated, async (req, res) => {
     const companies = await Company.find()
     const currentRaffleId = req.params.currentRaffleId;
     const currentRaffle = await Raffle.findById(currentRaffleId)
@@ -275,19 +290,19 @@ router.get('/raffle/winner/:currentRaffleId', async (req, res) => {
 
 /* Orders Routes */
 
-router.get('/invoices', async (req, res) => {
+router.get('/invoices', ensureAuthenticated, async (req, res) => {
     const companies = await Company.find()
     const allOrders = await Cart.find()
     res.render('admin/invoices/home', {allOrders, companies})
 });
 
-router.get('/invoices/new', async (req, res) => {
+router.get('/invoices/new', ensureAuthenticated, async (req, res) => {
     const companies = await Company.find()
     const allOrders = await Cart.find()
     res.render('admin/invoices/all-orders', {allOrders, companies})
 });
 
-router.get('/invoices/new/order/:orderId', async (req, res) => {
+router.get('/invoices/new/order/:orderId', ensureAuthenticated, async (req, res) => {
     const companies = await Company.find()
     const orderId = req.params.orderId;
     const order = await Cart.findById(orderId).populate({
@@ -301,7 +316,7 @@ router.get('/invoices/new/order/:orderId', async (req, res) => {
     res.render('admin/invoices/order-id', {order, companies})
 });
 
-router.get('/invoices/new/order/:orderId/shipped', async (req, res) => {
+router.get('/invoices/new/order/:orderId/shipped', ensureAuthenticated, async (req, res) => {
     const orderId = req.params.orderId;
     await Cart.findByIdAndUpdate(orderId, {
         shipped: true,
@@ -310,7 +325,16 @@ router.get('/invoices/new/order/:orderId/shipped', async (req, res) => {
     res.redirect(`/admin/invoices/new/order/${orderId}/reciept`)
 });
 
-router.get('/invoices/new/order/:orderId/reciept', async (req, res) => {
+router.post('/invoices/new/order/:orderId/ship-date', ensureAuthenticated, async (req, res) => {
+    const orderId = req.params.orderId;
+    await Cart.findByIdAndUpdate(orderId, {
+        shipped: true,
+        shipped_date: req.body.shipped_date
+    })
+    res.redirect(`/admin/invoices/new/order/${orderId}/reciept`)
+});
+
+router.get('/invoices/new/order/:orderId/reciept', ensureAuthenticated, async (req, res) => {
     const companies = await Company.find()
     const orderId = req.params.orderId;
     const order = await Cart.findById(orderId).populate([
@@ -327,10 +351,11 @@ router.get('/invoices/new/order/:orderId/reciept', async (req, res) => {
             }
         }
     ]).exec()
+    console.log(order)
     res.render('admin/invoices/reciept', {order, companies})
 });
 
-router.get('/invoices/new/order/:orderId/label', async (req, res) => {
+router.get('/invoices/new/order/:orderId/label', ensureAuthenticated, async (req, res) => {
     const companies = await Company.find()
     const orderId = req.params.orderId;
     const order = await Cart.findById(orderId)
@@ -340,14 +365,14 @@ router.get('/invoices/new/order/:orderId/label', async (req, res) => {
 
 // Site Data
 
-router.get('/site', async (req, res) => {
+router.get('/site', ensureAuthenticated, async (req, res) => {
     const companies = await Company.find()
     const siteData = await SiteData.find()
     const missionStatement = await MissionStatement.find()
     res.render('admin/site/home', { siteData, missionStatement, companies})
 });
 
-router.post('/site/mission-statement', async (req, res) => {
+router.post('/site/mission-statement', ensureAuthenticated, async (req, res) => {
     const missionStatement = new MissionStatement({
         mission_statement: req.body.mission_statement
     })
@@ -355,7 +380,7 @@ router.post('/site/mission-statement', async (req, res) => {
     res.redirect('/admin/site')
 });
 
-router.post('/site/contact-site', (req, res) => {
+router.post('/site/contact-site', ensureAuthenticated, (req, res) => {
 
     const contactData = new SiteData({
         contact_type: req.body.contact_type,
@@ -365,7 +390,7 @@ router.post('/site/contact-site', (req, res) => {
     res.redirect('/admin/site')
 });
 
-router.patch('/site/contact/:id/update', async (req, res) => {
+router.patch('/site/contact/:id/update', ensureAuthenticated, async (req, res) => {
     try {
         const id = req.params.id;
         const updates = req.body;
@@ -377,20 +402,20 @@ router.patch('/site/contact/:id/update', async (req, res) => {
     }
 });
 
-router.get('/site/contact/:id/delete', async (req, res) => {
+router.get('/site/contact/:id/delete', ensureAuthenticated, async (req, res) => {
     const id = req.params.id;
     await SiteData.findByIdAndDelete(id)
     res.redirect('/admin/site')
 });
 
-router.get('/site/contact/:id/edit', async (req, res) => {
+router.get('/site/contact/:id/edit', ensureAuthenticated, async (req, res) => {
     const companies = await Company.find()
     const id = req.params.id
     const connection = await SiteData.findById(id)
     res.render('admin/site/edit', {connection, companies})
 });
 
-router.post('/site/contact-site', (req, res) => {
+router.post('/site/contact-site', ensureAuthenticated, (req, res) => {
 
     const contactData = new SiteData({
         contact_type: req.body.contact_type,
@@ -400,7 +425,7 @@ router.post('/site/contact-site', (req, res) => {
     res.redirect('/admin/site')
 });
 
-router.patch('/site/mission-statement/:id', async (req, res) => {
+router.patch('/site/mission-statement/:id', ensureAuthenticated, async (req, res) => {
     try {
         const id = req.params.id
         const updates = req.body;
@@ -412,7 +437,7 @@ router.patch('/site/mission-statement/:id', async (req, res) => {
     }
 });
 
-router.patch('/site/contact-site/:id', async (req, res) => {
+router.patch('/site/contact-site/:id', ensureAuthenticated, async (req, res) => {
     try {
         const id = req.params.id
         const updates = req.body;
@@ -424,17 +449,44 @@ router.patch('/site/contact-site/:id', async (req, res) => {
     }
 });
 
+// Company Return Address
+router.post('/site/company-address', ensureAuthenticated, (req, res) => {
+
+    const companyAddress = new CompanyAddress({
+        street: req.body.street,
+        building_number: req.body.building_number,
+        apartment_number: req.body.apartment_number,
+        po_box: req.body.po_box,
+        city: req.body.city,
+        state: req.body.state,
+        country: req.body.country,
+        zip: req.body.zip,
+        special_instructions: req.body.special_instructions,
+        notes: req.body.notes,
+    })
+    companyAddress.save()
+    res.redirect('/admin/site')
+});
+
+
 // Admin Accounts
-router.get('/admin-accounts', async (req, res) => {
+router.get('/admin-accounts', ensureAuthenticated, async (req, res) => {
     const companies = await Company.find()
     res.render('admin/accounts/home', {companies})
 })
 
 
 // Admin Help Pages
-router.get('/help', async (req, res) => {
+router.get('/help', ensureAuthenticated, async (req, res) => {
     const companies = await Company.find()
     res.render('admin/help/home', {companies})
 })
+
+
+
+
+
+
+
 // Export Routes
 module.exports = router;

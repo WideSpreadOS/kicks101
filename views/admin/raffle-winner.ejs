@@ -47,6 +47,8 @@
 }
 </style>
 
+<% if (user.admin===true) { %>
+
 
 <%- include('../partials/menus/admin-nav.ejs'); %>
     <div class="admin-container">
@@ -74,3 +76,8 @@
 </div>
 
     </div>
+
+<% } else { %>
+    <%- include('../partials/pages/404.ejs'); %>
+    
+<% } %>

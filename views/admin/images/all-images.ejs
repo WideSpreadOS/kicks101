@@ -2,6 +2,9 @@
 
 </style>
 
+<% if (user.admin===true) { %>
+
+
 <%- include('../../partials/menus/admin-nav.ejs'); %>
 
 <div class="admin-container">
@@ -10,12 +13,14 @@
 </div>
 
 <div class="images-container">
-    <% files.forEach(function(image) { %>
+    <% allImages.forEach(function(image) { %>
+        .
         <div class="image-container">
-            <img src="/image/<%= image.filename %>" alt="">
+            <img src="/images/<%= image.filename %>" alt="">
             <div class="image-data">
                 <p>Image Data Here</p>
-                <%= image.id %>
+                <img src="/image/<%= image.img.data %>" alt="">
+                <%= image.img.data %>
             </div>
             <div class="delete-image-button">
                 <form action="/delete-image/">
@@ -27,3 +32,10 @@
 </div>
 
 </div>
+
+
+    
+<% } else { %>
+    <%- include('../../partials/pages/404.ejs'); %>
+    
+<% } %>

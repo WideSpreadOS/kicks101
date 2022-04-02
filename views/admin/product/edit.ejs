@@ -165,6 +165,8 @@
     }
 }
 </style>
+<% if (user.admin===true) { %>
+
 
 <%- include('../../partials/menus/admin-nav.ejs'); %>
 
@@ -179,21 +181,15 @@
         <a href="/admin/products/details/<%= product.id %>"><i class="far fa-eye"></i> View Item</a>
     </div>
 
-    <div class="input-form-image">
-        <form action="/upload-product-main-image" method="post" enctype="multipart/form-data">
-            <div class="open-image">
 
-                <div class="fileUpload btn btn-primary">
-                    <button type="submit" class="custom-file-profile-image-button">Open</button>
-                    <input id="uploadBtn" type="file" name="image" class="upload" />
-                </div>
-                <input id="uploadFile" placeholder="Choose Product Image" disabled="disabled" />
+    <div class="add-item-photo">
+        <form action="/upload-item-image/<%= product.id %>?_method=PATCH" method="post"
+            enctype="multipart/form-data">
+            <div class="custom-file">
+                <input type="file" name="item_image" id="itemImage">
+                <label for="itemImage" class="custom-file-label"></label>
             </div>
-
-            <div class="add-image">
-                <button type="submit" disabled>Add</button>
-            </div>
-            
+            <button type="submit" class="custom-file-button">Change</button>
         </form>
     </div>
 
@@ -201,7 +197,7 @@
         <div class="input-form-title">
             <h5>Edit Product</h5>
         </div>
-        <form action="/admin/products/edit/<%= product.id %>?_method=PATCH" method="post">
+        <form action="/upload-item-image/<%= product.id %>?_method=PATCH" method="post">
             <div class="custom-select">
                 <select name="manufacturer" id="manufacturer">
                     <% companies.forEach(function(manufacturer) { %>
@@ -475,3 +471,12 @@
             document.getElementById("uploadFile").value = this.value;
         };
 </script>
+
+
+
+
+    
+<% } else { %>
+    <%- include('../../partials/pages/404.ejs'); %>
+    
+<% } %>

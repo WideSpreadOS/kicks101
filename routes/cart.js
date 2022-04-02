@@ -111,7 +111,8 @@ router.get(`/remove/:productId`, async (req, res, next) => {
         res.redirect('/cart/shopping-cart')
 })
 
-router.get('/checkout', (req, res, next) => {
+router.get('/checkout', async (req, res, next) => {
+    const companies = await Company.find();
     if (!req.session.cart) {
         return res.redirect('/cart/shopping-cart')
     }
@@ -120,7 +121,7 @@ router.get('/checkout', (req, res, next) => {
     for (i of items) {
         console.log(i.item._id)
     }
-    res.render('cart/checkout', {page: 'Checkout', products: cart.generateArray(), total: cart.totalPrice, cart})
+    res.render('cart/checkout', {page: 'Checkout', products: cart.generateArray(), total: cart.totalPrice, cart, companies})
 });
 
 
@@ -201,8 +202,8 @@ router.get('/checkout-billing/:cartId', async (req, res) => {
             }
         ],
         mode: 'payment',
-        success_url: `http://kicks-101.herokuapp.com/cart/payment/success/${cartId}`,
-        cancel_url: 'http://kicks-101.herokuapp.com/cart/shopping-cart',
+        success_url: `http://localhost:5000/cart/payment/success/${cartId}`,
+        cancel_url: 'http://localhost:5000/cart/shopping-cart',
     })
     res.redirect(303, session.url)
 })
@@ -210,11 +211,10 @@ router.get('/checkout-billing/:cartId', async (req, res) => {
 
 router.get('/payment/success/:cartId', async (req, res) => {
     const cartId = req.params.cartId;
+    const companies = await Company.find()
     const cart = await Cart.findById(cartId)
-/*     if (req.session.cart) {
-        delete req.session.cart
-    } */
-    res.render('cart/success', {cart})
+    console.log(`Cart: ${cart}`)
+    res.render('cart/success', {cart, companies})
 })
 
 // Product Page

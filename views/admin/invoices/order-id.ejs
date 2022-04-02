@@ -28,6 +28,12 @@
         flex-wrap: nowrap;
         align-items: center;
         justify-content: space-between;
+        box-shadow: -8px -4px 8px 0px #fff, 8px 4px 12px 0px #d1d9e6;
+        border-radius: 16px;
+        width: 90%;
+        margin: 0 auto;
+        margin-bottom: 20px;
+        border-bottom: none;
     }
     .items-container h3 {
         font-size: 2rem;
@@ -36,11 +42,7 @@
         color: lightskyblue;
     }
     .item-container {
-        box-shadow: -8px -4px 8px 0px #fff, 8px 4px 12px 0px #d1d9e6;
-        border-radius: 16px;
-        width: 90%;
-        margin: 0 auto;
-        margin-bottom: 20px;
+
     }
     .item-container h5 {
         font-size: 1.3rem;
@@ -116,6 +118,8 @@
 }
 </style>
 
+<% if (user.admin===true) { %>
+
 <%- include('../../partials/menus/admin-nav.ejs'); %>
 
 <div class="admin-container">
@@ -186,3 +190,10 @@
 </div>
 
 </div>
+
+
+    
+<% } else { %>
+    <%- include('../../partials/pages/404.ejs'); %>
+    
+<% } %>

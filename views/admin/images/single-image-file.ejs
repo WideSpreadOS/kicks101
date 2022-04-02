@@ -1,0 +1,16 @@
+<style>
+
+</style>
+
+<% if (user.admin===true) { %>
+
+
+<p><%= image %></p>
+<img src="/image/<%= image.img %>" alt="">
+
+
+    
+<% } else { %>
+    <%- include('../../partials/pages/404.ejs'); %>
+    
+<% } %>

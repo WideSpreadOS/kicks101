@@ -11,6 +11,7 @@ const mongoose = require('mongoose');
 const mongodb = require('mongodb');
 const methodOverride = require('method-override');
 const multer = require('multer');
+const gridfsBucket = require('gridfs-bucket')
 const { GridFsStorage } = require('multer-gridfs-storage');
 const Grid = require('gridfs-stream');
 const crypto = require('crypto');
@@ -34,40 +35,7 @@ mongoose.connect(db, {
     })
     .then(() => console.log('MongoDB Connected...'))
     .catch(err => console.log(err));
-/* 
-// Multer
-let gfs;
 
-//Init gfs
-const conn = mongoose.createConnection(db, { useNewUrlParser: true, useUnifiedTopology: true })
-conn.once('open', () => {
-    // Init stream
-    gfs = Grid(conn.db, mongoose.mongo);
-    gfs.collection('uploads');
-})
-
-//Create storage object
-const storage = new GridFsStorage({
-    url: db,
-    file: (req, file) => {
-        return new Promise((resolve, reject) => {
-            crypto.randomBytes(16, (err, buf) => {
-                if (err) {
-                    return reject(err);
-                }
-                const filename = buf.toString('hex') + path.extname(file.originalname);
-                const fileInfo = {
-                    filename: filename,
-                    bucketName: 'uploads'
-                };
-                resolve(fileInfo);
-            });
-        });
-    }
-});
-
-const upload = multer({ storage });
- */
 
 // Favicon
 app.use(favicon(path.join(__dirname, 'public', 'kicks101_logo_1a1a1a.ico')))
@@ -109,8 +77,44 @@ app.use((req, res, next) => {
     res.locals.error = req.flash('error');
     res.locals.session = req.session;
     res.locals.user = req.user || null
+
     next();
 });
+
+// Multer
+let gfs;
+
+//Init gfs
+const conn = mongoose.createConnection(db, { useNewUrlParser: true, useUnifiedTopology: true })
+
+conn.once('open', () => {
+    // Init stream
+    gfs = Grid(conn.db, mongoose.mongo);
+    gfs.collection('uploads');
+})
+
+
+//Create storage object
+const storage = new GridFsStorage({
+    url: db,
+    file: (req, file) => {
+        return new Promise((resolve, reject) => {
+            crypto.randomBytes(16, (err, buf) => {
+                if (err) {
+                    return reject(err);
+                }
+                const filename = buf.toString('hex') + path.extname(file.originalname);
+                const fileInfo = {
+                    filename: filename,
+                    bucketName: 'uploads'
+                };
+                resolve(fileInfo);
+            });
+        });
+    }
+});
+
+const upload = multer({ storage });
 
 
 
@@ -130,20 +134,27 @@ app.use('/products/sneakers', require('./routes/sneakers'));
 
 
 /* SITE MANAGMENT */
-/* 
-app.get('/files', (req, res) => {
-    gfs.files.find().toArray((err, files) => {
+
+
+app.get('/files', async (req, res) => {
+    const companies = await Company.find()
+    const allImages = await ProductImage.find()
+    
+/*     gfs.files.find().toArray((err, files) => {
         // Check if Files
         if (!files || files.lenth === 0) {
             return res.status(404).json({
                 err: 'No files exist'
             });
-        }
+        } else {
 
-        // Files do exist
-        console.log(files)
-        return res.render('admin/images/all-images', { page: "All Images", files })
-    })
+            
+            // Files do exist
+            console.log(files)
+        })
+        } */
+        return res.render('admin/images/all-images', {  page: "All Images", allImages, companies })
+
 })
 
 app.get('/files/:filename', (req, res) => {
@@ -161,8 +172,9 @@ app.get('/files/:filename', (req, res) => {
     })
 })
 
-app.get('/image/:filename', (req, res) => {
-    gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
+app.get('/image/:filename', async (req, res) => {
+    const companies = await Company.find()
+/*     gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
         // Check if Files
         if (!file || file.lenth === 0) {
             return res.status(404).json({
@@ -180,7 +192,10 @@ app.get('/image/:filename', (req, res) => {
                 err: 'Not an image'
             })
         }
-    })
+    }) */
+    const image = await ProductImage.find({"img.data": req.params.filename})
+    console.log(image)
+    res.render('admin/images/single-image-file', {image, companies})
 });
 
 
@@ -196,10 +211,12 @@ app.delete('/delete-image/:fileId', (req, res) => {
     });
 });
 
-app.post('/upload-product-main-image', upload.single('image'), (req, res) => {
-    for_product = req.body.for_product;
+ 
+/* Background Image Upload */
+app.patch('/upload-item-image/:itemId', upload.single('item_image'), (req, res) => {
+    const itemId = req.params.itemId;
     const obj = {
-        for_product: for_product,
+        for_product: itemId,
         img: {
             data: req.file.filename,
             contentType: 'image/png'
@@ -211,9 +228,10 @@ app.post('/upload-product-main-image', upload.single('image'), (req, res) => {
         }
         else {
             item.save();
-            console.log(`Image Owner: ${for_product} Image Data: ${req.file}`);
-            Product.findByIdAndUpdate(for_product,
-                { $push: { images: req.file.id } },
+            console.log(`For Product: ${itemId} Image Data: ${obj.img.data}`);
+            const newImage = obj.img.data;
+            Product.findByIdAndUpdate(itemId,
+                { $push: { images: req.file.filename } },
                 { safe: true, upsert: true },
                 function (err, doc) {
                     if (err) {
@@ -223,12 +241,11 @@ app.post('/upload-product-main-image', upload.single('image'), (req, res) => {
                     }
                 }
             )
-            res.redirect(req.get('referer'));
+            res.redirect(`/admin/products/edit/${itemId}`);
         }
     })
 });
 
- */
 
 
 // 404 Page

@@ -54,6 +54,44 @@ input, textarea {
     outline: none;
     border: none;
 }
+
+
+/* 404 Page */
+    .error {
+        text-align: center;
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+    
+    .error h1 {
+        font-size: 1.3rem;
+        font-weight: bold;
+        color: lightskyblue;
+    }
+    
+    .error-data {
+        padding: 10px;
+    }
+    
+    .error-data p {
+        margin-bottom: 15px;
+        padding: 20px;
+    }
+    
+    .error-data-links {
+        text-align: center;
+        margin-top: 30px;
+    }
+    
+    .error-data-links p {
+        margin-bottom: 15px;
+    }
+    
+    .error-data-links a {
+        text-decoration: none;
+        color: lightskyblue;
+    
+    }
 /* PAGE CONTAINER PORTRAIT CELL PHONE */
 .landscape-header-logo {
     display: none;
