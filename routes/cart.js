@@ -24,7 +24,7 @@ router.get('/shopping-cart', async (req, res) => {
     const companies = await Company.find();
 
     if (!req.session.cart) {
-        return res.render('cart/home', {products: null})
+        return res.render('cart/home', {products: null, companies})
     }
     const cart = new UnregisteredCart(req.session.cart)
     const itemArray = cart.generateArray()
@@ -180,7 +180,8 @@ router.get('/checkout-add-items/:cartId', async (req, res) => {
     res.redirect(`/cart/checkout-billing/${cartId}`)
 })
 router.get('/checkout-mailing', async (req, res) => {
-    res.render('cart/checkout-mailing', {page: 'Mailing Information'})
+    const companies = await Company.find()
+    res.render('cart/checkout-mailing', {page: 'Mailing Information', companies})
 })
 
 router.get('/checkout-billing/:cartId', async (req, res) => {
@@ -317,13 +318,14 @@ router.get('/raffle/claim/:raffleWinnerId/:productId/:chosenSize/:orderId/add-pr
     res.redirect(`/cart/raffle/claim/${raffleWinnerId}/${orderId}/mailing`)
 })
 router.get('/raffle/claim/:raffleWinnerId/:orderId/mailing', async (req, res) => {
+    const companies = await Company.find()
     const raffleWinnerId = req.params.raffleWinnerId;
     const orderId = req.params.orderId;
     const order = await Cart.findById(orderId)
     const userId = req.user.id
     const user = await User.findById(userId)
     const userAddresses = await Address.find({address_owner: userId})
-    res.render('user/raffle-mail', {raffleWinnerId, user, userAddresses, orderId})
+    res.render('user/raffle-mail', {raffleWinnerId, user, userAddresses, orderId, companies})
 })
 
 
