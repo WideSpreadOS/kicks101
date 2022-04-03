@@ -14,6 +14,7 @@ const RaffleWinner = require('../models/RaffleWinner');
 const Raffle = require('../models/Raffle');
 const Product = require('../models/Product');
 const Company = require('../models/Company');
+const Cart = require('../models/Cart');
 
 
 
@@ -109,7 +110,8 @@ router.get('/dashboard', ensureAuthenticated, async (req, res) => {
     const user = req.user;
     const userId = req.user.id;
     const companies = await Company.find();
-    res.render('user/dashboard', { page: 'Dashboard', companies, user });
+    const orders = await Cart.find({"for_user": userId})
+    res.render('user/dashboard', { page: 'Dashboard', companies, user, orders });
 });
 
 router.get('/update-profile', ensureAuthenticated, async (req, res) => {
@@ -173,7 +175,19 @@ router.get('/payment', ensureAuthenticated, async (req, res) => {
     res.render('user/payment', { page: 'Update Your Payment Methods', companies, user })
 });
 
-
+router.get('/order-history/:orderId', ensureAuthenticated, async (req, res) => {
+    const companies = await Company.find()
+    const orderId = req.params.orderId
+    const order = await Cart.findById(orderId).populate({
+        path: 'items.product',
+        model: 'Product',
+        populate: {
+            path: 'manufacturer',
+            model: 'Company'
+        }
+    }).exec()
+    res.render('user/order-id', {page: `Order ID:`, order, companies})
+})
 
 
 

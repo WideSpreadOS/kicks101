@@ -23,6 +23,7 @@ const { ensureAuthenticated } = require('../config/auth');
 // User Raffle Tickets Page
 router.get('/', ensureAuthenticated, async (req, res) => {
     const user = req.user;
+    const companies = await Company.find()
     
     const raffles = await Raffle.find();
     const winner = await Raffle.find({winning_user: user.id});
@@ -46,14 +47,14 @@ router.get('/', ensureAuthenticated, async (req, res) => {
             console.log(`Tickets Left: ${ticketsLeft}`)
             const currentRafflePrize = await Product.findById(currentRaffle.raffle_product).populate('manufacturer').exec()
             const tickets = await RaffleTicket.find({'ticket_holder': user.id})
-            res.render('user/raffle', { page: 'Your Raffle Tickets', user, winner, raffles, tickets, ticketsLeft, winningTickets, currentRaffle, currentRafflePrize });
+            res.render('user/raffle', { page: 'Your Raffle Tickets', user, winner, raffles, tickets, ticketsLeft, winningTickets, currentRaffle, currentRafflePrize, companies });
         } else {
-            res.render('user/raffle-none', { page: 'Your Raffle Tickets', user, winner, winningTickets });
+            res.render('user/raffle-none', { page: 'Your Raffle Tickets', user, winner, winningTickets, companies });
         }
 
     } else {
 
-        res.render('user/raffle-none' , { page: 'No Current Raffle', user, winner, winningTickets });
+        res.render('user/raffle-none' , { page: 'No Current Raffle', user, winner, winningTickets, companies });
     }
 });
 
@@ -85,16 +86,17 @@ router.get(`/tickets/:ticketId/checkout`, ensureAuthenticated, async (req, res) 
         payment_method_types: ['card'],
         line_items: [
             {
-                name: "Ticket",
+                name: 'Ticket',
                 currency: 'usd',
                 quantity: 1,
                 amount: amountInCents
             }
         ],
         mode: 'payment',
-        success_url: 'http://kicks-101.herokuapp.com/raffle/payment/success',
-        cancel_url: `http://kicks-101.herokuapp.com/raffle/payment/cancel/${ticketId}`
+        success_url: 'https://www.kicks101.store/raffle/payment/success',
+        cancel_url: `https://www.kicks101.store/raffle/payment/cancel/${ticketId}`
     })
+    console.log(session)
     res.redirect(303, session.url)
 })
 

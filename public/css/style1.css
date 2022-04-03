@@ -1587,8 +1587,9 @@ input, textarea {
     }
     .page-container {
         flex-direction: row;
+        flex-wrap: wrap;
         align-items: start;
-        justify-content: space-between;
+        justify-content: space-evenly;
     }
     .site-logo-big {
         max-width: 50vw;

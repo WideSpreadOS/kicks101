@@ -109,9 +109,13 @@
     border-radius: 16px;
 }
 </style>
+
+<div class="go-back-button">
+    <a href="/user/mailing"><i class="fas fa-long-arrow-alt-left"></i> Back to All Addresses</a>
+</div>
 <div class="input-form">
     <div class="input-form-title">
-        <h6>Add Mailing Address</h6>
+        <h6>Edit Mailing Address</h6>
     </div>
     <form action="/user/mailing/address/<%= address.id %>/edit?_method=PATCH" method="post">
         <input type="hidden" name="address_owner" value="<%= user.id %>">
