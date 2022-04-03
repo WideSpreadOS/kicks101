@@ -31,7 +31,7 @@
         <p>SKU: <%= product.sku %></p>
     </div>
     <div class="product-data-section">
-        <p><a target="_blank" href="<%= product.url %>">Order More</a></p>
+        <p><a href="/admin/products/order/<%= product.id %>">Order More</a></p>
     </div>
 </div>
 <div class="item-card-body">
@@ -56,26 +56,33 @@
     </div>
     <div class="item-card-main-image-container">
         <div class="item-card-main-image">
-            <img src="<%= product.main_image %>" alt="">
+            <% if (!product.main_image) { %>
+                    <img style="filter: drop-shadow(0 0 2px lightskyblue);width: 75px; border-radius: 8px; opacity: 0.75;" src="https://th.bing.com/th/id/R.b9f8fb5b4ae645af922016c1fef19a9e?rik=n6ijNdvUdInMAg&riu=http%3a%2f%2fcdn.onlinewebfonts.com%2fsvg%2fdownload_546302.png&ehk=esufhR2EMnshhANfFAucbBI2jDIqTIjS20AfIBENF9M%3d&risl=&pid=ImgRaw&r=0" />
+            <% } else { %>
+                <img src="<%= product.main_image %>" />
+            <% } %>
         </div>
     </div>
+
     <% if (product.images=='' ) {%>
         <span style="display: none;"></span>
-        <% } else { %>
-            <div class="item-card-images">
-                <% product.images.forEach(function(image) { %>
-                    <% if (image=='' ) { %>
-                        <span style="display: none;"></span>
-                        <% } else { %>
-                            <div class="item-card-image-container">
-                                <div class="item-card-image">
-                                    <img src="<%= image %>" alt="">
-                                </div>
-                            </div>
-                            <% } %>
-                                <% }) %>
-            </div>
-            <% } %>
+    <% } else { %>
+        <div class="item-card-images">
+            <% product.images.forEach(function(image) { %>
+                <% if (image=='' ) { %>
+                    <span style="display: none;"></span>
+                <% } else { %>
+                    <div class="item-card-image-container">
+                        <div class="item-card-image">
+                            <img src="/image/<%= image %>" alt="">
+                            <p><%= image %></p>
+                        </div>
+                    </div>
+                <% } %>
+            <% }) %>
+        </div>
+    <% } %>
+
     <% if (product.available_sizes.length === 0) { %>
         <span style="display: none;"></span>
     <% } else { %>
@@ -94,6 +101,7 @@
             <% }) %>
         </div>
     <% } %>
+
     <div class="item-card-price">
         <div class="item-card-data-price">
             <span id="product_<%= product.id %>">$<%= product.price.base %></span>
@@ -105,6 +113,7 @@
             </div>
         </div>
     </div>
+
 </div>
 
 </div>

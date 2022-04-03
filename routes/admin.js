@@ -23,7 +23,9 @@ router.get('/', ensureAuthenticated, async (req, res) => {
     const companies = await Company.find()
     const newOrders = await Cart.find({"shipped": false})
     const newOrdersLength = newOrders.length
-    res.render('admin/home', { page: 'Admin Dashboard', companies, newOrdersLength});
+    const allProducts = await Product.find()
+
+    res.render('admin/home', { page: 'Admin Dashboard', companies, newOrdersLength, allProducts});
 });
 
 
@@ -85,6 +87,7 @@ router.get('/products/details/:productId', ensureAuthenticated, async (req, res)
     const companies = await Company.find()
     const productId = req.params.productId;
     const product = await Product.findById(productId).populate('manufacturer').exec();
+    console.log(product)
     res.render('admin/product/details', { companies, product})
 });
 
@@ -115,6 +118,34 @@ router.get('/products/edit/:productId', ensureAuthenticated, async (req, res) =>
     const productId = req.params.productId;
     const product = await Product.findById(productId).populate('manufacturer').exec();
     res.render('admin/product/edit', {  product, companies})
+});
+
+router.get('/products/order/:productId', ensureAuthenticated, async (req, res) => {
+    const companies = await Company.find();
+    const productId = req.params.productId;
+    const product = await Product.findById(productId).populate('manufacturer').exec();
+    res.render('admin/product/order', {  product, companies})
+});
+
+router.patch('/products/order/:productId', ensureAuthenticated, async (req, res) => {
+    try {
+        const productToEdit = req.params.productId;
+        const orderedAmount = req.body.ordered_qty
+        const product = await Product.findById(productToEdit)
+        const currentStock = product.in_stock
+
+        const updates = parseInt(orderedAmount) + parseInt(currentStock);
+        console.log('Ordered Count: ', orderedAmount)
+        console.log('Current Stock Count: ', currentStock)
+        console.log('Updated Stock Count: ', updates)
+        const options = { new: true }
+        await Product.findByIdAndUpdate(productToEdit, {
+            in_stock: updates
+        });
+        res.redirect(`/admin/products/details/${productToEdit}`)
+    } catch (error) {
+        console.log(error);
+    }
 });
 
 router.patch('/products/edit/:productId', ensureAuthenticated, async (req, res) => {

@@ -12,24 +12,21 @@
     <h1><%= page %></h1>
 </div>
 
+
 <div class="images-container">
-    <% allImages.forEach(function(image) { %>
-        .
-        <div class="image-container">
-            <img src="/images/<%= image.filename %>" alt="">
-            <div class="image-data">
-                <p>Image Data Here</p>
-                <img src="/image/<%= image.img.data %>" alt="">
-                <%= image.img.data %>
-            </div>
-            <div class="delete-image-button">
-                <form action="/delete-image/">
-                    <button type="submit">Delete</button>
-                </form>
-            </div>
-        </div>
+    <% productImages.forEach(function(product) { %>
+        <p><%= product.id %></p>
     <% }) %>
 </div>
+<div class="images-container">
+    <% allImages.forEach(function(image) { %>
+        <img src="/image/<%= image.img.data %>" alt="">
+        <p><%= image.img.data %></p>
+    <% }) %>
+</div>
+
+
+
 
 </div>
 

@@ -103,7 +103,7 @@ const storage = new GridFsStorage({
                 if (err) {
                     return reject(err);
                 }
-                const filename = buf.toString('hex') + path.extname(file.originalname);
+                const filename = 'kicks-101_photo_' + buf.toString('hex') + path.extname(file.originalname);
                 const fileInfo = {
                     filename: filename,
                     bucketName: 'uploads'
@@ -131,14 +131,32 @@ app.use('/todo', require('./routes/todo'));
 
 
 
-/* SITE MANAGMENT */
+/* SITE MANAGMENT 
 
 
 app.get('/files', async (req, res) => {
     const companies = await Company.find()
     const allImages = await ProductImage.find()
+    const productImages = await Product.find().populate('images').exec()
+
+    gfs.files.find().toArray((err, files) => {
+        // Check if Files
+        if (!files || files.lenth === 0) {
+            return res.status(404).json({
+                err: 'No files exist'
+            });
+        }
+
+        // Files do exist
+        console.log(files)
+        return res.render('admin/images/all-images', {  page: "All Images", allImages, companies, files, productImages })
+    })
     
-/*     gfs.files.find().toArray((err, files) => {
+
+
+
+
+gfs.files.find().toArray((err, files) => {
         // Check if Files
         if (!files || files.lenth === 0) {
             return res.status(404).json({
@@ -150,13 +168,14 @@ app.get('/files', async (req, res) => {
             // Files do exist
             console.log(files)
         })
-        } */
-        return res.render('admin/images/all-images', {  page: "All Images", allImages, companies })
+        } 
 
 })
 
+
+
 app.get('/files/:filename', (req, res) => {
-    gfs.files.findOne({ _id: req.params.filename }, (err, file) => {
+    gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
         // Check if Files
         if (!file || file.lenth === 0) {
             return res.status(404).json({
@@ -165,14 +184,13 @@ app.get('/files/:filename', (req, res) => {
         }
 
         // Files do exist
-        gfs.createReadStream({})
         return res.render('admin/images/single-image-file', { page: "Single Image", file })
+
     })
 })
 
-app.get('/image/:filename', async (req, res) => {
-    const companies = await Company.find()
-/*     gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
+app.get('/image/:filename', (req, res) => {
+    gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
         // Check if Files
         if (!file || file.lenth === 0) {
             return res.status(404).json({
@@ -190,12 +208,8 @@ app.get('/image/:filename', async (req, res) => {
                 err: 'Not an image'
             })
         }
-    }) */
-    const image = await ProductImage.find({"img.data": req.params.filename})
-    console.log(image)
-    res.render('admin/images/single-image-file', {image, companies})
-});
-
+    })
+})
 
 app.delete('/delete-image/:fileId', (req, res) => {
     const fileId = req.params.fileId;
@@ -210,8 +224,7 @@ app.delete('/delete-image/:fileId', (req, res) => {
 });
 
  
-/* Background Image Upload */
-app.patch('/upload-item-image/:itemId', upload.single('item_image'), (req, res) => {
+app.post('/upload-item-image/:itemId', upload.single('item_image'), (req, res) => {
     const itemId = req.params.itemId;
     const obj = {
         for_product: itemId,
@@ -229,7 +242,7 @@ app.patch('/upload-item-image/:itemId', upload.single('item_image'), (req, res) 
             console.log(`For Product: ${itemId} Image Data: ${obj.img.data}`);
             const newImage = obj.img.data;
             Product.findByIdAndUpdate(itemId,
-                { $push: { images: req.file.filename } },
+                { $addToSet: { photos: req.file.filename } },
                 { safe: true, upsert: true },
                 function (err, doc) {
                     if (err) {
@@ -244,7 +257,7 @@ app.patch('/upload-item-image/:itemId', upload.single('item_image'), (req, res) 
     })
 });
 
-
+ */
 
 // 404 Page
 app.use(async function (req, res) {

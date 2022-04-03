@@ -156,6 +156,7 @@
             <span style="display: none;"></span>
         <% } else { %>
         <div class="item-card-images">
+            <% if (product.images) { %>
             <% product.images.forEach(function(image) { %>
                 <% if (image == '') { %>
                     <span style="display: none;"></span>
@@ -167,6 +168,9 @@
                 </div>
                 <% } %>
             <% }) %>
+            <% } else { %>
+                <span style="display: none;"></span>
+            <% } %>
         </div>
         <% } %>
         <% if (product.available_sizes.length===0) { %>

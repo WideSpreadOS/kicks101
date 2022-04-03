@@ -16,7 +16,7 @@ const productSchema = new mongoose.Schema({
     },
     sku: String,
     main_image: String,
-    images: [String],
+    images: [{ type: mongoose.Schema.Types.ObjectId, ref: 'ProductImage' }],
     product_type: String,
     graphics: Boolean,
     gender: [String],

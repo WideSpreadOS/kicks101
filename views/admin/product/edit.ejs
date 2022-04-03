@@ -181,15 +181,10 @@
         <a href="/admin/products/details/<%= product.id %>"><i class="far fa-eye"></i> View Item</a>
     </div>
 
-
-    <div class="add-item-photo">
-        <form action="/upload-item-image/<%= product.id %>?_method=PATCH" method="post"
-            enctype="multipart/form-data">
-            <div class="custom-file">
-                <input type="file" name="item_image" id="itemImage">
-                <label for="itemImage" class="custom-file-label"></label>
-            </div>
-            <button type="submit" class="custom-file-button">Change</button>
+    <div class="add-images">
+        <form action="/upload-item-image/<%= product.id %>" method="post" enctype="multipart/form-data">
+            <input type="file" name="item_image" id="">
+            <button type="submit">Upload</button>
         </form>
     </div>
 
@@ -197,7 +192,7 @@
         <div class="input-form-title">
             <h5>Edit Product</h5>
         </div>
-        <form action="/upload-item-image/<%= product.id %>?_method=PATCH" method="post">
+        <form action="/admin/products/edit/<%= product.id %>?_method=PATCH" method="post">
             <div class="custom-select">
                 <select name="manufacturer" id="manufacturer">
                     <% companies.forEach(function(manufacturer) { %>
@@ -431,10 +426,8 @@
 
         const currentManufacturer = document.getElementById('manufacturer');
         const currentProductType = document.getElementById('productType');
-        var test = currentManufacturer.getElementsByTagName('option')
-        console.log(test.length)
-        test.getElementById()
-        console.log(test)
+
+
     </script>
 
     <script>
@@ -466,11 +459,6 @@
     </script>
 
 
-<script>
-    document.getElementById("uploadBtn").onchange = function () {
-            document.getElementById("uploadFile").value = this.value;
-        };
-</script>
 
 
 
