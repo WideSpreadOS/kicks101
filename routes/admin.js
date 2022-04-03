@@ -21,7 +21,9 @@ const { ensureAuthenticated } = require('../config/auth');
 // Admin Home Page
 router.get('/', ensureAuthenticated, async (req, res) => {
     const companies = await Company.find()
-    res.render('admin/home', { page: 'Admin Dashboard', companies});
+    const newOrders = await Cart.find({"shipped": false})
+    const newOrdersLength = newOrders.length
+    res.render('admin/home', { page: 'Admin Dashboard', companies, newOrdersLength});
 });
 
 

@@ -1,3 +1,4 @@
+const Product = require('./Product')
 module.exports = function UnregisteredCart(oldCart) {
       this.items = oldCart.items || {};
       this.totalQty = oldCart.totalQty || 0;
@@ -7,9 +8,10 @@ module.exports = function UnregisteredCart(oldCart) {
       this.add = function(item, id, size) {
         let storedItem = this.items[id];
         if (!storedItem) {
-            storedItem = this.items[id] = {item: item, item_id: item.id, name: item.name, image: item.main_image, size: size, qty: 0, price: 0};
+            storedItem = this.items[id] = {item: item, item_id: item.id, name: item.name, image: item.main_image, size: size, qty: 0, price: 0, in_stock: item.in_stock};
         }
-        console.log(item)
+        console.log(storedItem)
+        storedItem.in_stock--
         storedItem.qty++;
         storedItem.price = storedItem.item.price.base * storedItem.qty;
         this.totalQty++
@@ -17,9 +19,10 @@ module.exports = function UnregisteredCart(oldCart) {
         
       }
 
-      this.reduceByOne = function(id) {
+      this.reduceByOne = function(id, stock) {
         this.items[id].qty--;
         this.items[id].price -= this.items[id].item.price;
+        this.items[id].in_stock++;
         this.totalQty--;
         this.totalPrice -= this.items[id].item.price;
 
@@ -28,9 +31,20 @@ module.exports = function UnregisteredCart(oldCart) {
         }
       }
 
+      this.addBackInventory = async function(id) {
+        const addBack = this.items[id].qty
+        console.log(addBack)
+        const product = await Product.findById(id)
+        const currentStock = product.in_stock
+        await Product.findByIdAndUpdate(id, {
+          in_stock: (addBack + currentStock)
+        })
+      }
+
       this.removeItem = function(id) {
           this.totalQty -= this.items[id].qty;
           this.totalPrice -= this.items[id].price;
+
           delete this.items[id]
       }
 

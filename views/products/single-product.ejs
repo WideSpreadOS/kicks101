@@ -99,7 +99,9 @@
         text-shadow: 0 0 1px #fff;
         transition: ease-in 0.25s;
     }
-
+    .disabled {
+        pointer-events: none;
+    }
 @media screen and (orientation : landscape) {
 
     .item-card-main-image {
@@ -192,10 +194,22 @@
         <div class="item-card-price">
             <div class="item-card-data-price">
                 <span id="product_<%= product.id %>">$<%= product.price.base %></span>
+
             </div>
-            <div style="display: none;" class="item-quantity">
-                <label for="qunatity">Qty: </label>
-                <input type="number" name="quantity" id="quantity" value="1">
+            <% if (product.in_stock <= 0) { %>
+                <div style="color: red;" class="item-quantity">
+                    <p>Out of Stock:</p>
+                </div>
+            <div class="item-card-buttons">
+
+                <div class="item-card-button">
+                    <a class="disabled" id="cartUrl" href="/cart/add/<%= product.id %>" role="button"><i class="fas fa-cart-plus"></i></a>
+                </div>
+            </div>
+            <% } else { %>
+                
+            <div style="color: lightskyblue;" class="item-quantity">
+                <p>In Stock: <%= product.in_stock %></p>
             </div>
             <div class="item-card-buttons">
 
@@ -203,6 +217,7 @@
                     <a id="cartUrl" href="/cart/add/<%= product.id %>" role="button"><i class="fas fa-cart-plus"></i></a>
                 </div>
             </div>
+            <% } %>
         </div>
         </form>
         </div>

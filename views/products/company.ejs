@@ -53,11 +53,22 @@
                         <div class="item-card-data-price">
                             <span id="product_<%= product.id %>">$<%= product.price.base %></span>
                         </div>
+
+                        <% if (product.in_stock <= 0) { %>
+                            <div style="color: red;" class="item-quantity">
+                                <p>Out of Stock:</p>
+                            </div>
+                        <% } else { %>
+                            
+                            <div style="color: lightskyblue;" class="item-quantity">
+                                <p>In Stock: <%= product.in_stock %></p>
+                            </div>
+                        <% } %>
+
                         <div class="item-card-buttons">
 
                             <div class="item-card-button">
-                                <a href="/products/manufacturer/<%= product.manufacturer.id %>/product/<%= product.id %>"><i
-                                        class="far fa-eye"></i></a>
+                                <a href="/products/manufacturer/<%= product.manufacturer.id %>/product/<%= product.id %>"><i class="far fa-eye"></i></a>
                             </div>
 
                         </div>
