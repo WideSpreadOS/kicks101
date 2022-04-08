@@ -103,6 +103,7 @@ router.get(`/tickets/:ticketId/checkout`, ensureAuthenticated, async (req, res) 
 router.get('/payment/success', ensureAuthenticated, async (req, res) => {
     const userId = req.user.id
     const user = await User.findById(userId)
+    const companies = await Company.find()
     const raffles = await Raffle.find();
     const currentRaffle = raffles[raffles.length - 1]
     const currentRafflePrize = await Product.findById(currentRaffle.raffle_product).populate('manufacturer').exec()
@@ -111,7 +112,7 @@ router.get('/payment/success', ensureAuthenticated, async (req, res) => {
     const ticketsLeft = (100 - allTickets.length)
     console.log(`Tickets Left: ${ticketsLeft}`)
     const tickets = await RaffleTicket.find({ 'ticket_holder': userId })
-    res.render('user/raffle-success', { user, ticketsLeft, tickets, currentRaffle, currentRafflePrize})
+    res.render('user/raffle-success', { user, ticketsLeft, tickets, currentRaffle, currentRafflePrize, companies})
 })
 
 router.get('/payment/cancel/:ticketId', ensureAuthenticated, async (req, res) => {
