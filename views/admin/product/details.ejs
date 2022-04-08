@@ -24,6 +24,10 @@
     <a href="/admin/products/type/<%= product.product_type %>"><i class="fas fa-long-arrow-alt-left"></i> Back to <%= product.product_type %> Products</a>
 </div>
 
+
+<% if (product.raffle_only === true) { %>
+    <p style="text-align: center; font-size: 1.2rem; color: red; font-weight: bold;">RAFFLE ONLY PRODUCT</p>
+<% } %>
 <div class="product-data">
     <div class="product-data-section">
         <p>In Stock: <%= product.in_stock %></p>
@@ -57,6 +61,7 @@
     <div class="item-card-main-image-container">
         <div class="item-card-main-image">
             <% if (!product.main_image) { %>
+                
                     <img style="filter: drop-shadow(0 0 2px lightskyblue);width: 75px; border-radius: 8px; opacity: 0.75;" src="https://th.bing.com/th/id/R.b9f8fb5b4ae645af922016c1fef19a9e?rik=n6ijNdvUdInMAg&riu=http%3a%2f%2fcdn.onlinewebfonts.com%2fsvg%2fdownload_546302.png&ehk=esufhR2EMnshhANfFAucbBI2jDIqTIjS20AfIBENF9M%3d&risl=&pid=ImgRaw&r=0" />
             <% } else { %>
                 <img src="<%= product.main_image %>" />

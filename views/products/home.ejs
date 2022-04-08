@@ -29,6 +29,9 @@
 
 <div class="item-card-container">
     <% products.forEach(function(product) { %>
+        <% if (product.raffle_only === true) { %>
+            <span style="display: none;"></span>
+        <% } else { %>
         <div class="item-card">
 
             <div class="item-card-body">
@@ -79,5 +82,6 @@
                     </div>
             </div>
         </div>
+        <% } %>
         <% }) %>
 </div>

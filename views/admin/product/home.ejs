@@ -104,8 +104,30 @@
 .item-card-button {
     margin: 0 auto;
 }
+.checkbox-group {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+}
+.checkbox-group label {
+    margin-right: 5px;
+}
+    input[type="checkbox"] {
+	appearance: none;
+	width: 30px;
+	height: 30px;
+	background-clip: content-box;
+	padding: 3px;
+    border-radius: 50%;
+    box-shadow: 4px 2px 4px 0px #d1d9e6, -4px -2px 8px 0px #fff;
+}
 
 
+input[type="checkbox"]:checked {
+    box-shadow: -4px -2px 4px 0px #d1d9e6, 4px 2px 8px 0px #fff;
+}
 
 @media screen and (orientation : landscape) {
     #walkthrough {
@@ -175,13 +197,12 @@
             <input type="url" name="url" placeholder="Products Webpage Direct URL">
         </div>
 
-        <div class="radio-group">
+        <div class="checkbox-group" style="margin-bottom: 20px;">
             <label for="graphics">Graphics on Product?</label>
             <input type="checkbox" name="graphics" id="graphics" value="true">
         </div>
 
         <div class="gender-selection">
-
             <div class="checkbox-group">
                 <label for="male">Mens</label>
                 <input type="checkbox" name="gender" id="male" value="mens">
@@ -228,6 +249,12 @@
         <div class="input-group">
             <input type="number" name="reorder_alert" placeholder="Lowest quantity until reorder">
         </div>
+
+        <div class="checkbox-group" style="margin-bottom: 20px;">
+            <label for="raffle">Is this Product for Raffle Only?</label>
+            <input type="checkbox" name="raffle_only" id="raffle" value="true">
+        </div>
+
         <button type="submit">Add Product</button>
     </form>
 </div>

@@ -143,8 +143,8 @@
                     <img src="<%= raffleWinner.raffle_product.manufacturer.logo %>" alt="">
                 </div>
                 <h5><%= raffleWinner.raffle_product.name %></h5>
-                <h6>$<%= raffleWinner.raffle_product.price.base %></h6>
-                <img src="<%= raffleWinner.raffle_product.main_image %>" alt="">
+                <h6 style="margin-bottom: 30px; font-size: 2rem;">$<%= raffleWinner.raffle_product.price.base %></h6>
+                <img style="border-radius: 16px;" src="<%= raffleWinner.raffle_product.main_image %>" alt="">
                 <p><%= raffleWinner.raffle_product.description %></p>
             </div>
         <% if (raffleWinner.raffle_product.available_sizes.length===0) { %>
@@ -161,8 +161,7 @@
                 <form action="/cart/raffle/claim/<%= raffleWinner.id %>/<%= raffleWinner.raffle_product.id %>" method="POST">
 
                                 <div class="item-size" style="display: flex; flex-direction: row;">
-                                    <input class="state" type="radio" name="chosen_size" id="<%= size %>" value="<%= size %>"
-                                        onchange="getRating(this)">
+                                    <input class="state" type="radio" name="chosen_size" id="<%= size %>" value="<%= size %>">
                                     <label class="label" for="<%= size %>">
                                         <div class="indicator"></div>
                                         <span class="text">

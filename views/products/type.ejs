@@ -24,11 +24,14 @@
 </div>
 
 <div class="item-card-container">
-    <% if(products.length===0) { %>
+    <% if(products.length===0   && product.raffle_only != true) { %>
         <p style="margin-bottom: 30px;">Sorry, we couldn't find any products.</p>
 
         <% } else { %>
             <% products.forEach(function(product) { %>
+                <% if (product.raffle_only === true) { %>
+                    <span style="display: none;"></span>
+                <% } else { %>
                 <div class="item-card">
 
                     <div class="item-card-body">
@@ -77,6 +80,7 @@
                     </div>
                     </div>
                 </div>
+                <% } %>
                 <% }) %>
                     <% } %>
 

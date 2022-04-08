@@ -16,7 +16,7 @@ const productSchema = new mongoose.Schema({
     },
     sku: String,
     main_image: String,
-    images: [{ type: mongoose.Schema.Types.ObjectId, ref: 'ProductImage' }],
+    images: [String],
     product_type: String,
     graphics: Boolean,
     gender: [String],
@@ -27,7 +27,8 @@ const productSchema = new mongoose.Schema({
     accent_colors: [String],
     materials: [String],
     in_stock: Number,
-    reorder_alert: Number
+    reorder_alert: Number,
+    raffle_only: Boolean
 });
 
 
