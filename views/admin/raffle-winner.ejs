@@ -36,6 +36,7 @@
     }
     .raffle-ticket img {
         width: 150px;
+        border-radius: 16px;
     }
 
 
@@ -69,7 +70,7 @@
             <h5>Raffle Prize</h5>
                 <p><%= raffleWinners.raffle_product.manufacturer.name %></p>
                 <p><%= raffleWinners.raffle_product.name %></p>
-                <img src="<%= raffleWinners.raffle_product.main_image %>" alt="">
+                <img style="border-radius: 16px;" src="<%= raffleWinners.raffle_product.main_image %>" alt="">
                 
             </div>
     </div>
