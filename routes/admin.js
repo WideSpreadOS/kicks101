@@ -280,9 +280,12 @@ router.get('/raffle/drawing', ensureAuthenticated, async (req, res) => {
         raffle_draw: true
     })
     const newProductStock = currentRafflePrize.in_stock - 1
-    await Product.findByIdAndUpdate(currentRafflePrize.id, {
+    const productId = newProductStock.id
+    console.log(newProductStock)
+    await Product.findByIdAndUpdate(productId, {
         in_stock: newProductStock
     })
+    console.log(currentRafflePrize)
     //res.render(`admin/test`, {raffleTickets})
     res.redirect(`/admin/raffle/delete-tickets/${currentRaffle.id}`)
 });

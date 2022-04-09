@@ -30,7 +30,11 @@
 <% } %>
 <div class="product-data">
     <div class="product-data-section">
-        <p>In Stock: <%= product.in_stock %></p>
+        <% if (product.in_stock === 0) { %>
+            <p style="color: red; font-weight: bold;">In Stock: <%= product.in_stock %></p>
+        <% } else { %>
+            <p>In Stock: <%= product.in_stock %></p>
+        <% } %>
         <p>Reorder At: <%= product.reorder_alert %></p>
         <p>SKU: <%= product.sku %></p>
     </div>

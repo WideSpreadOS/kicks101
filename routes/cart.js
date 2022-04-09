@@ -148,12 +148,14 @@ router.get('/checkout', async (req, res, next) => {
     if (!req.session.cart) {
         return res.redirect('/cart/shopping-cart')
     }
+    console.log(req.user)
     const cart = new UnregisteredCart(req.session.cart)
+    const addresses = await Address.find({'address_owner': req.user.id})
     const items = cart.generateArray()
     for (i of items) {
         console.log(i.item._id)
     }
-    res.render('cart/checkout', {page: 'Checkout', products: cart.generateArray(), total: cart.totalPrice, cart, companies})
+    res.render('cart/checkout', {page: 'Checkout', products: cart.generateArray(), total: cart.totalPrice, cart, companies, addresses})
 });
 
 
@@ -235,8 +237,8 @@ router.get('/checkout-billing/:cartId', async (req, res) => {
             }
         ],
         mode: 'payment',
-        success_url: `http://localhost:5000/cart/payment/success/${cartId}`,
-        cancel_url: 'http://localhost:5000/cart/shopping-cart',
+        success_url: `https://www.kicks101.store/cart/payment/success/${cartId}`,
+        cancel_url: 'https://www.kicks101.store/cart/shopping-cart',
     })
     // console.log(session)
     // console.log('Current User: ', req.user)
@@ -260,6 +262,20 @@ router.get('/payment/success/:cartId', async (req, res) => {
     res.render('cart/success', {cart, companies})
 })
 
+
+router.get('/receipt/:cartId', async (req, res) => {
+    const cartId = req.params.cartId
+    const companies = await Company.find()
+    const cart = await Cart.findById(cartId).populate({
+        path: 'items.product',
+        model: 'Product',
+        populate: {
+            path: 'manufacturer',
+            model: 'Company'
+        }
+    }).exec()
+    res.render('cart/receipt', {cart, companies})
+})
 // Product Page
 router.get('/products', async (req, res) => {
     const companies = await Company.find();

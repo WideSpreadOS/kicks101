@@ -119,10 +119,14 @@
             <select name="raffle_product" id="product" required>
                 <option value="" selected disabled hidden>Product (Required)</option>
                 <% products.forEach(function(product) { %>
-                    <option value="<%= product.id %>">
-                        <%= product.name %>
-                    </option>
-                    <% }) %>
+                    <% if (product.in_stock <= 0) { %>
+                        <span style="display: none;"></span>
+                    <% } else { %>
+                        <option value="<%= product.id %>">
+                            <%= product.name %>
+                        </option>
+                    <% } %>
+                <% }) %>
             </select>
         </div>
         <div class="input-group">
