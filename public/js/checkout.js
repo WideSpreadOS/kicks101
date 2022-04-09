@@ -1,7 +1,7 @@
 /* 
 // This is your test publishable API key.
 const stripe = Stripe("pk_test_51KM9AXD6vjKKpvO4CODSAMYTydO6beDQ9DQ4D6nLJ4TyjMcdcCLbsovru7EjMSmhZztht6GvuPMG7NvsEb6oqNHU00TDPgBzGy");
-
+STRIPE_PUBLIC_KEY_LIVE='pk_live_51KM9AXD6vjKKpvO4YWt1DmDQE57SNpBBfP9Y7rShgsrQbqZMHFd2azGh84hUOsAdHN31jg2pLro9UtN31fKidIlo00LAU8QQrq'
 
 const button = document.querySelector('#button-text')
 const itemsInCart = document.querySelectorAll('.items-in-cart')
